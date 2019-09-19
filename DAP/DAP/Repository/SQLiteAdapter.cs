@@ -23,7 +23,7 @@ namespace DAP.Repository
         public void insertData(Document insert) {
 
             myConnection.Open();
-            string query = "INSERT INTO ArchivesTable ('Company', 'Category', 'Content', 'Date', 'Description', 'FileName') VALUES (@Company, @Category, @Content, @Date, @Description)";
+            string query = "INSERT INTO ArchivesTable ('Company', 'Category', 'Content', 'Date', 'Description') VALUES (@Company, @Category, @Content, @Date, @Description)";
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
             myCommand.Parameters.AddWithValue("@Company", insert.getCompany());
             myCommand.Parameters.AddWithValue("@Category", insert.getCategory());
