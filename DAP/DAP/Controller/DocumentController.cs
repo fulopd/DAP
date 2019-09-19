@@ -43,6 +43,16 @@ namespace DAP.Controller
             }
         }
 
+        /// <summary>
+        /// Módosítja a kapott dokumentumot az adatbázisban
+        /// </summary>
+        /// <param name="modDocument"></param>
+        public void modifySelectedDocumentIntoDatabase(Document modDocument) {
+            if (modDocument != null)
+            {
+                SQLiteAdapter.modifyItem(modDocument);
+            }
+        }
 
         // <summary>
         /// Lekéri az adatbázistól az összes megadott oszlophoz tartozó egyedi adatot

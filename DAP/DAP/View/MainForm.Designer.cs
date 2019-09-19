@@ -29,37 +29,38 @@
         private void InitializeComponent()
         {
             this.groupBoxDetails = new System.Windows.Forms.GroupBox();
+            this.comboBoxContent = new System.Windows.Forms.ComboBox();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.comboBoxCompany = new System.Windows.Forms.ComboBox();
+            this.buttonFileDelete = new System.Windows.Forms.Button();
+            this.buttonFileBrows = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.textBoxDate = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.buttonNewDocument = new System.Windows.Forms.Button();
             this.buttonModify = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxDate = new System.Windows.Forms.TextBox();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.buttonFileBrows = new System.Windows.Forms.Button();
-            this.buttonFileDelete = new System.Windows.Forms.Button();
             this.dataGridViewMainGrid = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
-            this.buttonMultiModify = new System.Windows.Forms.Button();
-            this.buttonMultiExport = new System.Windows.Forms.Button();
             this.buttonMultiDelete = new System.Windows.Forms.Button();
+            this.buttonMultiExport = new System.Windows.Forms.Button();
+            this.buttonMultiModify = new System.Windows.Forms.Button();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.comboBoxCompany = new System.Windows.Forms.ComboBox();
-            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
-            this.comboBoxContent = new System.Windows.Forms.ComboBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -89,6 +90,131 @@
             this.groupBoxDetails.TabStop = false;
             this.groupBoxDetails.Text = "Részletek:";
             // 
+            // comboBoxContent
+            // 
+            this.comboBoxContent.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxContent.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxContent.FormattingEnabled = true;
+            this.comboBoxContent.Location = new System.Drawing.Point(6, 133);
+            this.comboBoxContent.Name = "comboBoxContent";
+            this.comboBoxContent.Size = new System.Drawing.Size(264, 21);
+            this.comboBoxContent.TabIndex = 16;
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(6, 86);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(264, 21);
+            this.comboBoxCategory.TabIndex = 15;
+            // 
+            // comboBoxCompany
+            // 
+            this.comboBoxCompany.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxCompany.FormattingEnabled = true;
+            this.comboBoxCompany.Location = new System.Drawing.Point(6, 46);
+            this.comboBoxCompany.Name = "comboBoxCompany";
+            this.comboBoxCompany.Size = new System.Drawing.Size(264, 21);
+            this.comboBoxCompany.TabIndex = 14;
+            // 
+            // buttonFileDelete
+            // 
+            this.buttonFileDelete.Location = new System.Drawing.Point(145, 461);
+            this.buttonFileDelete.Name = "buttonFileDelete";
+            this.buttonFileDelete.Size = new System.Drawing.Size(125, 23);
+            this.buttonFileDelete.TabIndex = 13;
+            this.buttonFileDelete.Text = "Töröl";
+            this.buttonFileDelete.UseVisualStyleBackColor = true;
+            // 
+            // buttonFileBrows
+            // 
+            this.buttonFileBrows.Location = new System.Drawing.Point(6, 461);
+            this.buttonFileBrows.Name = "buttonFileBrows";
+            this.buttonFileBrows.Size = new System.Drawing.Size(125, 23);
+            this.buttonFileBrows.TabIndex = 12;
+            this.buttonFileBrows.Text = "Tallóz";
+            this.buttonFileBrows.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(6, 321);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(264, 135);
+            this.listView1.TabIndex = 11;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Location = new System.Drawing.Point(6, 222);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(264, 67);
+            this.textBoxDescription.TabIndex = 10;
+            // 
+            // textBoxDate
+            // 
+            this.textBoxDate.Location = new System.Drawing.Point(6, 178);
+            this.textBoxDate.Name = "textBoxDate";
+            this.textBoxDate.Size = new System.Drawing.Size(264, 20);
+            this.textBoxDate.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 306);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Csatolt elemek:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 207);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Leírás:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 163);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Dátum";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 117);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Tartalom:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 70);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Mappa:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Cég:";
+            // 
             // buttonNewDocument
             // 
             this.buttonNewDocument.Location = new System.Drawing.Point(12, 12);
@@ -107,6 +233,7 @@
             this.buttonModify.TabIndex = 2;
             this.buttonModify.Text = "Módosítás";
             this.buttonModify.UseVisualStyleBackColor = true;
+            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
             // 
             // buttonDelete
             // 
@@ -139,108 +266,34 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cég:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Mappa:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 117);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Tartalom:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 163);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Dátum";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 207);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Leírás:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 306);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Csatolt elemek:";
-            // 
-            // textBoxDate
-            // 
-            this.textBoxDate.Location = new System.Drawing.Point(6, 178);
-            this.textBoxDate.Name = "textBoxDate";
-            this.textBoxDate.Size = new System.Drawing.Size(264, 20);
-            this.textBoxDate.TabIndex = 9;
-            // 
-            // textBoxDescription
-            // 
-            this.textBoxDescription.Location = new System.Drawing.Point(6, 222);
-            this.textBoxDescription.Multiline = true;
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(264, 67);
-            this.textBoxDescription.TabIndex = 10;
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(6, 321);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(264, 135);
-            this.listView1.TabIndex = 11;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // buttonFileBrows
-            // 
-            this.buttonFileBrows.Location = new System.Drawing.Point(6, 461);
-            this.buttonFileBrows.Name = "buttonFileBrows";
-            this.buttonFileBrows.Size = new System.Drawing.Size(125, 23);
-            this.buttonFileBrows.TabIndex = 12;
-            this.buttonFileBrows.Text = "Tallóz";
-            this.buttonFileBrows.UseVisualStyleBackColor = true;
-            // 
-            // buttonFileDelete
-            // 
-            this.buttonFileDelete.Location = new System.Drawing.Point(145, 461);
-            this.buttonFileDelete.Name = "buttonFileDelete";
-            this.buttonFileDelete.Size = new System.Drawing.Size(125, 23);
-            this.buttonFileDelete.TabIndex = 13;
-            this.buttonFileDelete.Text = "Töröl";
-            this.buttonFileDelete.UseVisualStyleBackColor = true;
-            // 
             // dataGridViewMainGrid
             // 
+            this.dataGridViewMainGrid.AllowUserToAddRows = false;
+            this.dataGridViewMainGrid.AllowUserToDeleteRows = false;
+            this.dataGridViewMainGrid.AllowUserToResizeRows = false;
+            this.dataGridViewMainGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewMainGrid.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewMainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMainGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
             this.dataGridViewMainGrid.Location = new System.Drawing.Point(310, 85);
+            this.dataGridViewMainGrid.MultiSelect = false;
             this.dataGridViewMainGrid.Name = "dataGridViewMainGrid";
+            this.dataGridViewMainGrid.ReadOnly = true;
+            this.dataGridViewMainGrid.RowHeadersVisible = false;
+            this.dataGridViewMainGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMainGrid.Size = new System.Drawing.Size(779, 480);
             this.dataGridViewMainGrid.TabIndex = 6;
+            this.dataGridViewMainGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellClick);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 30;
             // 
             // textBox6
             // 
@@ -261,14 +314,14 @@
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
             // 
-            // buttonMultiModify
+            // buttonMultiDelete
             // 
-            this.buttonMultiModify.Location = new System.Drawing.Point(6, 38);
-            this.buttonMultiModify.Name = "buttonMultiModify";
-            this.buttonMultiModify.Size = new System.Drawing.Size(75, 23);
-            this.buttonMultiModify.TabIndex = 0;
-            this.buttonMultiModify.Text = "Módosítás";
-            this.buttonMultiModify.UseVisualStyleBackColor = true;
+            this.buttonMultiDelete.Location = new System.Drawing.Point(169, 38);
+            this.buttonMultiDelete.Name = "buttonMultiDelete";
+            this.buttonMultiDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonMultiDelete.TabIndex = 2;
+            this.buttonMultiDelete.Text = "Törlés";
+            this.buttonMultiDelete.UseVisualStyleBackColor = true;
             // 
             // buttonMultiExport
             // 
@@ -279,14 +332,14 @@
             this.buttonMultiExport.Text = "Export";
             this.buttonMultiExport.UseVisualStyleBackColor = true;
             // 
-            // buttonMultiDelete
+            // buttonMultiModify
             // 
-            this.buttonMultiDelete.Location = new System.Drawing.Point(169, 38);
-            this.buttonMultiDelete.Name = "buttonMultiDelete";
-            this.buttonMultiDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonMultiDelete.TabIndex = 2;
-            this.buttonMultiDelete.Text = "Törlés";
-            this.buttonMultiDelete.UseVisualStyleBackColor = true;
+            this.buttonMultiModify.Location = new System.Drawing.Point(6, 38);
+            this.buttonMultiModify.Name = "buttonMultiModify";
+            this.buttonMultiModify.Size = new System.Drawing.Size(75, 23);
+            this.buttonMultiModify.TabIndex = 0;
+            this.buttonMultiModify.Text = "Módosítás";
+            this.buttonMultiModify.UseVisualStyleBackColor = true;
             // 
             // groupBoxSearch
             // 
@@ -303,35 +356,15 @@
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
             // 
-            // checkBox1
+            // checkBox5
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 45);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(45, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Cég";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(58, 45);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(59, 17);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "Mappa";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(123, 45);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(67, 17);
-            this.checkBox3.TabIndex = 11;
-            this.checkBox3.Text = "Tartalom";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(259, 45);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(56, 17);
+            this.checkBox5.TabIndex = 13;
+            this.checkBox5.Text = "Leírás";
+            this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // checkBox4
             // 
@@ -343,45 +376,35 @@
             this.checkBox4.Text = "Dátum";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // checkBox3
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(259, 45);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(56, 17);
-            this.checkBox5.TabIndex = 13;
-            this.checkBox5.Text = "Leírás";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(123, 45);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(67, 17);
+            this.checkBox3.TabIndex = 11;
+            this.checkBox3.Text = "Tartalom";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // comboBoxCompany
+            // checkBox2
             // 
-            this.comboBoxCompany.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCompany.FormattingEnabled = true;
-            this.comboBoxCompany.Location = new System.Drawing.Point(6, 46);
-            this.comboBoxCompany.Name = "comboBoxCompany";
-            this.comboBoxCompany.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxCompany.TabIndex = 14;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(58, 45);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(59, 17);
+            this.checkBox2.TabIndex = 10;
+            this.checkBox2.Text = "Mappa";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // comboBoxCategory
+            // checkBox1
             // 
-            this.comboBoxCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCategory.FormattingEnabled = true;
-            this.comboBoxCategory.Location = new System.Drawing.Point(6, 86);
-            this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxCategory.TabIndex = 15;
-            // 
-            // comboBoxContent
-            // 
-            this.comboBoxContent.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxContent.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxContent.FormattingEnabled = true;
-            this.comboBoxContent.Location = new System.Drawing.Point(6, 133);
-            this.comboBoxContent.Name = "comboBoxContent";
-            this.comboBoxContent.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxContent.TabIndex = 16;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 45);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(45, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "Cég";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -444,6 +467,7 @@
         private System.Windows.Forms.ComboBox comboBoxContent;
         private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.ComboBox comboBoxCompany;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
     }
 }
 

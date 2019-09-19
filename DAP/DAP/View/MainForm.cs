@@ -17,6 +17,7 @@ namespace DAP
     {
         
         private DocumentController dc;
+        private string selectedID = "";
 
         public MainForm()
         {
@@ -28,6 +29,17 @@ namespace DAP
             dc = new DocumentController();
             refreshDataFromDatabase();
             clearAllDetailsValue();
+            dataGridViewSetThemes();
+        }
+
+        /// <summary>
+        /// Táblázat megjelenésének beállításai
+        /// </summary>
+        private void dataGridViewSetThemes() {
+            dataGridViewMainGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewMainGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewMainGrid.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+            dataGridViewMainGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
         /// <summary>
@@ -49,6 +61,7 @@ namespace DAP
             comboBoxContent.Text = string.Empty;
             textBoxDate.Text = string.Empty;
             textBoxDescription.Text = string.Empty;
+            selectedID = "";
         }
 
         /// <summary>
@@ -82,6 +95,7 @@ namespace DAP
 
 
         private void buttonNewDocument_Click(object sender, EventArgs e) {
+            clearAllDetailsValue();
             buttonModify.Enabled = false;
             buttonDelete.Enabled = false;
 
@@ -91,10 +105,29 @@ namespace DAP
             enabledAllDetailsElement(true);
 
         }
-               
+        
+        private void buttonModify_Click(object sender, EventArgs e) {
+            buttonNewDocument.Enabled = false;
+            buttonDelete.Enabled = false;
+
+            buttonCancel.Enabled = true;
+            buttonSave.Enabled = true;
+
+            enabledAllDetailsElement(true);
+        }
+        
+
         private void buttonSave_Click(object sender, EventArgs e) {
-            Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
-            dc.insertNewDocumentIntoDatabase(d);
+
+            if (buttonNewDocument.Enabled){
+                Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
+                dc.insertNewDocumentIntoDatabase(d);
+            }
+            else {
+                Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
+                dc.modifySelectedDocumentIntoDatabase(d);
+            }
+
             refreshDataFromDatabase();
             buttonsDefaultStatus();
         }
@@ -103,7 +136,22 @@ namespace DAP
             buttonsDefaultStatus();
         }
 
-        
 
+        /// <summary>
+        /// Táblázaban kattintott sor elemeit részletekben megjeleníti
+        /// Beolvassa kiválasztott elem ID -ját
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e){
+            selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+            comboBoxCompany.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+            comboBoxCategory.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+            comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
+            textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
+            textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();          
+        }
+
+        
     }
 }

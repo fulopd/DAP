@@ -164,11 +164,10 @@ namespace DAP.Repository
             return dt;
         }
 
-        public void modifyItem(Document modItem)
-        {
+        public void modifyItem(Document modItem) {
 
             myConnection.Open();
-            string query = "UPDATE ArchivesTable SET Company = @Company, Category = @Category, Content = @Content, Date = @Date, Description = @Description, FileName = @FileName WHERE ID='" + modItem.getID() + "'";
+            string query = "UPDATE ArchivesTable SET Company = @Company, Category = @Category, Content = @Content, Date = @Date, Description = @Description WHERE ID='" + modItem.getID() + "'";
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
             myCommand.Parameters.AddWithValue("@Company", modItem.getCompany());
             myCommand.Parameters.AddWithValue("@Category", modItem.getCategory());
