@@ -50,17 +50,18 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.dataGridViewMainGrid = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
             this.buttonMultiDelete = new System.Windows.Forms.Button();
             this.buttonMultiExport = new System.Windows.Forms.Button();
             this.buttonMultiModify = new System.Windows.Forms.Button();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxDescription = new System.Windows.Forms.CheckBox();
+            this.checkBoxDate = new System.Windows.Forms.CheckBox();
+            this.checkBoxContent = new System.Windows.Forms.CheckBox();
+            this.checkBoxCategory = new System.Windows.Forms.CheckBox();
+            this.checkBoxCompany = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -296,12 +297,13 @@
             this.Column1.ReadOnly = true;
             this.Column1.Width = 30;
             // 
-            // textBox6
+            // textBoxSearch
             // 
-            this.textBox6.Location = new System.Drawing.Point(6, 19);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(415, 20);
-            this.textBox6.TabIndex = 8;
+            this.textBoxSearch.Location = new System.Drawing.Point(6, 19);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(415, 20);
+            this.textBoxSearch.TabIndex = 8;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
             // groupBoxMultioperations
             // 
@@ -344,12 +346,13 @@
             // 
             // groupBoxSearch
             // 
-            this.groupBoxSearch.Controls.Add(this.checkBox5);
-            this.groupBoxSearch.Controls.Add(this.checkBox4);
-            this.groupBoxSearch.Controls.Add(this.checkBox3);
-            this.groupBoxSearch.Controls.Add(this.checkBox2);
-            this.groupBoxSearch.Controls.Add(this.checkBox1);
-            this.groupBoxSearch.Controls.Add(this.textBox6);
+            this.groupBoxSearch.Controls.Add(this.label7);
+            this.groupBoxSearch.Controls.Add(this.checkBoxDescription);
+            this.groupBoxSearch.Controls.Add(this.checkBoxDate);
+            this.groupBoxSearch.Controls.Add(this.checkBoxContent);
+            this.groupBoxSearch.Controls.Add(this.checkBoxCategory);
+            this.groupBoxSearch.Controls.Add(this.checkBoxCompany);
+            this.groupBoxSearch.Controls.Add(this.textBoxSearch);
             this.groupBoxSearch.Location = new System.Drawing.Point(310, 12);
             this.groupBoxSearch.Name = "groupBoxSearch";
             this.groupBoxSearch.Size = new System.Drawing.Size(427, 67);
@@ -357,55 +360,74 @@
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
             // 
-            // checkBox5
+            // checkBoxDescription
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(259, 45);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(56, 17);
-            this.checkBox5.TabIndex = 13;
-            this.checkBox5.Text = "Leírás";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBoxDescription.AutoSize = true;
+            this.checkBoxDescription.Checked = true;
+            this.checkBoxDescription.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDescription.Location = new System.Drawing.Point(365, 45);
+            this.checkBoxDescription.Name = "checkBoxDescription";
+            this.checkBoxDescription.Size = new System.Drawing.Size(56, 17);
+            this.checkBoxDescription.TabIndex = 13;
+            this.checkBoxDescription.Text = "Leírás";
+            this.checkBoxDescription.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // checkBoxDate
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(196, 45);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(57, 17);
-            this.checkBox4.TabIndex = 12;
-            this.checkBox4.Text = "Dátum";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBoxDate.AutoSize = true;
+            this.checkBoxDate.Checked = true;
+            this.checkBoxDate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDate.Location = new System.Drawing.Point(302, 45);
+            this.checkBoxDate.Name = "checkBoxDate";
+            this.checkBoxDate.Size = new System.Drawing.Size(57, 17);
+            this.checkBoxDate.TabIndex = 12;
+            this.checkBoxDate.Text = "Dátum";
+            this.checkBoxDate.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // checkBoxContent
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(123, 45);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(67, 17);
-            this.checkBox3.TabIndex = 11;
-            this.checkBox3.Text = "Tartalom";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxContent.AutoSize = true;
+            this.checkBoxContent.Checked = true;
+            this.checkBoxContent.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxContent.Location = new System.Drawing.Point(229, 45);
+            this.checkBoxContent.Name = "checkBoxContent";
+            this.checkBoxContent.Size = new System.Drawing.Size(67, 17);
+            this.checkBoxContent.TabIndex = 11;
+            this.checkBoxContent.Text = "Tartalom";
+            this.checkBoxContent.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // checkBoxCategory
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(58, 45);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(59, 17);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "Mappa";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBoxCategory.AutoSize = true;
+            this.checkBoxCategory.Checked = true;
+            this.checkBoxCategory.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCategory.Location = new System.Drawing.Point(164, 45);
+            this.checkBoxCategory.Name = "checkBoxCategory";
+            this.checkBoxCategory.Size = new System.Drawing.Size(59, 17);
+            this.checkBoxCategory.TabIndex = 10;
+            this.checkBoxCategory.Text = "Mappa";
+            this.checkBoxCategory.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxCompany
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 45);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(45, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Cég";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxCompany.AutoSize = true;
+            this.checkBoxCompany.Checked = true;
+            this.checkBoxCompany.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCompany.Location = new System.Drawing.Point(113, 45);
+            this.checkBoxCompany.Name = "checkBoxCompany";
+            this.checkBoxCompany.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxCompany.TabIndex = 9;
+            this.checkBoxCompany.Text = "Cég";
+            this.checkBoxCompany.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Keresési kategóriák:";
             // 
             // MainForm
             // 
@@ -454,21 +476,22 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.DataGridView dataGridViewMainGrid;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.GroupBox groupBoxMultioperations;
         private System.Windows.Forms.Button buttonMultiDelete;
         private System.Windows.Forms.Button buttonMultiExport;
         private System.Windows.Forms.Button buttonMultiModify;
         private System.Windows.Forms.GroupBox groupBoxSearch;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxDescription;
+        private System.Windows.Forms.CheckBox checkBoxDate;
+        private System.Windows.Forms.CheckBox checkBoxContent;
+        private System.Windows.Forms.CheckBox checkBoxCategory;
+        private System.Windows.Forms.CheckBox checkBoxCompany;
         private System.Windows.Forms.ComboBox comboBoxContent;
         private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.ComboBox comboBoxCompany;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.Label label7;
     }
 }
 

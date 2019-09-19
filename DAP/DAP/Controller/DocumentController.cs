@@ -74,5 +74,20 @@ namespace DAP.Controller
             return unicCompany = SQLiteAdapter.getUnicItemsIntoColumn(columnName);
         }
 
+        /// <summary>
+        /// Keresés az adatbázisban kiválasztotta kategóriákban keresési érték alapján
+        /// </summary>
+        /// <param name="searchValue">Keresési érték</param>
+        /// <param name="category">Kiválasztott kategóriák</param>
+        /// <returns></returns>
+        public DataTable searchIntoDatabase(string searchValue, List<string>category) {
+            DataTable dt = null;
+            if (category.Count > 0 )
+            {
+                docs = SQLiteAdapter.searchData(searchValue, category);
+                dt = SQLiteAdapter.convertToDataTable(docs);
+            }
+            return dt;
+        }
     }
 }

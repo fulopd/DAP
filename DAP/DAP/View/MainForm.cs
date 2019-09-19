@@ -92,8 +92,25 @@ namespace DAP
             enabledAllDetailsElement(false);
         }
 
+        /// <summary>
+        /// Táblázaban kattintott sor elemeit részletekben megjeleníti
+        /// Beolvassa kiválasztott elem ID -ját
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
+            selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+            comboBoxCompany.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+            comboBoxCategory.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+            comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
+            textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
+            textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();
+        }
 
 
+
+
+        //Új
         private void buttonNewDocument_Click(object sender, EventArgs e) {
             clearAllDetailsValue();
             buttonModify.Enabled = false;
@@ -105,7 +122,7 @@ namespace DAP
             enabledAllDetailsElement(true);
 
         }
-        
+        //Módosít
         private void buttonModify_Click(object sender, EventArgs e) {
             buttonNewDocument.Enabled = false;
             buttonDelete.Enabled = false;
@@ -115,7 +132,7 @@ namespace DAP
 
             enabledAllDetailsElement(true);
         }
-
+        //Töröl
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             if (selectedID != "")
@@ -139,7 +156,7 @@ namespace DAP
                 MessageBox.Show("Nincs kiválasztott elem!");
             }
         }
-
+        //Mentés
         private void buttonSave_Click(object sender, EventArgs e) {
 
             if (buttonNewDocument.Enabled){
@@ -154,27 +171,66 @@ namespace DAP
             refreshDataFromDatabase();
             buttonsDefaultStatus();
         }
-
+        //Mégsem
         private void buttonCancel_Click(object sender, EventArgs e) {
             buttonsDefaultStatus();
+            selectedID = "";
         }
+
 
 
         /// <summary>
-        /// Táblázaban kattintott sor elemeit részletekben megjeleníti
-        /// Beolvassa kiválasztott elem ID -ját
+        /// Kipipált kategóriákból csinál egy string listát
+        /// A listában szereplő kategóriákban lehet majd keresni
+        /// </summary>
+        /// <returns></returns>
+        private List<string> getSearchCategoriFromCheckBox() {
+
+            List<string> category = new List<string>();
+
+            if (checkBoxCompany.Checked)
+            {
+                category.Add("Company");
+            }
+            if (checkBoxCategory.Checked)
+            {
+                category.Add("Category");
+            }
+            if (checkBoxContent.Checked)
+            {
+                category.Add("Content");
+            }
+            if (checkBoxDate.Checked)
+            {
+                category.Add("Date");
+            }
+            if (checkBoxDescription.Checked)
+            {
+                category.Add("Description");
+            }
+            
+            return category;
+        }
+
+        /// <summary>
+        /// Keresés az adatbázisban billentyű leütésenként.
+        /// Harmadik karakter leütésétől kezd keresni
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e){
-            selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxCompany.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-            comboBoxCategory.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-            comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-            textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
-            textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();          
-        }
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = textBoxSearch.Text;
+            List<string> category = getSearchCategoriFromCheckBox();
 
-        
+            if (textBoxSearch.Text.Length > 2)
+            {
+                dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
+            }
+            else
+            {
+                dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
+            }
+        }
     }
 }

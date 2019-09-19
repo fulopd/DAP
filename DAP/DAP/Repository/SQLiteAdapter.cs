@@ -90,19 +90,11 @@ namespace DAP.Repository
             myConnection.Close();
         }
 
-        public List<Document> searchData(string search)
+        public List<Document> searchData(string search, List<string> category)
         {
             List<Document> documents = new List<Document>();
             myConnection.Open();
             string query = "SELECT * FROM ArchivesTable WHERE ";
-
-            List<string> category = new List<string>();
-            category.Add("Company");
-            category.Add("Category");
-            category.Add("Content");
-            category.Add("Date");
-            category.Add("Description");
-            //min. egy kategóriát mindig tartalmazni fog.
 
             for (int i = 0; i < category.Count; i++)
             {
@@ -116,10 +108,7 @@ namespace DAP.Repository
                 }
             }
 
-            //query += ") LIKE '%" + search + "%')";
-
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-
             SQLiteDataReader reader = myCommand.ExecuteReader();
             if (reader.HasRows)
             {
@@ -135,6 +124,11 @@ namespace DAP.Repository
             return documents;
         }
 
+        /// <summary>
+        /// Ducument Listát alakít DataTable -lé
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public DataTable convertToDataTable(List<Document> data)
         {
 
