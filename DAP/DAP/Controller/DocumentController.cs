@@ -42,5 +42,17 @@ namespace DAP.Controller
                 SQLiteAdapter.insertData(newDocument);
             }
         }
+
+
+        // <summary>
+        /// Lekéri az adatbázistól az összes megadott oszlophoz tartozó egyedi adatot
+        /// </summary>
+        /// <param name="columnName">Oszlp neve</param>
+        /// <returns>Egyedi adatok a megadott oszloptól</returns>       
+        public List<string> getUnicCompany(string columnName) {
+            List<string> unicCompany;            
+            return unicCompany = SQLiteAdapter.getUnicItemsIntoColumn(columnName);
+        }
+
     }
 }

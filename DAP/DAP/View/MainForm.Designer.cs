@@ -351,6 +351,8 @@
             // 
             // comboBoxCompany
             // 
+            this.comboBoxCompany.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCompany.FormattingEnabled = true;
             this.comboBoxCompany.Location = new System.Drawing.Point(6, 46);
             this.comboBoxCompany.Name = "comboBoxCompany";
@@ -359,6 +361,8 @@
             // 
             // comboBoxCategory
             // 
+            this.comboBoxCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Location = new System.Drawing.Point(6, 86);
             this.comboBoxCategory.Name = "comboBoxCategory";
@@ -367,6 +371,8 @@
             // 
             // comboBoxContent
             // 
+            this.comboBoxContent.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxContent.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxContent.FormattingEnabled = true;
             this.comboBoxContent.Location = new System.Drawing.Point(6, 133);
             this.comboBoxContent.Name = "comboBoxContent";

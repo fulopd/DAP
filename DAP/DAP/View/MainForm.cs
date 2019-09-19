@@ -25,14 +25,17 @@ namespace DAP
 
         private void MainForm_Load(object sender, EventArgs e) {
             dc = new DocumentController();
-            refreshGridTable();
+            refreshDataFromDatabase();
         }
 
         /// <summary>
         /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
         /// </summary>
-        private void refreshGridTable() {
+        private void refreshDataFromDatabase() {
             dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
+            comboBoxCompany.DataSource = dc.getUnicCompany("Company");
+            comboBoxCategory.DataSource = dc.getUnicCompany("Category");
+            comboBoxContent.DataSource = dc.getUnicCompany("Content");
         }
         
         /// <summary>
@@ -52,7 +55,7 @@ namespace DAP
         {
             Document d = new Document(0,comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
             dc.insertNewDocumentIntoDatabase(d);
-            refreshGridTable();
+            refreshDataFromDatabase();
             clearAllDetailsValue();
         }
     }

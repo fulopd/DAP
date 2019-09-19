@@ -57,13 +57,13 @@ namespace DAP.Repository
             return documents;
         }
 
-        public List<string> getUnicCategory()
+        public List<string> getUnicItemsIntoColumn(string columnName)
         {
 
-            List<string> categoryList = new List<string>();
+            List<string> itemsList = new List<string>();
 
             myConnection.Open();
-            string query = "SELECT DISTINCT Category FROM ArchivesTable";
+            string query = "SELECT DISTINCT "+ columnName + " FROM ArchivesTable";
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
 
             SQLiteDataReader reader = myCommand.ExecuteReader();
@@ -72,13 +72,13 @@ namespace DAP.Repository
             {
                 while (reader.Read())
                 {
-                    categoryList.Add(reader["Category"].ToString());
+                    itemsList.Add(reader[columnName].ToString());
                 }
             }
 
             myConnection.Close();
 
-            return categoryList;
+            return itemsList;
         }
 
         public void deleteItem(string ID)
