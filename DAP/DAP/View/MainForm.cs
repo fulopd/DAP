@@ -115,7 +115,30 @@ namespace DAP
 
             enabledAllDetailsElement(true);
         }
-        
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedID != "")
+            {
+
+                DialogResult dialog = MessageBox.Show("Biztosan törölni akarod?\nID:= "+selectedID, "Törlés", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.Yes)
+                {
+                    dc.deleteSelectedDocumentIntoDatabase(selectedID);
+                    refreshDataFromDatabase();
+                    clearAllDetailsValue();
+                }
+                else if (dialog == DialogResult.No)
+                {
+
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!");
+            }
+        }
 
         private void buttonSave_Click(object sender, EventArgs e) {
 

@@ -54,6 +54,16 @@ namespace DAP.Controller
             }
         }
 
+        /// <summary>
+        /// Törli a kiválasztott elemet ID alapján az adatbázisból
+        /// </summary>
+        /// <param name="id"></param>
+        public void deleteSelectedDocumentIntoDatabase(string id) {
+            if (id != "") {
+                SQLiteAdapter.deleteItem(id);
+            }
+        }
+
         // <summary>
         /// Lekéri az adatbázistól az összes megadott oszlophoz tartozó egyedi adatot
         /// </summary>
