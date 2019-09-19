@@ -97,6 +97,7 @@
             this.buttonNewDocument.TabIndex = 1;
             this.buttonNewDocument.Text = "Új";
             this.buttonNewDocument.UseVisualStyleBackColor = true;
+            this.buttonNewDocument.Click += new System.EventHandler(this.buttonNewDocument_Click);
             // 
             // buttonModify
             // 
@@ -118,6 +119,7 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.Enabled = false;
             this.buttonSave.Location = new System.Drawing.Point(13, 42);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(130, 23);
@@ -128,12 +130,14 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Enabled = false;
             this.buttonCancel.Location = new System.Drawing.Point(158, 42);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(130, 23);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Mégsem";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // label1
             // 
