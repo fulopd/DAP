@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\DocumentController.cs" />
     <Compile Include="Model\Document.cs" />
     <Compile Include="Model\FileAdapter.cs" />
     <Compile Include="Repository\SQLiteAdapter.cs" />

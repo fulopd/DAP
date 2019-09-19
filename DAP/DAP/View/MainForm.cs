@@ -1,4 +1,5 @@
-﻿using DAP.Model;
+﻿using DAP.Controller;
+using DAP.Model;
 using DAP.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,26 +15,45 @@ namespace DAP
 {
     public partial class MainForm : Form
     {
-        private SQLiteAdapter SQLiteAdapter;
-        private List<Document> docs;
+        
+        private DocumentController dc;
 
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
+        }
 
-            SQLiteAdapter = new SQLiteAdapter();
+        private void MainForm_Load(object sender, EventArgs e) {
+            dc = new DocumentController();
+            refreshGridTable();
+        }
 
-            Document test = new Document(0, "obiteszt", "obicategory", "Harcsa", "1922.02.01", "Valaamiii iii i ii i i i i ii i i iiiiii iii");
-            SQLiteAdapter.insertData(test);
-            //MessageBox.Show("" + SQLiteAdapter.getLastInserItemID());
+        /// <summary>
+        /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
+        /// </summary>
+        private void refreshGridTable() {
+            dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
+        }
+        
+        /// <summary>
+        /// Törli a részletek box összes mezőjének tartalmát
+        /// </summary>
+        private void clearAllDetailsValue() {
+            comboBoxCompany.Text = string.Empty;
+            comboBoxCategory.Text = string.Empty;
+            comboBoxContent.Text = string.Empty;
+            textBoxDate.Text = string.Empty;
+            textBoxDescription.Text = string.Empty;
+        }
 
-            //Document test = new Document(2, "modCompany2", "egy új kategória", "banana", "1999.05.01", "Mod hosszú leírás sok sok karakterrel ellátva hogy ilyen is legyen benne", "valami.txt");
-            //SQLiteAdapter.modifyItem(test);
 
-            docs = SQLiteAdapter.getData();
 
-            DataTable dt = SQLiteAdapter.convertToDataTable(docs);
-            dataGridViewMainGrid.DataSource = dt;
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            Document d = new Document(0,comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
+            dc.insertNewDocumentIntoDatabase(d);
+            refreshGridTable();
+            clearAllDetailsValue();
         }
     }
 }

@@ -40,11 +40,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxDate = new System.Windows.Forms.TextBox();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.buttonFileBrows = new System.Windows.Forms.Button();
             this.buttonFileDelete = new System.Windows.Forms.Button();
@@ -60,6 +57,9 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.comboBoxCompany = new System.Windows.Forms.ComboBox();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.comboBoxContent = new System.Windows.Forms.ComboBox();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -68,14 +68,14 @@
             // 
             // groupBoxDetails
             // 
+            this.groupBoxDetails.Controls.Add(this.comboBoxContent);
+            this.groupBoxDetails.Controls.Add(this.comboBoxCategory);
+            this.groupBoxDetails.Controls.Add(this.comboBoxCompany);
             this.groupBoxDetails.Controls.Add(this.buttonFileDelete);
             this.groupBoxDetails.Controls.Add(this.buttonFileBrows);
             this.groupBoxDetails.Controls.Add(this.listView1);
-            this.groupBoxDetails.Controls.Add(this.textBox5);
-            this.groupBoxDetails.Controls.Add(this.textBox4);
-            this.groupBoxDetails.Controls.Add(this.textBox3);
-            this.groupBoxDetails.Controls.Add(this.textBox2);
-            this.groupBoxDetails.Controls.Add(this.textBox1);
+            this.groupBoxDetails.Controls.Add(this.textBoxDescription);
+            this.groupBoxDetails.Controls.Add(this.textBoxDate);
             this.groupBoxDetails.Controls.Add(this.label6);
             this.groupBoxDetails.Controls.Add(this.label5);
             this.groupBoxDetails.Controls.Add(this.label4);
@@ -124,6 +124,7 @@
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Mentés";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 
@@ -188,41 +189,20 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Csatolt elemek:";
             // 
-            // textBox1
+            // textBoxDate
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(264, 20);
-            this.textBox1.TabIndex = 6;
+            this.textBoxDate.Location = new System.Drawing.Point(6, 178);
+            this.textBoxDate.Name = "textBoxDate";
+            this.textBoxDate.Size = new System.Drawing.Size(264, 20);
+            this.textBoxDate.TabIndex = 9;
             // 
-            // textBox2
+            // textBoxDescription
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 85);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(264, 20);
-            this.textBox2.TabIndex = 7;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(6, 132);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(264, 20);
-            this.textBox3.TabIndex = 8;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(6, 178);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(264, 20);
-            this.textBox4.TabIndex = 9;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(6, 222);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(264, 67);
-            this.textBox5.TabIndex = 10;
+            this.textBoxDescription.Location = new System.Drawing.Point(6, 222);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(264, 67);
+            this.textBoxDescription.TabIndex = 10;
             // 
             // listView1
             // 
@@ -369,6 +349,30 @@
             this.checkBox5.Text = "Leírás";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
+            // comboBoxCompany
+            // 
+            this.comboBoxCompany.FormattingEnabled = true;
+            this.comboBoxCompany.Location = new System.Drawing.Point(6, 46);
+            this.comboBoxCompany.Name = "comboBoxCompany";
+            this.comboBoxCompany.Size = new System.Drawing.Size(264, 21);
+            this.comboBoxCompany.TabIndex = 14;
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(6, 86);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(264, 21);
+            this.comboBoxCategory.TabIndex = 15;
+            // 
+            // comboBoxContent
+            // 
+            this.comboBoxContent.FormattingEnabled = true;
+            this.comboBoxContent.Location = new System.Drawing.Point(6, 133);
+            this.comboBoxContent.Name = "comboBoxContent";
+            this.comboBoxContent.Size = new System.Drawing.Size(264, 21);
+            this.comboBoxContent.TabIndex = 16;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -385,6 +389,7 @@
             this.Controls.Add(this.groupBoxDetails);
             this.Name = "MainForm";
             this.Text = "Document Archives Project";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBoxDetails.ResumeLayout(false);
             this.groupBoxDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).EndInit();
@@ -401,11 +406,8 @@
         private System.Windows.Forms.Button buttonFileDelete;
         private System.Windows.Forms.Button buttonFileBrows;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -429,6 +431,9 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox comboBoxContent;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
+        private System.Windows.Forms.ComboBox comboBoxCompany;
     }
 }
 
