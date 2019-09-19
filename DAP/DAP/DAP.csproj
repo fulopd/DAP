@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\FileAdapter.cs" />
     <Compile Include="Repository\SQLiteAdapter.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
