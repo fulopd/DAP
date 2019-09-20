@@ -319,6 +319,7 @@
             this.dataGridViewMainGrid.Size = new System.Drawing.Size(779, 480);
             this.dataGridViewMainGrid.TabIndex = 6;
             this.dataGridViewMainGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellClick);
+            this.dataGridViewMainGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellDoubleClick);
             // 
             // Column1
             // 
@@ -355,6 +356,7 @@
             this.buttonMultiDelete.TabIndex = 2;
             this.buttonMultiDelete.Text = "Törlés";
             this.buttonMultiDelete.UseVisualStyleBackColor = true;
+            this.buttonMultiDelete.Click += new System.EventHandler(this.buttonMultiDelete_Click);
             // 
             // buttonMultiExport
             // 

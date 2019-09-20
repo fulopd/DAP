@@ -19,6 +19,7 @@ namespace DAP
         
         private DocumentController dc;
         private string selectedID = "";
+        private HashSet<string> selectedItemsID = new HashSet<string>(); 
 
         public MainForm()
         {
@@ -32,6 +33,8 @@ namespace DAP
             clearAllDetailsValue();
             dataGridViewSetThemes();
             listViewFiles.CheckBoxes = true;
+           
+            
         }
 
         /// <summary>
@@ -74,9 +77,10 @@ namespace DAP
         private void enabledAllDetailsElement(bool enabed) {
             comboBoxCompany.Enabled = enabed;
             comboBoxCategory.Enabled = enabed;
-            comboBoxContent.Enabled = enabed;
-            textBoxDate.Enabled = enabed;
-            textBoxDescription.Enabled = enabed;
+            comboBoxContent.Enabled = enabed;           
+            
+            textBoxDate.ReadOnly = !enabed;
+            textBoxDescription.ReadOnly = !enabed;
         }
         
         /// <summary>
@@ -86,20 +90,53 @@ namespace DAP
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
-            selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxCompany.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-            comboBoxCategory.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-            comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-            textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
-            textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();
-            getFileListInListView(selectedID);
+            try
+            {
+                selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+                comboBoxCompany.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                comboBoxCategory.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+                comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
+                textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
+                textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();
+                getFileListInListView(selectedID);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Táblázatban dupla kattintásra kijelöli a kattintott sort
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewMainGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > 0)
+            {
+                bool isChecked = Convert.ToBoolean(dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value);
+
+                if (!isChecked)
+                {
+                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = true;
+                    dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
+                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());                    
+                }
+                else
+                {
+                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = false;
+                    dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());                    
+                }
+            }
         }
 
 
-
-        //*************************BAL FELSŐ GOMBOK*************************
+        #region Bal felső gombok
         //Új
-        private void buttonNewDocument_Click(object sender, EventArgs e) {
+        private void buttonNewDocument_Click(object sender, EventArgs e)
+        {
             clearAllDetailsValue();
             dataGridViewMainGrid.Enabled = false;
             buttonModify.Enabled = false;
@@ -118,19 +155,27 @@ namespace DAP
 
         }
         //Módosít
-        private void buttonModify_Click(object sender, EventArgs e) {
-            dataGridViewMainGrid.Enabled = false;
+        private void buttonModify_Click(object sender, EventArgs e)
+        {
+            if (selectedID != "")
+            {
+                dataGridViewMainGrid.Enabled = false;
 
-            buttonNewDocument.Enabled = false;
-            buttonDelete.Enabled = false;
+                buttonNewDocument.Enabled = false;
+                buttonDelete.Enabled = false;
 
-            buttonCancel.Enabled = true;
-            buttonSave.Enabled = true;
+                buttonCancel.Enabled = true;
+                buttonSave.Enabled = true;
 
-            buttonFileBrows.Enabled = true;
-            buttonFileDelete.Enabled = true;
+                buttonFileBrows.Enabled = true;
+                buttonFileDelete.Enabled = true;
 
-            enabledAllDetailsElement(true);
+                enabledAllDetailsElement(true);
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         //Töröl
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -139,8 +184,8 @@ namespace DAP
             {
 
                 DialogResult dialog = MessageBox.Show("Biztosan törölni akarod?\n" +
-                    "Az összes feltöltött file is törlére kerül!\n" +
-                    "ID:= "+selectedID, "Törlés",
+                    "Az összes feltöltött file is törlésre kerül!\n" +
+                    "ID:= " + selectedID, "Törlés",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
@@ -154,21 +199,24 @@ namespace DAP
                 {
 
                 }
-                
+
             }
             else
             {
-                MessageBox.Show("Nincs kiválasztott elem!");
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         //Mentés
-        private void buttonSave_Click(object sender, EventArgs e) {
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
 
-            if (buttonNewDocument.Enabled){
+            if (buttonNewDocument.Enabled)
+            {
                 Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 dc.insertNewDocumentIntoDatabase(d);
             }
-            else {
+            else
+            {
                 Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 dc.modifySelectedDocumentIntoDatabase(d);
             }
@@ -177,11 +225,12 @@ namespace DAP
             buttonsDefaultStatus();
         }
         //Mégsem
-        private void buttonCancel_Click(object sender, EventArgs e) {
-            
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+
             if (selectedID == "0")
             {
-                dc.deleteFolder(selectedID);               
+                dc.deleteFolder(selectedID);
             }
             buttonsDefaultStatus();
         }
@@ -206,13 +255,16 @@ namespace DAP
             enabledAllDetailsElement(false);
         }
 
-        //******************************KERESÉS******************************
+        #endregion
+
+        #region Keresés
         /// <summary>
         /// Kipipált kategóriákból csinál egy string listát
         /// A listában szereplő kategóriákban lehet majd keresni
         /// </summary>
         /// <returns></returns>
-        private List<string> getSearchCategoriFromCheckBox() {
+        private List<string> getSearchCategoriFromCheckBox()
+        {
 
             List<string> category = new List<string>();
 
@@ -236,7 +288,7 @@ namespace DAP
             {
                 category.Add("Description");
             }
-            
+
             return category;
         }
 
@@ -261,14 +313,15 @@ namespace DAP
             }
         }
 
-
-
-        //***************************FILE Műveletek***************************
+        #endregion
+        
+        #region File műveletek
         /// <summary>
         /// ID alapján kilistázza a hozzá tartozo fileok listáját listView -ba
         /// </summary>
         /// <param name="id"></param>
-        private void getFileListInListView(string id) {
+        private void getFileListInListView(string id)
+        {
             listViewFiles.Items.Clear();
 
             DirectoryInfo dir = dc.getAllFilesById(id);
@@ -278,7 +331,8 @@ namespace DAP
                 foreach (FileInfo item in dir.GetFiles())
                 {
                     string ext = item.Extension;
-                    if (!imageList.Images.Keys.Contains(ext)) {
+                    if (!imageList.Images.Keys.Contains(ext))
+                    {
                         imageList.Images.Add(ext, Icon.ExtractAssociatedIcon(item.FullName));
                     }
                     int index = imageList.Images.Keys.IndexOf(ext);
@@ -286,7 +340,7 @@ namespace DAP
                     elem.Text = item.Name;
                     elem.ImageIndex = index;
                     listViewFiles.Items.Add(elem);
-                } 
+                }
             }
         }
 
@@ -299,7 +353,7 @@ namespace DAP
         private void buttonFileBrows_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {                
+            {
                 dc.uplodeFilesById(selectedID, openFileDialog.FileNames, openFileDialog.SafeFileNames);
             }
             getFileListInListView(selectedID);
@@ -322,7 +376,7 @@ namespace DAP
                 e.Item.BackColor = Color.White;
             }
         }
-        
+
         /// <summary>
         /// ChechkBoxal megjelölt sorokhoz tartozó fileok törlése
         /// </summary>
@@ -365,7 +419,7 @@ namespace DAP
                 }
                 else
                 {
-                    MessageBox.Show("Nincs kiválasztott elem!","Hiba!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -376,6 +430,11 @@ namespace DAP
             getFileListInListView(selectedID);
         }
 
+        /// <summary>
+        /// Dupla kattintára megnyitja a kiválasztott filet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listViewFiles_DoubleClick(object sender, EventArgs e)
         {
             if (listViewFiles.SelectedItems.Count == 1)
@@ -385,8 +444,55 @@ namespace DAP
                 ListViewItem lvItem = items[0];
                 items[0].Checked = false;
                 dc.openFile(selectedID, lvItem.Text);
-               
+
             }
+        }
+
+
+        #endregion
+
+
+        private void buttonMultiDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedItemsID.Count > 0)
+            {
+                DialogResult dialog = MessageBox.Show("Biztosan törölni akarod az összes kijelölt filet?\n" +
+                    "Az összes feltöltött file is törlésre kerül!\n" +
+                    "Kiválasztott fileok száma: " + selectedItemsID.Count, "Törlés",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Stop);
+                if (dialog == DialogResult.Yes)
+                {
+                    foreach (string item in selectedItemsID)
+                    {
+                        dc.deleteSelectedDocumentIntoDatabase(item);
+                        dc.deleteFolder(item);                        
+                    }
+                    refreshDataFromDatabase();
+                    clearAllDetailsValue();
+                }
+                else if (dialog == DialogResult.No)
+                {
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+
+
+
+
+
+
+
+
+
+
+            
         }
     }
 }
