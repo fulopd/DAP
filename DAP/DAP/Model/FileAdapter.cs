@@ -12,9 +12,21 @@ namespace DAP.Model
     {
         private string path;
 
-        public FileAdapter(string folderName)
+        public FileAdapter(string id)
         {
-            path = @"Files\" + folderName;
+            path = @"Files\" + id;
+        }
+
+        public bool folderExists() {
+           
+            if (Directory.Exists(path))
+            {
+                Debug.WriteLine("That path exists already.");
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         public void createFolderByID()
@@ -43,10 +55,9 @@ namespace DAP.Model
 
         }
 
-        public void renameFolder(string oldFolderNeme, string newFolderName)
+        public void renameFolder(string newFolderName)
         {
-
-            Directory.Move(@"Files\" + oldFolderNeme, @"Files\" + newFolderName);
+            Directory.Move(path, @"Files\" + newFolderName);
         }
 
         public void copyFiles(string[] fileNames, string[] safeFileName)
@@ -58,18 +69,19 @@ namespace DAP.Model
 
         }
 
-        public DirectoryInfo getAllFiles()
-        {
-
-            DirectoryInfo di = new DirectoryInfo(path);
-
-            return di;
+        public DirectoryInfo getAllFiles() {
+            if (!Directory.Exists(path)) {
+                Debug.WriteLine("Nem létezik ilyen könyvtár: "+path);
+                return null;
+            } else {
+                DirectoryInfo di = new DirectoryInfo(path);
+                return di;
+            }            
         }
 
-        public void deleteFolder(string folder)
+        public void deleteFolder()
         {
-
-            Directory.Delete(folder);
+            Directory.Delete(path,true);
         }
 
         public void deleteFile(string fileName)

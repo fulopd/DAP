@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,9 +48,9 @@ namespace DAP
         /// </summary>
         private void refreshDataFromDatabase() {
             dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
-            comboBoxCompany.DataSource = dc.getUnicCompany("Company");
-            comboBoxCategory.DataSource = dc.getUnicCompany("Category");
-            comboBoxContent.DataSource = dc.getUnicCompany("Content");
+            comboBoxCompany.DataSource = dc.getUnicData("Company");
+            comboBoxCategory.DataSource = dc.getUnicData("Category");
+            comboBoxContent.DataSource = dc.getUnicData("Content");
         }
         
         /// <summary>
@@ -61,6 +62,7 @@ namespace DAP
             comboBoxContent.Text = string.Empty;
             textBoxDate.Text = string.Empty;
             textBoxDescription.Text = string.Empty;
+            listViewFiles.Items.Clear();
             selectedID = "";
         }
 
@@ -105,11 +107,12 @@ namespace DAP
             comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
             textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
             textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();
+            getFileListInListView(selectedID);
         }
 
 
 
-
+        //*************************BAL FELSŐ GOMBOK*************************
         //Új
         private void buttonNewDocument_Click(object sender, EventArgs e) {
             clearAllDetailsValue();
@@ -120,6 +123,8 @@ namespace DAP
             buttonSave.Enabled = true;
 
             enabledAllDetailsElement(true);
+            selectedID = "0";
+            dc.deleteFolder(selectedID);
 
         }
         //Módosít
@@ -138,10 +143,15 @@ namespace DAP
             if (selectedID != "")
             {
 
-                DialogResult dialog = MessageBox.Show("Biztosan törölni akarod?\nID:= "+selectedID, "Törlés", MessageBoxButtons.YesNo);
+                DialogResult dialog = MessageBox.Show("Biztosan törölni akarod?\n" +
+                    "Az összes feltöltött file is törlére kerül!\n" +
+                    "ID:= "+selectedID, "Törlés",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
                 {
                     dc.deleteSelectedDocumentIntoDatabase(selectedID);
+                    dc.deleteFolder(selectedID);
                     refreshDataFromDatabase();
                     clearAllDetailsValue();
                 }
@@ -173,12 +183,17 @@ namespace DAP
         }
         //Mégsem
         private void buttonCancel_Click(object sender, EventArgs e) {
+            
+            if (selectedID == "0")
+            {
+                dc.deleteFolder(selectedID);               
+            }
             buttonsDefaultStatus();
-            selectedID = "";
         }
 
 
 
+        //******************************KERESÉS******************************
         /// <summary>
         /// Kipipált kategóriákból csinál egy string listát
         /// A listában szereplő kategóriákban lehet majd keresni
@@ -232,5 +247,51 @@ namespace DAP
                 dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
             }
         }
+
+
+
+        //***************************FILE Műveletek***************************
+        /// <summary>
+        /// ID alapján kilistázza a hozzá tartozo fileok listáját listView -ba
+        /// </summary>
+        /// <param name="id"></param>
+        private void getFileListInListView(string id) {
+            listViewFiles.Items.Clear();
+
+            DirectoryInfo dir = dc.getAllFilesById(id);
+
+            if (dir != null)
+            {
+                foreach (FileInfo item in dir.GetFiles())
+                {
+                    string ext = item.Extension;
+                    if (!imageList.Images.Keys.Contains(ext)) {
+                        imageList.Images.Add(ext, Icon.ExtractAssociatedIcon(item.FullName));
+                    }
+                    int index = imageList.Images.Keys.IndexOf(ext);
+                    ListViewItem elem = new ListViewItem();
+                    elem.Text = item.Name;
+                    elem.ImageIndex = index;
+                    listViewFiles.Items.Add(elem);
+                } 
+            }
+        }
+
+        /// <summary>
+        /// ID alpján feltölti a kiválasztott filokat.
+        /// Ha nem létezik még a mappa létrehozza.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonFileBrows_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {                
+                dc.uplodeFilesById(selectedID, openFileDialog.FileNames, openFileDialog.SafeFileNames);
+            }
+            getFileListInListView(selectedID);
+        }
+
+
     }
 }

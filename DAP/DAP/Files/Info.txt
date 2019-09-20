@@ -1,0 +1,1 @@
+﻿Ide kerülnek ID szerint mappába rendezve a tárolt dokumentumokhoz tartozó file-ok.

@@ -3,6 +3,7 @@ using DAP.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,10 +37,15 @@ namespace DAP.Controller
         /// </summary>
         /// <param name="newDocument"></param>
         public void insertNewDocumentIntoDatabase(Document newDocument) {
-
+            FileAdapter fa = new FileAdapter("0");
             if (newDocument != null)
             {
                 SQLiteAdapter.insertData(newDocument);
+            }
+
+            if (fa.folderExists())
+            {
+                fa.renameFolder(Convert.ToString(SQLiteAdapter.getLastInserItemID()));
             }
         }
 
@@ -69,7 +75,7 @@ namespace DAP.Controller
         /// </summary>
         /// <param name="columnName">Oszlp neve</param>
         /// <returns>Egyedi adatok a megadott oszloptól</returns>       
-        public List<string> getUnicCompany(string columnName) {
+        public List<string> getUnicData(string columnName) {
             List<string> unicCompany;            
             return unicCompany = SQLiteAdapter.getUnicItemsIntoColumn(columnName);
         }
@@ -88,6 +94,43 @@ namespace DAP.Controller
                 dt = SQLiteAdapter.convertToDataTable(docs);
             }
             return dt;
+        }
+
+        /// <summary>
+        /// ID alapján lekéri az összes filt az adott elemhez
+        /// </summary>
+        /// <param name="id">Kívánt elem azonosítója</param>
+        /// <returns>DirectoryInfoban az összes hozzá tartozo elem</returns>
+        public DirectoryInfo getAllFilesById(string id) {
+            FileAdapter fa = new FileAdapter(id);
+            DirectoryInfo di = fa.getAllFiles();
+            return di;
+
+        }
+
+        /// <summary>
+        /// ID alapján ha még nem létezik létrehoz egy mappát és átmásolja a kijelölt filokat
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="openFileDialogFileNames"></param>
+        /// <param name="openFileDialogSafeFileNames"></param>
+        public void uplodeFilesById(string id, string[] openFileDialogFileNames, string[] openFileDialogSafeFileNames) {
+            FileAdapter fa = new FileAdapter(id);
+            fa.createFolderByID();
+            fa.copyFiles(openFileDialogFileNames, openFileDialogSafeFileNames);
+        }
+
+        /// <summary>
+        /// ID alapján törli a megadott mappát és tartalmát
+        /// </summary>
+        /// <param name="id"></param>
+        public void deleteFolder(string id) {
+            FileAdapter fa = new FileAdapter(id);
+
+            if (fa.folderExists())
+            {
+                fa.deleteFolder();
+            }
         }
     }
 }

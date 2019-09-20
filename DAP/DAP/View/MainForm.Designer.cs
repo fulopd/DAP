@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBoxDetails = new System.Windows.Forms.GroupBox();
             this.comboBoxContent = new System.Windows.Forms.ComboBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.comboBoxCompany = new System.Windows.Forms.ComboBox();
             this.buttonFileDelete = new System.Windows.Forms.Button();
             this.buttonFileBrows = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewFiles = new System.Windows.Forms.ListView();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxDate = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -62,6 +63,9 @@
             this.checkBoxCategory = new System.Windows.Forms.CheckBox();
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -75,7 +79,7 @@
             this.groupBoxDetails.Controls.Add(this.comboBoxCompany);
             this.groupBoxDetails.Controls.Add(this.buttonFileDelete);
             this.groupBoxDetails.Controls.Add(this.buttonFileBrows);
-            this.groupBoxDetails.Controls.Add(this.listView1);
+            this.groupBoxDetails.Controls.Add(this.listViewFiles);
             this.groupBoxDetails.Controls.Add(this.textBoxDescription);
             this.groupBoxDetails.Controls.Add(this.textBoxDate);
             this.groupBoxDetails.Controls.Add(this.label6);
@@ -138,14 +142,21 @@
             this.buttonFileBrows.TabIndex = 12;
             this.buttonFileBrows.Text = "Tallóz";
             this.buttonFileBrows.UseVisualStyleBackColor = true;
+            this.buttonFileBrows.Click += new System.EventHandler(this.buttonFileBrows_Click);
             // 
-            // listView1
+            // listViewFiles
             // 
-            this.listView1.Location = new System.Drawing.Point(6, 321);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(264, 135);
-            this.listView1.TabIndex = 11;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listViewFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewFiles.LargeImageList = this.imageList;
+            this.listViewFiles.Location = new System.Drawing.Point(6, 321);
+            this.listViewFiles.Name = "listViewFiles";
+            this.listViewFiles.Size = new System.Drawing.Size(264, 135);
+            this.listViewFiles.SmallImageList = this.imageList;
+            this.listViewFiles.TabIndex = 11;
+            this.listViewFiles.UseCompatibleStateImageBehavior = false;
+            this.listViewFiles.View = System.Windows.Forms.View.Details;
             // 
             // textBoxDescription
             // 
@@ -429,6 +440,22 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "Keresési kategóriák:";
             // 
+            // imageList
+            // 
+            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Multiselect = true;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 245;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,7 +488,7 @@
         private System.Windows.Forms.GroupBox groupBoxDetails;
         private System.Windows.Forms.Button buttonFileDelete;
         private System.Windows.Forms.Button buttonFileBrows;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewFiles;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.Label label6;
@@ -492,6 +519,9 @@
         private System.Windows.Forms.ComboBox comboBoxCompany;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 
