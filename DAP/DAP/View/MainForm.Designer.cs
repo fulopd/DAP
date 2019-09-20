@@ -36,6 +36,8 @@
             this.buttonFileDelete = new System.Windows.Forms.Button();
             this.buttonFileBrows = new System.Windows.Forms.Button();
             this.listViewFiles = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxDate = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,15 +59,13 @@
             this.buttonMultiExport = new System.Windows.Forms.Button();
             this.buttonMultiModify = new System.Windows.Forms.Button();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.checkBoxDescription = new System.Windows.Forms.CheckBox();
             this.checkBoxDate = new System.Windows.Forms.CheckBox();
             this.checkBoxContent = new System.Windows.Forms.CheckBox();
             this.checkBoxCategory = new System.Windows.Forms.CheckBox();
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -127,15 +127,18 @@
             // 
             // buttonFileDelete
             // 
+            this.buttonFileDelete.Enabled = false;
             this.buttonFileDelete.Location = new System.Drawing.Point(145, 461);
             this.buttonFileDelete.Name = "buttonFileDelete";
             this.buttonFileDelete.Size = new System.Drawing.Size(125, 23);
             this.buttonFileDelete.TabIndex = 13;
             this.buttonFileDelete.Text = "Töröl";
             this.buttonFileDelete.UseVisualStyleBackColor = true;
+            this.buttonFileDelete.Click += new System.EventHandler(this.buttonFileDelete_Click);
             // 
             // buttonFileBrows
             // 
+            this.buttonFileBrows.Enabled = false;
             this.buttonFileBrows.Location = new System.Drawing.Point(6, 461);
             this.buttonFileBrows.Name = "buttonFileBrows";
             this.buttonFileBrows.Size = new System.Drawing.Size(125, 23);
@@ -148,15 +151,31 @@
             // 
             this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
+            this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewFiles.HideSelection = false;
             this.listViewFiles.LargeImageList = this.imageList;
             this.listViewFiles.Location = new System.Drawing.Point(6, 321);
+            this.listViewFiles.MultiSelect = false;
             this.listViewFiles.Name = "listViewFiles";
             this.listViewFiles.Size = new System.Drawing.Size(264, 135);
             this.listViewFiles.SmallImageList = this.imageList;
             this.listViewFiles.TabIndex = 11;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
+            this.listViewFiles.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewFiles_ItemChecked);
+            this.listViewFiles.DoubleClick += new System.EventHandler(this.listViewFiles_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 245;
+            // 
+            // imageList
+            // 
+            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // textBoxDescription
             // 
@@ -371,6 +390,15 @@
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Keresési kategóriák:";
+            // 
             // checkBoxDescription
             // 
             this.checkBoxDescription.AutoSize = true;
@@ -431,30 +459,10 @@
             this.checkBoxCompany.Text = "Cég";
             this.checkBoxCompany.UseVisualStyleBackColor = true;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 46);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Keresési kategóriák:";
-            // 
-            // imageList
-            // 
-            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Multiselect = true;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 245;
             // 
             // MainForm
             // 

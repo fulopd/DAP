@@ -132,5 +132,22 @@ namespace DAP.Controller
                 fa.deleteFolder();
             }
         }
+
+        /// <summary>
+        /// Idhoz tartozó file törlése
+        /// </summary>
+        /// <param name="id">Kiválasztott ID</param>
+        /// <param name="filename">Törölni kívánt file neve</param>
+        public void deleteFile(string id, string filename) {
+            FileAdapter fa = new FileAdapter(id);
+            fa.deleteFile(filename);
+        }
+
+
+        public void openFile(string id, string filename) {
+
+            FileAdapter fa = new FileAdapter(id);
+            fa.openFile(filename);
+        }
     }
 }

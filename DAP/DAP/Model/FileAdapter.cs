@@ -92,7 +92,15 @@ namespace DAP.Model
 
         public void openFile(string fileName)
         {
-            System.Diagnostics.Process.Start(Path.Combine(path, fileName));
+            try
+            {
+                System.Diagnostics.Process.Start(Path.Combine(path, fileName));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 

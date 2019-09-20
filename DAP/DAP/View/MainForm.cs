@@ -31,6 +31,7 @@ namespace DAP
             refreshDataFromDatabase();
             clearAllDetailsValue();
             dataGridViewSetThemes();
+            listViewFiles.CheckBoxes = true;
         }
 
         /// <summary>
@@ -77,23 +78,7 @@ namespace DAP
             textBoxDate.Enabled = enabed;
             textBoxDescription.Enabled = enabed;
         }
-
-        /// <summary>
-        /// Visszaállítja a bal felső gombokat alap láthatósági beállításokra
-        /// </summary>
-        private void buttonsDefaultStatus()
-        {
-            buttonNewDocument.Enabled = true;
-            buttonModify.Enabled = true;
-            buttonDelete.Enabled = true;
-
-            buttonCancel.Enabled = false;
-            buttonSave.Enabled = false;
-
-            clearAllDetailsValue();
-            enabledAllDetailsElement(false);
-        }
-
+        
         /// <summary>
         /// Táblázaban kattintott sor elemeit részletekben megjeleníti
         /// Beolvassa kiválasztott elem ID -ját
@@ -116,6 +101,7 @@ namespace DAP
         //Új
         private void buttonNewDocument_Click(object sender, EventArgs e) {
             clearAllDetailsValue();
+            dataGridViewMainGrid.Enabled = false;
             buttonModify.Enabled = false;
             buttonDelete.Enabled = false;
 
@@ -123,17 +109,26 @@ namespace DAP
             buttonSave.Enabled = true;
 
             enabledAllDetailsElement(true);
+
+            buttonFileBrows.Enabled = true;
+            buttonFileDelete.Enabled = true;
+
             selectedID = "0";
             dc.deleteFolder(selectedID);
 
         }
         //Módosít
         private void buttonModify_Click(object sender, EventArgs e) {
+            dataGridViewMainGrid.Enabled = false;
+
             buttonNewDocument.Enabled = false;
             buttonDelete.Enabled = false;
 
             buttonCancel.Enabled = true;
             buttonSave.Enabled = true;
+
+            buttonFileBrows.Enabled = true;
+            buttonFileDelete.Enabled = true;
 
             enabledAllDetailsElement(true);
         }
@@ -191,7 +186,25 @@ namespace DAP
             buttonsDefaultStatus();
         }
 
+        /// <summary>
+        /// Visszaállítja a bal felső gombokat alap láthatósági beállításokra
+        /// </summary>
+        private void buttonsDefaultStatus()
+        {
+            dataGridViewMainGrid.Enabled = true;
+            buttonNewDocument.Enabled = true;
+            buttonModify.Enabled = true;
+            buttonDelete.Enabled = true;
 
+            buttonCancel.Enabled = false;
+            buttonSave.Enabled = false;
+
+            buttonFileBrows.Enabled = false;
+            buttonFileDelete.Enabled = false;
+
+            clearAllDetailsValue();
+            enabledAllDetailsElement(false);
+        }
 
         //******************************KERESÉS******************************
         /// <summary>
@@ -292,6 +305,88 @@ namespace DAP
             getFileListInListView(selectedID);
         }
 
+        /// <summary>
+        /// Csatolt fileok listájában checkBox kattitási esemény
+        /// beszínezi a kipipált sort
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listViewFiles_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (e.Item.Checked)
+            {
+                e.Item.BackColor = Color.Yellow;
+            }
+            else
+            {
+                e.Item.BackColor = Color.White;
+            }
+        }
+        
+        /// <summary>
+        /// ChechkBoxal megjelölt sorokhoz tartozó fileok törlése
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonFileDelete_Click(object sender, EventArgs e)
+        {
+            int counter = 0;
 
+            if (listViewFiles.Items.Count > 0)
+            {
+                foreach (ListViewItem item in listViewFiles.Items)
+                {
+                    if (item.Checked)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter > 0)
+                {
+                    DialogResult dialog = MessageBox.Show("A kijelölt eleme(ek)\n" +
+                        "Végleges törlésre kerül(nek)!\n" +
+                        "\nBiztosan törölni akarja?", "Csatolt fileok törlése!",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Stop);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        foreach (ListViewItem item in listViewFiles.Items)
+                        {
+                            if (item.Checked)
+                            {
+                                dc.deleteFile(selectedID, item.Text);
+                            }
+                        }
+                    }
+                    else if (dialog == DialogResult.No)
+                    {
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nincs kiválasztott elem!","Hiba!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            getFileListInListView(selectedID);
+        }
+
+        private void listViewFiles_DoubleClick(object sender, EventArgs e)
+        {
+            if (listViewFiles.SelectedItems.Count == 1)
+            {
+                ListView.SelectedListViewItemCollection items = listViewFiles.SelectedItems;
+
+                ListViewItem lvItem = items[0];
+                items[0].Checked = false;
+                dc.openFile(selectedID, lvItem.Text);
+               
+            }
+        }
     }
 }
