@@ -1,6 +1,7 @@
 ﻿using DAP.Controller;
 using DAP.Model;
 using DAP.Repository;
+using DAP.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -113,7 +114,7 @@ namespace DAP
         /// <param name="e"></param>
         private void dataGridViewMainGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > 0)
+            if (e.RowIndex >= 0)
             {
                 bool isChecked = Convert.ToBoolean(dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value);
 
@@ -450,8 +451,13 @@ namespace DAP
 
 
         #endregion
-
-
+        
+        #region Tömeges műveletek
+        /// <summary>
+        /// Kijelölt elemek törlése az adatbázisból
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonMultiDelete_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
@@ -466,10 +472,11 @@ namespace DAP
                     foreach (string item in selectedItemsID)
                     {
                         dc.deleteSelectedDocumentIntoDatabase(item);
-                        dc.deleteFolder(item);                        
+                        dc.deleteFolder(item);
                     }
                     refreshDataFromDatabase();
                     clearAllDetailsValue();
+                    selectedItemsID.Clear();
                 }
                 else if (dialog == DialogResult.No)
                 {
@@ -482,17 +489,43 @@ namespace DAP
                 MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+            
+        }
 
+        private void buttonMultiModify_Click(object sender, EventArgs e)
+        {
+            if (selectedItemsID.Count > 0)
+            {
+                List<string> unicCompany = dc.getUnicData("Company");
+                List<string> unicCategory = dc.getUnicData("Category");
+                List<string> unicContent = dc.getUnicData("Content");
 
+                MultiUpdateForm muf = new MultiUpdateForm(unicCompany, unicCategory, unicContent);
 
+                if (muf.ShowDialog() == DialogResult.OK)
+                {   
+                    string columnName = muf.getSelectedColumnName();
+                    string newValue = muf.getNewValue();
 
-
-
-
-
-
+                    foreach (string item in selectedItemsID)
+                    {
+                        dc.updateAllSelectedItem(item, columnName, newValue);
+                    }
+                    refreshDataFromDatabase();
+                    clearAllDetailsValue();
+                    selectedItemsID.Clear();
+                }                
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             
         }
+
+        #endregion
+
+
     }
 }

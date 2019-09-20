@@ -172,6 +172,17 @@ namespace DAP.Repository
             myConnection.Close();
         }
 
+        public void updateOneAtribut(string id, string columnName, string newValue)
+        {
+
+            myConnection.Open();
+            string query = "UPDATE ArchivesTable SET "+columnName+" = @"+ columnName+" WHERE ID='" + id + "'";
+            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+            myCommand.Parameters.AddWithValue("@"+ columnName, newValue);            
+            myCommand.ExecuteNonQuery();
+            myConnection.Close();
+        }
+
         public int getLastInserItemID()
         {
 

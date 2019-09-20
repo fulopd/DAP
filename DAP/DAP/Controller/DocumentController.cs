@@ -143,11 +143,20 @@ namespace DAP.Controller
             fa.deleteFile(filename);
         }
 
-
+        /// <summary>
+        /// Kiválasztott file megnyitása id és file név alapján windows alapértelmezett program segítségével
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="filename"></param>
         public void openFile(string id, string filename) {
 
             FileAdapter fa = new FileAdapter(id);
             fa.openFile(filename);
+        }
+
+        public void updateAllSelectedItem(string id, string columnName, string newValue) {
+
+            SQLiteAdapter.updateOneAtribut(id, columnName, newValue);
         }
     }
 }

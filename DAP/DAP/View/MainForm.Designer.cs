@@ -375,6 +375,7 @@
             this.buttonMultiModify.TabIndex = 0;
             this.buttonMultiModify.Text = "Módosítás";
             this.buttonMultiModify.UseVisualStyleBackColor = true;
+            this.buttonMultiModify.Click += new System.EventHandler(this.buttonMultiModify_Click);
             // 
             // groupBoxSearch
             // 
