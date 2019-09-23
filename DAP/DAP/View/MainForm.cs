@@ -16,8 +16,7 @@ using System.Windows.Forms;
 namespace DAP
 {
     public partial class MainForm : Form
-    {
-        
+    {        
         private DocumentController dc;
         private string selectedID = "";
         private HashSet<string> selectedItemsID = new HashSet<string>(); 
@@ -34,20 +33,9 @@ namespace DAP
             clearAllDetailsValue();
             dataGridViewSetThemes();
             listViewFiles.CheckBoxes = true;
-           
-            
         }
 
-        /// <summary>
-        /// Táblázat megjelenésének beállításai
-        /// </summary>
-        private void dataGridViewSetThemes() {
-            dataGridViewMainGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewMainGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewMainGrid.DefaultCellStyle.SelectionBackColor = Color.Yellow;
-            dataGridViewMainGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
-        }
-
+       
         /// <summary>
         /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
         /// </summary>
@@ -56,6 +44,7 @@ namespace DAP
             comboBoxCompany.DataSource = dc.getUnicData("Company");
             comboBoxCategory.DataSource = dc.getUnicData("Category");
             comboBoxContent.DataSource = dc.getUnicData("Content");
+            selectedItemsID.Clear();            
         }
         
         /// <summary>
@@ -83,14 +72,27 @@ namespace DAP
             textBoxDate.ReadOnly = !enabed;
             textBoxDescription.ReadOnly = !enabed;
         }
-        
+
+        #region DataGridView beállításai
+        /// <summary>
+        /// Táblázat megjelenésének beállításai
+        /// </summary>
+        private void dataGridViewSetThemes()
+        {
+            dataGridViewMainGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewMainGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewMainGrid.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+            dataGridViewMainGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
+        }
+
         /// <summary>
         /// Táblázaban kattintott sor elemeit részletekben megjeleníti
         /// Beolvassa kiválasztott elem ID -ját
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
+        private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
             try
             {
                 selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -122,18 +124,18 @@ namespace DAP
                 {
                     dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = true;
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
-                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());                    
+                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
                 }
                 else
                 {
                     dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = false;
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());                    
+                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
                 }
             }
-        }
-
-
+        } 
+        #endregion
+        
         #region Bal felső gombok
         //Új
         private void buttonNewDocument_Click(object sender, EventArgs e)
@@ -266,7 +268,6 @@ namespace DAP
         /// <returns></returns>
         private List<string> getSearchCategoriFromCheckBox()
         {
-
             List<string> category = new List<string>();
 
             if (checkBoxCompany.Checked)
@@ -307,10 +308,11 @@ namespace DAP
             if (textBoxSearch.Text.Length > 2)
             {
                 dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
+                selectedItemsID.Clear();
             }
             else
             {
-                dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
+                refreshDataFromDatabase();
             }
         }
 
@@ -476,7 +478,7 @@ namespace DAP
                     }
                     refreshDataFromDatabase();
                     clearAllDetailsValue();
-                    selectedItemsID.Clear();
+                    
                 }
                 else if (dialog == DialogResult.No)
                 {
@@ -512,8 +514,7 @@ namespace DAP
                         dc.updateAllSelectedItem(item, columnName, newValue);
                     }
                     refreshDataFromDatabase();
-                    clearAllDetailsValue();
-                    selectedItemsID.Clear();
+                    clearAllDetailsValue();                    
                 }                
             }
             else
@@ -524,8 +525,41 @@ namespace DAP
             
         }
 
+
         #endregion
-
-
+        
+        #region Adatbeviteli mezők
+        private void textBoxDate_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Back)
+            { 
+                TextBox t = (TextBox)sender;
+                string seperator = ".";
+                switch (textBoxDate.Text.Length)
+                {
+                    case 4:
+                        if (e.KeyValue!=190)
+                        {
+                            t.Text += seperator;
+                        }                        
+                        break;
+                    case 7:
+                        if (e.KeyValue != 190)
+                        {
+                            t.Text += seperator;
+                        }
+                        break;
+                    default:                        
+                        if (e.KeyValue == 190)
+                        {                            
+                           e.Handled = false;
+                        }
+                        break;
+                }
+                t.SelectionStart = t.Text.Length;
+                
+            }
+        } 
+        #endregion
     }
 }

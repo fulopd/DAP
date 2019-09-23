@@ -91,7 +91,7 @@
             this.groupBoxDetails.Location = new System.Drawing.Point(12, 75);
             this.groupBoxDetails.Name = "groupBoxDetails";
             this.groupBoxDetails.Size = new System.Drawing.Size(276, 490);
-            this.groupBoxDetails.TabIndex = 0;
+            this.groupBoxDetails.TabIndex = 4;
             this.groupBoxDetails.TabStop = false;
             this.groupBoxDetails.Text = "Részletek:";
             // 
@@ -103,7 +103,7 @@
             this.comboBoxContent.Location = new System.Drawing.Point(6, 133);
             this.comboBoxContent.Name = "comboBoxContent";
             this.comboBoxContent.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxContent.TabIndex = 16;
+            this.comboBoxContent.TabIndex = 8;
             // 
             // comboBoxCategory
             // 
@@ -113,7 +113,7 @@
             this.comboBoxCategory.Location = new System.Drawing.Point(6, 86);
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxCategory.TabIndex = 15;
+            this.comboBoxCategory.TabIndex = 7;
             // 
             // comboBoxCompany
             // 
@@ -123,7 +123,7 @@
             this.comboBoxCompany.Location = new System.Drawing.Point(6, 46);
             this.comboBoxCompany.Name = "comboBoxCompany";
             this.comboBoxCompany.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxCompany.TabIndex = 14;
+            this.comboBoxCompany.TabIndex = 6;
             // 
             // buttonFileDelete
             // 
@@ -131,7 +131,7 @@
             this.buttonFileDelete.Location = new System.Drawing.Point(145, 461);
             this.buttonFileDelete.Name = "buttonFileDelete";
             this.buttonFileDelete.Size = new System.Drawing.Size(125, 23);
-            this.buttonFileDelete.TabIndex = 13;
+            this.buttonFileDelete.TabIndex = 12;
             this.buttonFileDelete.Text = "Töröl";
             this.buttonFileDelete.UseVisualStyleBackColor = true;
             this.buttonFileDelete.Click += new System.EventHandler(this.buttonFileDelete_Click);
@@ -142,7 +142,7 @@
             this.buttonFileBrows.Location = new System.Drawing.Point(6, 461);
             this.buttonFileBrows.Name = "buttonFileBrows";
             this.buttonFileBrows.Size = new System.Drawing.Size(125, 23);
-            this.buttonFileBrows.TabIndex = 12;
+            this.buttonFileBrows.TabIndex = 11;
             this.buttonFileBrows.Text = "Tallóz";
             this.buttonFileBrows.UseVisualStyleBackColor = true;
             this.buttonFileBrows.Click += new System.EventHandler(this.buttonFileBrows_Click);
@@ -188,9 +188,11 @@
             // textBoxDate
             // 
             this.textBoxDate.Location = new System.Drawing.Point(6, 178);
+            this.textBoxDate.MaxLength = 10;
             this.textBoxDate.Name = "textBoxDate";
             this.textBoxDate.Size = new System.Drawing.Size(264, 20);
             this.textBoxDate.TabIndex = 9;
+            this.textBoxDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxDate_KeyDown);
             // 
             // label6
             // 
@@ -333,7 +335,7 @@
             this.textBoxSearch.Location = new System.Drawing.Point(6, 19);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(415, 20);
-            this.textBoxSearch.TabIndex = 8;
+            this.textBoxSearch.TabIndex = 13;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
             // groupBoxMultioperations
@@ -344,7 +346,7 @@
             this.groupBoxMultioperations.Location = new System.Drawing.Point(743, 12);
             this.groupBoxMultioperations.Name = "groupBoxMultioperations";
             this.groupBoxMultioperations.Size = new System.Drawing.Size(346, 67);
-            this.groupBoxMultioperations.TabIndex = 9;
+            this.groupBoxMultioperations.TabIndex = 20;
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
             // 
@@ -353,7 +355,7 @@
             this.buttonMultiDelete.Location = new System.Drawing.Point(169, 38);
             this.buttonMultiDelete.Name = "buttonMultiDelete";
             this.buttonMultiDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonMultiDelete.TabIndex = 2;
+            this.buttonMultiDelete.TabIndex = 13;
             this.buttonMultiDelete.Text = "Törlés";
             this.buttonMultiDelete.UseVisualStyleBackColor = true;
             this.buttonMultiDelete.Click += new System.EventHandler(this.buttonMultiDelete_Click);
@@ -363,7 +365,7 @@
             this.buttonMultiExport.Location = new System.Drawing.Point(88, 38);
             this.buttonMultiExport.Name = "buttonMultiExport";
             this.buttonMultiExport.Size = new System.Drawing.Size(75, 23);
-            this.buttonMultiExport.TabIndex = 1;
+            this.buttonMultiExport.TabIndex = 22;
             this.buttonMultiExport.Text = "Export";
             this.buttonMultiExport.UseVisualStyleBackColor = true;
             // 
@@ -372,7 +374,7 @@
             this.buttonMultiModify.Location = new System.Drawing.Point(6, 38);
             this.buttonMultiModify.Name = "buttonMultiModify";
             this.buttonMultiModify.Size = new System.Drawing.Size(75, 23);
-            this.buttonMultiModify.TabIndex = 0;
+            this.buttonMultiModify.TabIndex = 21;
             this.buttonMultiModify.Text = "Módosítás";
             this.buttonMultiModify.UseVisualStyleBackColor = true;
             this.buttonMultiModify.Click += new System.EventHandler(this.buttonMultiModify_Click);
@@ -389,7 +391,7 @@
             this.groupBoxSearch.Location = new System.Drawing.Point(310, 12);
             this.groupBoxSearch.Name = "groupBoxSearch";
             this.groupBoxSearch.Size = new System.Drawing.Size(427, 67);
-            this.groupBoxSearch.TabIndex = 10;
+            this.groupBoxSearch.TabIndex = 13;
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
             // 
@@ -410,7 +412,7 @@
             this.checkBoxDescription.Location = new System.Drawing.Point(365, 45);
             this.checkBoxDescription.Name = "checkBoxDescription";
             this.checkBoxDescription.Size = new System.Drawing.Size(56, 17);
-            this.checkBoxDescription.TabIndex = 13;
+            this.checkBoxDescription.TabIndex = 19;
             this.checkBoxDescription.Text = "Leírás";
             this.checkBoxDescription.UseVisualStyleBackColor = true;
             // 
@@ -422,7 +424,7 @@
             this.checkBoxDate.Location = new System.Drawing.Point(302, 45);
             this.checkBoxDate.Name = "checkBoxDate";
             this.checkBoxDate.Size = new System.Drawing.Size(57, 17);
-            this.checkBoxDate.TabIndex = 12;
+            this.checkBoxDate.TabIndex = 18;
             this.checkBoxDate.Text = "Dátum";
             this.checkBoxDate.UseVisualStyleBackColor = true;
             // 
@@ -434,7 +436,7 @@
             this.checkBoxContent.Location = new System.Drawing.Point(229, 45);
             this.checkBoxContent.Name = "checkBoxContent";
             this.checkBoxContent.Size = new System.Drawing.Size(67, 17);
-            this.checkBoxContent.TabIndex = 11;
+            this.checkBoxContent.TabIndex = 17;
             this.checkBoxContent.Text = "Tartalom";
             this.checkBoxContent.UseVisualStyleBackColor = true;
             // 
@@ -446,7 +448,7 @@
             this.checkBoxCategory.Location = new System.Drawing.Point(164, 45);
             this.checkBoxCategory.Name = "checkBoxCategory";
             this.checkBoxCategory.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxCategory.TabIndex = 10;
+            this.checkBoxCategory.TabIndex = 16;
             this.checkBoxCategory.Text = "Mappa";
             this.checkBoxCategory.UseVisualStyleBackColor = true;
             // 
@@ -458,7 +460,7 @@
             this.checkBoxCompany.Location = new System.Drawing.Point(113, 45);
             this.checkBoxCompany.Name = "checkBoxCompany";
             this.checkBoxCompany.Size = new System.Drawing.Size(45, 17);
-            this.checkBoxCompany.TabIndex = 9;
+            this.checkBoxCompany.TabIndex = 15;
             this.checkBoxCompany.Text = "Cég";
             this.checkBoxCompany.UseVisualStyleBackColor = true;
             // 
