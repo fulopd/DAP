@@ -154,9 +154,44 @@ namespace DAP.Controller
             fa.openFile(filename);
         }
 
+
+        /// <summary>
+        /// Tömeges múdosítás
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="columnName"></param>
+        /// <param name="newValue"></param>
         public void updateAllSelectedItem(string id, string columnName, string newValue) {
 
             SQLiteAdapter.updateOneAtribut(id, columnName, newValue);
+        }
+
+
+        public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension) {
+
+            List<Document> selectedDocuments = new List<Document>();
+            DataTable selectedDocumentsDataTable = new DataTable();
+            if (selectedId.Count > 0)
+            {
+                foreach (string id in selectedId)
+                {
+                    Document selectedItem = SQLiteAdapter.getSelectedData(id);
+
+                    if (selectedItem != null)
+                    {
+                        selectedDocuments.Add(selectedItem);
+                    }                    
+                }
+            }
+
+            if (selectedDocuments.Count > 0)
+            {
+                selectedDocumentsDataTable = SQLiteAdapter.convertToDataTable(selectedDocuments);
+            }
+
+           
+            ExceExport.Export_Ctr_Excel(selectedDocumentsDataTable, savePathWhitFileNameAndExtension);
+                        
         }
     }
 }

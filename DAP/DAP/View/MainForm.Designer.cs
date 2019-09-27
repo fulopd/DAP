@@ -66,6 +66,7 @@
             this.checkBoxCategory = new System.Windows.Forms.CheckBox();
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -368,6 +369,7 @@
             this.buttonMultiExport.TabIndex = 22;
             this.buttonMultiExport.Text = "Export";
             this.buttonMultiExport.UseVisualStyleBackColor = true;
+            this.buttonMultiExport.Click += new System.EventHandler(this.buttonMultiExport_Click);
             // 
             // buttonMultiModify
             // 
@@ -469,6 +471,13 @@
             this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Multiselect = true;
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "xlsx";
+            this.saveFileDialog.FileName = "*.xlsx";
+            this.saveFileDialog.Filter = "Excel file | *.xlsx";
+            this.saveFileDialog.RestoreDirectory = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,6 +544,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

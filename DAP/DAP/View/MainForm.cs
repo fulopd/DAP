@@ -559,7 +559,23 @@ namespace DAP
                 t.SelectionStart = t.Text.Length;
                 
             }
-        } 
+        }
+
         #endregion
+
+        private void buttonMultiExport_Click(object sender, EventArgs e)
+        {            
+            if (selectedItemsID.Count > 0)
+            {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {                
+                    dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

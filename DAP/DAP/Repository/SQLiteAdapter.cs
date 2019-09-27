@@ -205,5 +205,28 @@ namespace DAP.Repository
 
             return maxID;
         }
+
+        public Document getSelectedData(string id)
+        {
+            Document item = null;
+            myConnection.Open();
+            string query = "SELECT * FROM ArchivesTable WHERE ID="+id+"";
+            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+
+            SQLiteDataReader reader = myCommand.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
+                    
+                }
+            }
+
+            myConnection.Close();
+
+            return item;
+        }
     }
 }
