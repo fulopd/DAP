@@ -156,7 +156,7 @@ namespace DAP.Controller
 
 
         /// <summary>
-        /// Tömeges múdosítás
+        /// Tömeges módosítás
         /// </summary>
         /// <param name="id"></param>
         /// <param name="columnName"></param>
@@ -166,7 +166,11 @@ namespace DAP.Controller
             SQLiteAdapter.updateOneAtribut(id, columnName, newValue);
         }
 
-
+        /// <summary>
+        /// Kiválasztott ID -k alapján exportálja excelbe az aatokat adatbázisból
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <param name="savePathWhitFileNameAndExtension"></param>
         public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension) {
 
             List<Document> selectedDocuments = new List<Document>();

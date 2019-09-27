@@ -323,6 +323,7 @@
             this.dataGridViewMainGrid.TabIndex = 6;
             this.dataGridViewMainGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellClick);
             this.dataGridViewMainGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellDoubleClick);
+            this.dataGridViewMainGrid.SelectionChanged += new System.EventHandler(this.dataGridViewMainGrid_SelectionChanged);
             // 
             // Column1
             // 

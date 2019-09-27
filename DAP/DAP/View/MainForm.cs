@@ -29,8 +29,7 @@ namespace DAP
         private void MainForm_Load(object sender, EventArgs e) {
             enabledAllDetailsElement(false);
             dc = new DocumentController();
-            refreshDataFromDatabase();
-            clearAllDetailsValue();
+            refreshDataFromDatabase();           
             dataGridViewSetThemes();
             listViewFiles.CheckBoxes = true;
         }
@@ -83,6 +82,36 @@ namespace DAP
             dataGridViewMainGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewMainGrid.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             dataGridViewMainGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            dataGridViewMainGrid.Columns[1].HeaderText = "Id";
+            dataGridViewMainGrid.Columns[2].HeaderText = "Cég";
+            dataGridViewMainGrid.Columns[3].HeaderText = "Mappa";
+            dataGridViewMainGrid.Columns[4].HeaderText = "Tartalom";
+            dataGridViewMainGrid.Columns[5].HeaderText = "Dátum";
+            dataGridViewMainGrid.Columns[6].HeaderText = "Rövid leírás";
+            
+        }
+
+        /// <summary>
+        /// Kijelölt sor index alapján lekéri ID -t és befrissíti az oldalsó details elemeket
+        /// </summary>
+        /// <param name="selectedRowIndex"></param>
+        private void refreshDetailsData(int selectedRowIndex)
+        {
+            try
+            {
+                selectedID = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[1].Value.ToString();
+                comboBoxCompany.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[2].Value.ToString();
+                comboBoxCategory.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[3].Value.ToString();
+                comboBoxContent.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[4].Value.ToString();
+                textBoxDate.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[5].Value.ToString();
+                textBoxDescription.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[6].Value.ToString();
+                getFileListInListView(selectedID);
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         /// <summary>
@@ -95,13 +124,26 @@ namespace DAP
         {
             try
             {
-                selectedID = dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-                comboBoxCompany.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-                comboBoxCategory.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-                comboBoxContent.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-                textBoxDate.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[5].Value.ToString();
-                textBoxDescription.Text = dataGridViewMainGrid.Rows[e.RowIndex].Cells[6].Value.ToString();
-                getFileListInListView(selectedID);
+                int selectedRowIndex = e.RowIndex;
+                refreshDetailsData(selectedRowIndex);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Kijelölés változásra betölti a kijelölt sor adatait az oldalsó details részbe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewMainGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int selectedRowIndex = dataGridViewMainGrid.CurrentRow.Index;
+                refreshDetailsData(selectedRowIndex);
             }
             catch (Exception)
             {
@@ -494,6 +536,11 @@ namespace DAP
             
         }
 
+        /// <summary>
+        /// Tömeges módosítás
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonMultiModify_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
@@ -525,9 +572,27 @@ namespace DAP
             
         }
 
-
+        /// <summary>
+        /// Export excel file -ba
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonMultiExport_Click(object sender, EventArgs e)
+        {
+            if (selectedItemsID.Count > 0)
+            {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
         #endregion
-        
+
         #region Adatbeviteli mezők
         private void textBoxDate_KeyDown(object sender, KeyEventArgs e)
         {
@@ -561,21 +626,14 @@ namespace DAP
             }
         }
 
+
+
+
+
         #endregion
 
-        private void buttonMultiExport_Click(object sender, EventArgs e)
-        {            
-            if (selectedItemsID.Count > 0)
-            {
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {                
-                    dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+        
+
+       
     }
 }

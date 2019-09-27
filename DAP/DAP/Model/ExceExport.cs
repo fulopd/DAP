@@ -10,7 +10,7 @@ using Microsoft.Office.Interop;
 
 namespace DAP.Model
 {
-    static class ExceExport
+    class ExceExport
     {
         
         static public void Export_Ctr_Excel(DataTable tablelist, string excelFilename)
