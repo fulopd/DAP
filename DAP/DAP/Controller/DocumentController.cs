@@ -36,7 +36,7 @@ namespace DAP.Controller
         /// Feltölt az adatbázisba egy új dokumentumot
         /// </summary>
         /// <param name="newDocument"></param>
-        public void insertNewDocumentIntoDatabase(Document newDocument) {
+        public int insertNewDocumentIntoDatabase(Document newDocument) {
             FileAdapter fa = new FileAdapter("0");
             if (newDocument != null)
             {
@@ -47,6 +47,8 @@ namespace DAP.Controller
             {
                 fa.renameFolder(Convert.ToString(SQLiteAdapter.getLastInserItemID()));
             }
+
+            return SQLiteAdapter.getLastInserItemID();
         }
 
         /// <summary>

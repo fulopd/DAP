@@ -55,7 +55,7 @@ namespace DAP
             comboBoxContent.Text = string.Empty;
             textBoxDate.Text = string.Empty;
             textBoxDescription.Text = string.Empty;
-            listViewFiles.Items.Clear();
+            listViewFiles.Items.Clear();           
             selectedID = "";
         }
 
@@ -71,6 +71,23 @@ namespace DAP
             textBoxDate.ReadOnly = !enabed;
             textBoxDescription.ReadOnly = !enabed;
         }
+
+        /// <summary>
+        /// ID alapján alap (egy kattintás / sárga kijelölést rárakja az adott sorra
+        /// </summary>
+        /// <param name="selectedId">Kijelölni kívánt sor ID -ja</param>
+        private void rowSelectLikeIdYellow(string selectedId) {
+            
+            foreach (DataGridViewRow item in dataGridViewMainGrid.Rows)
+            {                
+                if ((string)item.Cells[1].Value == selectedId)
+                {
+                    item.Selected = true;
+                    refreshDetailsData(item.Index);
+                }                
+            }
+        }
+
 
         #region DataGridView beállításai
         /// <summary>
@@ -100,7 +117,7 @@ namespace DAP
         {
             try
             {
-                selectedID = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[1].Value.ToString();
+                selectedID = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[1].Value.ToString();               
                 comboBoxCompany.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[2].Value.ToString();
                 comboBoxCategory.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[3].Value.ToString();
                 comboBoxContent.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[4].Value.ToString();
@@ -254,20 +271,23 @@ namespace DAP
         //Mentés
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            string actualId = "";
 
             if (buttonNewDocument.Enabled)
             {
                 Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
-                dc.insertNewDocumentIntoDatabase(d);
+                actualId = Convert.ToString(dc.insertNewDocumentIntoDatabase(d));               
             }
             else
             {
                 Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 dc.modifySelectedDocumentIntoDatabase(d);
+                actualId = Convert.ToString(d.getID());
             }
 
-            refreshDataFromDatabase();
+            refreshDataFromDatabase();            
             buttonsDefaultStatus();
+            rowSelectLikeIdYellow(actualId);
         }
         //Mégsem
         private void buttonCancel_Click(object sender, EventArgs e)
