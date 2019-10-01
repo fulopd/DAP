@@ -318,20 +318,19 @@
             this.dataGridViewMainGrid.Location = new System.Drawing.Point(310, 85);
             this.dataGridViewMainGrid.MultiSelect = false;
             this.dataGridViewMainGrid.Name = "dataGridViewMainGrid";
-            this.dataGridViewMainGrid.ReadOnly = true;
             this.dataGridViewMainGrid.RowHeadersVisible = false;
             this.dataGridViewMainGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMainGrid.Size = new System.Drawing.Size(779, 480);
             this.dataGridViewMainGrid.TabIndex = 6;
             this.dataGridViewMainGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellClick);
             this.dataGridViewMainGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellDoubleClick);
+            this.dataGridViewMainGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellValueChanged);
             this.dataGridViewMainGrid.SelectionChanged += new System.EventHandler(this.dataGridViewMainGrid_SelectionChanged);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "";
             this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             this.Column1.Width = 30;
             // 
             // textBoxSearch

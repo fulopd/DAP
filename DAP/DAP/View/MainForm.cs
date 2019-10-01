@@ -101,6 +101,14 @@ namespace DAP
             dataGridViewMainGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewMainGrid.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             dataGridViewMainGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            
+            dataGridViewMainGrid.Columns[0].ReadOnly = false;
+            dataGridViewMainGrid.Columns[1].ReadOnly = true;
+            dataGridViewMainGrid.Columns[2].ReadOnly = true;
+            dataGridViewMainGrid.Columns[3].ReadOnly = true;
+            dataGridViewMainGrid.Columns[4].ReadOnly = true;
+            dataGridViewMainGrid.Columns[5].ReadOnly = true;
+            dataGridViewMainGrid.Columns[6].ReadOnly = true;
 
             dataGridViewMainGrid.Columns[1].HeaderText = "Id";
             dataGridViewMainGrid.Columns[2].HeaderText = "Cég";
@@ -143,8 +151,11 @@ namespace DAP
         {
             try
             {
+                bool checkBoxFirstColumn = (bool)dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value;
+               
                 int selectedRowIndex = e.RowIndex;
-                refreshDetailsData(selectedRowIndex);
+                refreshDetailsData(selectedRowIndex);                
+                
             }
             catch (Exception)
             {
@@ -155,8 +166,6 @@ namespace DAP
         /// <summary>
         /// Kijelölés változásra betölti a kijelölt sor adatait az oldalsó details részbe
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void dataGridViewMainGrid_SelectionChanged(object sender, EventArgs e)
         {
             try
@@ -173,8 +182,6 @@ namespace DAP
         /// <summary>
         /// Táblázatban dupla kattintásra kijelöli a kattintott sort
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void dataGridViewMainGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -194,9 +201,31 @@ namespace DAP
                     selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
                 }
             }
-        } 
+        }
+
+        /// <summary>
+        /// Első oszlopban lévő checkBox kattintás esemény
+        /// </summary>       
+        private void dataGridViewMainGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewMainGrid.Columns[0].Index)
+            {
+                if (dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value.ToString() == "True")
+                {
+                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = true;
+                    dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
+                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
+                }
+                else
+                {
+                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = false;
+                    dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
+                }
+            }
+        }
         #endregion
-        
+
         #region Bal felső gombok
         //Új
         private void buttonNewDocument_Click(object sender, EventArgs e)
@@ -674,6 +703,8 @@ namespace DAP
                 
             }
         }
+
+
 
 
 
