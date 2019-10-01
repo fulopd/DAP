@@ -606,7 +606,8 @@ namespace DAP
                     //hesset sorba rendezése
                     List<string> temp;
                     temp = selectedItemsID.ToList();
-                    temp.Sort();
+                    //temp.Sort();
+                    temp = temp.OrderBy(c => int.Parse(c)).ToList();
                     selectedItemsID.Clear();
                     selectedItemsID.UnionWith(temp);
                     //excel export

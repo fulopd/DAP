@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Microsoft.Office.Interop;
 
 namespace DAP.Model
@@ -45,7 +46,16 @@ namespace DAP.Model
             objexcelapp.Columns.AutoFit(); // Auto fix the columns size
             System.Windows.Forms.Application.DoEvents();
 
-            objexcelapp.ActiveWorkbook.SaveCopyAs(excelFilename);
+            try
+            {
+                objexcelapp.ActiveWorkbook.SaveCopyAs(excelFilename);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("A File már használatban van.");
+                Debug.WriteLine("A File már használatban van.");
+            }
+           
 
             objexcelapp.ActiveWorkbook.Saved = true;
             System.Windows.Forms.Application.DoEvents();
