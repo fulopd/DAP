@@ -643,7 +643,8 @@ namespace DAP
 
         #region Adatbeviteli mezők
         private void textBoxDate_KeyDown(object sender, KeyEventArgs e)
-        {
+        {           
+            
             if (e.KeyCode != Keys.Back)
             { 
                 TextBox t = (TextBox)sender;

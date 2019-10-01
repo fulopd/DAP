@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiUpdateForm));
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxColumnName = new System.Windows.Forms.ComboBox();
             this.comboBoxNewValue = new System.Windows.Forms.ComboBox();
@@ -107,6 +108,8 @@
             this.Controls.Add(this.comboBoxNewValue);
             this.Controls.Add(this.comboBoxColumnName);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MultiUpdateForm";
             this.Text = "MultiUpdate";
             this.ResumeLayout(false);

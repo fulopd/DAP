@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBoxDetails = new System.Windows.Forms.GroupBox();
             this.comboBoxContent = new System.Windows.Forms.ComboBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
@@ -505,6 +506,7 @@
             this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.buttonNewDocument);
             this.Controls.Add(this.groupBoxDetails);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Document Archives Project";
             this.Load += new System.EventHandler(this.MainForm_Load);
