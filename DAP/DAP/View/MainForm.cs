@@ -282,7 +282,7 @@ namespace DAP
             {
                 Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 dc.modifySelectedDocumentIntoDatabase(d);
-                actualId = Convert.ToString(d.getID());
+                actualId = selectedID;
             }
 
             refreshDataFromDatabase();            
@@ -603,6 +603,13 @@ namespace DAP
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    //hesset sorba rendezése
+                    List<string> temp;
+                    temp = selectedItemsID.ToList();
+                    temp.Sort();
+                    selectedItemsID.Clear();
+                    selectedItemsID.UnionWith(temp);
+                    //excel export
                     dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
                 }
             }
