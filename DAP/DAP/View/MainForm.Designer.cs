@@ -67,6 +67,7 @@
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -479,11 +480,22 @@
             this.saveFileDialog.Filter = "Excel file | *.xlsx";
             this.saveFileDialog.RestoreDirectory = true;
             // 
+            // checkBoxSelectAll
+            // 
+            this.checkBoxSelectAll.AutoSize = true;
+            this.checkBoxSelectAll.Location = new System.Drawing.Point(320, 90);
+            this.checkBoxSelectAll.Name = "checkBoxSelectAll";
+            this.checkBoxSelectAll.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxSelectAll.TabIndex = 21;
+            this.checkBoxSelectAll.UseVisualStyleBackColor = true;
+            this.checkBoxSelectAll.CheckedChanged += new System.EventHandler(this.checkBoxSelectAll_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1101, 577);
+            this.Controls.Add(this.checkBoxSelectAll);
             this.Controls.Add(this.groupBoxSearch);
             this.Controls.Add(this.groupBoxMultioperations);
             this.Controls.Add(this.dataGridViewMainGrid);
@@ -503,6 +515,7 @@
             this.groupBoxSearch.ResumeLayout(false);
             this.groupBoxSearch.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -546,6 +559,7 @@
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.CheckBox checkBoxSelectAll;
     }
 }
 

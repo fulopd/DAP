@@ -52,8 +52,9 @@ namespace DAP.Model
             }
             catch (Exception)
             {
-                MessageBox.Show("A File már használatban van.");
                 Debug.WriteLine("A File már használatban van.");
+                MessageBox.Show("A File már használatban van.", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
             }
            
 

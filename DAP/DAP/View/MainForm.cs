@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -43,7 +44,8 @@ namespace DAP
             comboBoxCompany.DataSource = dc.getUnicData("Company");
             comboBoxCategory.DataSource = dc.getUnicData("Category");
             comboBoxContent.DataSource = dc.getUnicData("Content");
-            selectedItemsID.Clear();            
+            selectedItemsID.Clear();
+            checkBoxSelectAll.Checked = false;
         }
         
         /// <summary>
@@ -519,9 +521,7 @@ namespace DAP
         #region Tömeges műveletek
         /// <summary>
         /// Kijelölt elemek törlése az adatbázisból
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// </summary>        
         private void buttonMultiDelete_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
@@ -558,9 +558,7 @@ namespace DAP
 
         /// <summary>
         /// Tömeges módosítás
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// </summary>        
         private void buttonMultiModify_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
@@ -594,9 +592,7 @@ namespace DAP
 
         /// <summary>
         /// Export excel file -ba
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// </summary>        
         private void buttonMultiExport_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
@@ -605,8 +601,7 @@ namespace DAP
                 {
                     //hesset sorba rendezése
                     List<string> temp;
-                    temp = selectedItemsID.ToList();
-                    //temp.Sort();
+                    temp = selectedItemsID.ToList();                   
                     temp = temp.OrderBy(c => int.Parse(c)).ToList();
                     selectedItemsID.Clear();
                     selectedItemsID.UnionWith(temp);
@@ -617,6 +612,31 @@ namespace DAP
             else
             {
                 MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// CheckBox true: mindent kijelöl / false: összes kijelölés megszüntet
+        /// </summary>       
+        private void checkBoxSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSelectAll.Checked)
+            {
+                foreach (DataGridViewRow item in dataGridViewMainGrid.Rows)
+                {
+                    selectedItemsID.Add(item.Cells[1].Value.ToString());
+                    item.Cells[0].Value = true;
+                    item.DefaultCellStyle.BackColor = Color.YellowGreen;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow item in dataGridViewMainGrid.Rows)
+                {
+                    selectedItemsID.Remove(item.Cells[1].Value.ToString());
+                    item.Cells[0].Value = false;
+                    item.DefaultCellStyle.BackColor = Color.White;
+                }
             }
         }
         #endregion
@@ -661,7 +681,5 @@ namespace DAP
         #endregion
 
         
-
-       
     }
 }
