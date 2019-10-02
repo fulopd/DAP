@@ -66,6 +66,8 @@ namespace DAP.Model
             //}
 
 
+            objexcelapp.ActiveWorkbook.Close();
+            objexcelapp.Quit();
             try
             {
                 System.Diagnostics.Process.Start(excelFilename);
