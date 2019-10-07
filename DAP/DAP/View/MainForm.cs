@@ -190,16 +190,13 @@ namespace DAP
 
                 if (!isChecked)
                 {
-                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = true;
-                    dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
-                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = true;                    
                 }
                 else
                 {
-                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = false;
-                    dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = false;                    
                 }
+
             }
         }
 
@@ -209,21 +206,22 @@ namespace DAP
         private void dataGridViewMainGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dataGridViewMainGrid.Columns[0].Index)
-            {
+            {                
+                bool isChecked = Convert.ToBoolean(dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value);
+
                 if (dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value.ToString() == "True")
-                {
-                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = true;
+                {                   
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
                     selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
                 }
                 else
-                {
-                    dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value = false;
+                {                  
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
                     selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
                 }
             }
         }
+        
         #endregion
 
         #region Bal felső gombok
