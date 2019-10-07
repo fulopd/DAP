@@ -185,6 +185,7 @@
             this.textBoxDescription.Location = new System.Drawing.Point(6, 222);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxDescription.Size = new System.Drawing.Size(264, 67);
             this.textBoxDescription.TabIndex = 10;
             // 
@@ -322,7 +323,6 @@
             this.dataGridViewMainGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMainGrid.Size = new System.Drawing.Size(779, 480);
             this.dataGridViewMainGrid.TabIndex = 6;
-            this.dataGridViewMainGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellClick);
             this.dataGridViewMainGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellDoubleClick);
             this.dataGridViewMainGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMainGrid_CellValueChanged);
             this.dataGridViewMainGrid.SelectionChanged += new System.EventHandler(this.dataGridViewMainGrid_SelectionChanged);

@@ -139,29 +139,7 @@ namespace DAP
                 Debug.WriteLine("Hiba: refreshDetailsData: " + e.Message);
             }
         }
-
-        /// <summary>
-        /// Táblázaban kattintott sor elemeit részletekben megjeleníti
-        /// Beolvassa kiválasztott elem ID -ját
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridViewMainGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                bool checkBoxFirstColumn = (bool)dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value;
-               
-                int selectedRowIndex = e.RowIndex;
-                refreshDetailsData(selectedRowIndex);                
-                
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Hiba: dataGridViewMainGrid_CellClick: " + ex.Message);
-            }
-        }
-
+        
         /// <summary>
         /// Kijelölés változásra betölti a kijelölt sor adatait az oldalsó details részbe
         /// </summary>
