@@ -75,7 +75,7 @@ namespace DAP
         }
 
         /// <summary>
-        /// ID alapján alap (egy kattintás / sárga kijelölést rárakja az adott sorra
+        /// ID alapján alap (egy kattintás / sárga kijelölést rárakja az adott sorra)
         /// </summary>
         /// <param name="selectedId">Kijelölni kívánt sor ID -ja</param>
         private void rowSelectLikeIdYellow(string selectedId) {
@@ -329,6 +329,7 @@ namespace DAP
                 dc.deleteFolder(selectedID);
             }
             buttonsDefaultStatus();
+            refreshDetailsData(dataGridViewMainGrid.CurrentCell.RowIndex);
         }
 
         /// <summary>
