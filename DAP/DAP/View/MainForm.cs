@@ -64,18 +64,18 @@ namespace DAP
         /// <summary>
         /// Részletek beviteli mezőinek szerkeszthetőségét állítja
         /// </summary>
-        /// <param name="enabed">true / false</param>
-        private void enabledAllDetailsElement(bool enabed) {
-            comboBoxCompany.Enabled = enabed;
-            comboBoxCategory.Enabled = enabed;
-            comboBoxContent.Enabled = enabed;           
+        /// <param name="enable">true / false</param>
+        private void enabledAllDetailsElement(bool enable) {
+            comboBoxCompany.Enabled = enable;
+            comboBoxCategory.Enabled = enable;
+            comboBoxContent.Enabled = enable;           
             
-            textBoxDate.ReadOnly = !enabed;
-            textBoxDescription.ReadOnly = !enabed;
+            textBoxDate.ReadOnly = !enable;
+            textBoxDescription.ReadOnly = !enable;
         }
 
         /// <summary>
-        /// ID alapján alap (egy kattintás / sárga kijelölést rárakja az adott sorra)
+        /// ID alapján alap (egy kattintás / sárga) kijelölést rárakja az adott sorra)
         /// </summary>
         /// <param name="selectedId">Kijelölni kívánt sor ID -ja</param>
         private void rowSelectLikeIdYellow(string selectedId) {
@@ -89,8 +89,7 @@ namespace DAP
                 }                
             }
         }
-
-
+        
         #region DataGridView beállításai
         /// <summary>
         /// Táblázat megjelenésének beállításai
@@ -135,9 +134,9 @@ namespace DAP
                 textBoxDescription.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[6].Value.ToString();
                 getFileListInListView(selectedID);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Debug.WriteLine("Hiba: refreshDetailsData: " + e.Message);
             }
         }
 
@@ -157,9 +156,9 @@ namespace DAP
                 refreshDetailsData(selectedRowIndex);                
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine("Hiba: dataGridViewMainGrid_CellClick: " + ex.Message);
             }
         }
 
@@ -173,9 +172,9 @@ namespace DAP
                 int selectedRowIndex = dataGridViewMainGrid.CurrentRow.Index;
                 refreshDetailsData(selectedRowIndex);
             }
-            catch (Exception)
+            catch (Exception ec)
             {
-
+                Debug.WriteLine("Hiba: dataGridViewMainGrid_CellClick: " + ec.Message);
             }
         }
 
