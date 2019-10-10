@@ -25,12 +25,18 @@ namespace DAP.Controller
         /// Lekéri az adatbázis összes elemét és DataTale Formára alakítja
         /// </summary>
         /// <returns></returns>
-        public DataTable getAllDocumentsFromDatabase() {
+        //public DataTable getAllDocumentsFromDatabase() {
 
-            docs = SQLiteAdapter.getData();
-            DataTable dt = SQLiteAdapter.convertToDataTable(docs);
-            return dt;
+        //    docs = SQLiteAdapter.getData();
+        //    DataTable dt = SQLiteAdapter.convertToDataTable(docs);
+        //    return dt;
+        //}
+
+        public DataTable getAllDocumentsFromDatabase()
+        {   
+            return SQLiteAdapter.getData();
         }
+
 
         /// <summary>
         /// Feltölt az adatbázisba egy új dokumentumot

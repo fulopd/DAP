@@ -69,6 +69,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
+            this.buttonTest = new System.Windows.Forms.Button();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -343,6 +344,7 @@
             // 
             // groupBoxMultioperations
             // 
+            this.groupBoxMultioperations.Controls.Add(this.buttonTest);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiModify);
@@ -490,6 +492,16 @@
             this.checkBoxSelectAll.UseVisualStyleBackColor = true;
             this.checkBoxSelectAll.CheckedChanged += new System.EventHandler(this.checkBoxSelectAll_CheckedChanged);
             // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(265, 16);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonTest.TabIndex = 23;
+            this.buttonTest.Text = "Feltölt";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -561,6 +573,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox checkBoxSelectAll;
+        private System.Windows.Forms.Button buttonTest;
     }
 }
 

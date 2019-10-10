@@ -70,8 +70,7 @@ namespace DAP.Model
         }
 
         public DirectoryInfo getAllFiles() {
-            if (!Directory.Exists(path)) {
-                Debug.WriteLine("Nem létezik ilyen könyvtár: "+path);
+            if (!Directory.Exists(path)) {               
                 return null;
             } else {
                 DirectoryInfo di = new DirectoryInfo(path);

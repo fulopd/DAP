@@ -20,19 +20,24 @@ namespace DAP
     {        
         private DocumentController dc;
         private string selectedID = "";
-        private HashSet<string> selectedItemsID = new HashSet<string>(); 
+        private HashSet<string> selectedItemsID = new HashSet<string>();
+        Stopwatch stopWatch = new Stopwatch();
 
         public MainForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            stopWatch.Start();
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
             enabledAllDetailsElement(false);
-            dc = new DocumentController();
+            dc = new DocumentController();            
             refreshDataFromDatabase();           
             dataGridViewSetThemes();
             listViewFiles.CheckBoxes = true;
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            Debug.WriteLine("idő: " + ts.TotalMilliseconds);
         }
 
        
@@ -96,8 +101,8 @@ namespace DAP
         /// </summary>
         private void dataGridViewSetThemes()
         {
-            dataGridViewMainGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewMainGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewMainGrid.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;            
+            dataGridViewMainGrid.Columns[1].Width = 50;
             dataGridViewMainGrid.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             dataGridViewMainGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
             
@@ -114,8 +119,7 @@ namespace DAP
             dataGridViewMainGrid.Columns[3].HeaderText = "Mappa";
             dataGridViewMainGrid.Columns[4].HeaderText = "Tartalom";
             dataGridViewMainGrid.Columns[5].HeaderText = "Dátum";
-            dataGridViewMainGrid.Columns[6].HeaderText = "Rövid leírás";
-            
+            dataGridViewMainGrid.Columns[6].HeaderText = "Rövid leírás";            
         }
 
         /// <summary>
@@ -379,10 +383,11 @@ namespace DAP
                 dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
                 selectedItemsID.Clear();
             }
-            else
+            else if (textBoxSearch.Text.Length == 0)
             {
                 refreshDataFromDatabase();
             }
+            
         }
 
         #endregion
@@ -646,48 +651,59 @@ namespace DAP
         }
         #endregion
 
-        #region Adatbeviteli mezők
+        #region Adatbeviteli mezők        
         private void textBoxDate_KeyDown(object sender, KeyEventArgs e)
-        {           
-            
-            if (e.KeyCode != Keys.Back)
-            { 
-                TextBox t = (TextBox)sender;
-                string seperator = ".";
-                switch (textBoxDate.Text.Length)
+        {            
+            char a = (char)e.KeyData;
+
+            if (Char.IsDigit(a))
+            {
+                if (e.KeyCode != Keys.Back)
                 {
-                    case 4:
-                        if (e.KeyValue!=190)
-                        {
-                            t.Text += seperator;
-                        }                        
-                        break;
-                    case 7:
-                        if (e.KeyValue != 190)
-                        {
-                            t.Text += seperator;
-                        }
-                        break;
-                    default:                        
-                        if (e.KeyValue == 190)
-                        {                            
-                           e.Handled = false;
-                        }
-                        break;
+                    TextBox t = (TextBox)sender;
+                    string seperator = ".";
+                    switch (textBoxDate.Text.Length)
+                    {
+                        case 4:
+                            if (e.KeyValue != 190)
+                            {
+                                t.Text += seperator;
+                            }
+                            break;
+                        case 7:
+                            if (e.KeyValue != 190)
+                            {
+                                t.Text += seperator;
+                            }
+                            break;
+                        default:
+                            //t.Text += a;
+                            break;
+                    }
+                    t.SelectionStart = t.Text.Length;
+
                 }
-                t.SelectionStart = t.Text.Length;
-                
             }
         }
 
 
 
-
-
-
-
         #endregion
 
-        
+
+
+
+
+
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                Document d = new Document(0, "test", "valami", "Gereblye", "2019.10.08", "Ez is kell, hogy legyen benne");
+                dc.insertNewDocumentIntoDatabase(d);
+            }
+
+        }
     }
 }

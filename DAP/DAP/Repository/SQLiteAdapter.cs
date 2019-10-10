@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,27 +35,43 @@ namespace DAP.Repository
             myConnection.Close();
         }
 
-        public List<Document> getData()
+        //public List<Document> getData()
+        //{
+        //    List<Document> documents = new List<Document>();
+        //    myConnection.Open();
+        //    string query = "SELECT * FROM ArchivesTable";
+        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+
+        //    SQLiteDataReader reader = myCommand.ExecuteReader();
+
+        //    if (reader.HasRows)
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            Document item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
+        //            documents.Add(item);
+        //        }
+        //    }
+
+        //    myConnection.Close();
+        //    Debug.WriteLine("Lekérted az összes adatot az adatbázistól");
+        //    return documents;
+        //}
+               
+        public DataTable getData()
         {
-            List<Document> documents = new List<Document>();
+            DataTable dt = new DataTable();
             myConnection.Open();
             string query = "SELECT * FROM ArchivesTable";
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
 
             SQLiteDataReader reader = myCommand.ExecuteReader();
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    Document item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
-                    documents.Add(item);
-                }
-            }
-
+            dt.Load(reader);
+           
             myConnection.Close();
-
-            return documents;
+            Debug.WriteLine("Lekérted az összes adatot az adatbázistól");
+            return dt;
         }
 
         public List<string> getUnicItemsIntoColumn(string columnName)
