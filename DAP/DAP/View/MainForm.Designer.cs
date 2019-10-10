@@ -56,6 +56,7 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
+            this.buttonTest = new System.Windows.Forms.Button();
             this.buttonMultiDelete = new System.Windows.Forms.Button();
             this.buttonMultiExport = new System.Windows.Forms.Button();
             this.buttonMultiModify = new System.Windows.Forms.Button();
@@ -69,7 +70,6 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
-            this.buttonTest = new System.Windows.Forms.Button();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -355,6 +355,16 @@
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
             // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(265, 16);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonTest.TabIndex = 23;
+            this.buttonTest.Text = "Feltölt";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
             // buttonMultiDelete
             // 
             this.buttonMultiDelete.Location = new System.Drawing.Point(169, 38);
@@ -479,7 +489,7 @@
             // 
             this.saveFileDialog.DefaultExt = "xlsx";
             this.saveFileDialog.FileName = "export";
-            this.saveFileDialog.Filter = "Excel file | *.xlsx";
+            this.saveFileDialog.Filter = "Excel file | *.xml";
             this.saveFileDialog.RestoreDirectory = true;
             // 
             // checkBoxSelectAll
@@ -491,16 +501,6 @@
             this.checkBoxSelectAll.TabIndex = 21;
             this.checkBoxSelectAll.UseVisualStyleBackColor = true;
             this.checkBoxSelectAll.CheckedChanged += new System.EventHandler(this.checkBoxSelectAll_CheckedChanged);
-            // 
-            // buttonTest
-            // 
-            this.buttonTest.Location = new System.Drawing.Point(265, 16);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(75, 23);
-            this.buttonTest.TabIndex = 23;
-            this.buttonTest.Text = "Feltölt";
-            this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // MainForm
             // 

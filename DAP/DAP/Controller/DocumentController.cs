@@ -72,9 +72,9 @@ namespace DAP.Controller
         /// Törli a kiválasztott elemet ID alapján az adatbázisból
         /// </summary>
         /// <param name="id"></param>
-        public void deleteSelectedDocumentIntoDatabase(string id) {
-            if (id != "") {
-                SQLiteAdapter.deleteItem(id);
+        public void deleteSelectedDocumentIntoDatabase(HashSet<string> ids) {
+            if (ids.Count != 0) {
+                SQLiteAdapter.deleteItems(ids);
             }
         }
 
@@ -179,31 +179,48 @@ namespace DAP.Controller
         /// </summary>
         /// <param name="selectedId"></param>
         /// <param name="savePathWhitFileNameAndExtension"></param>
-        public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension) {
+        //public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension) {
 
-            List<Document> selectedDocuments = new List<Document>();
-            DataTable selectedDocumentsDataTable = new DataTable();
-            if (selectedId.Count > 0)
-            {
-                foreach (string id in selectedId)
-                {
-                    Document selectedItem = SQLiteAdapter.getSelectedData(id);
+        //    List<Document> selectedDocuments = new List<Document>();
+        //    DataTable selectedDocumentsDataTable = new DataTable();
+        //    if (selectedId.Count > 0)
+        //    {
+        //        foreach (string id in selectedId)
+        //        {
+        //            Document selectedItem = SQLiteAdapter.getSelectedData(id);
 
-                    if (selectedItem != null)
-                    {
-                        selectedDocuments.Add(selectedItem);
-                    }                    
-                }
-            }
+        //            if (selectedItem != null)
+        //            {
+        //                selectedDocuments.Add(selectedItem);
+        //            }                    
+        //        }
+        //    }
 
-            if (selectedDocuments.Count > 0)
-            {
-                selectedDocumentsDataTable = SQLiteAdapter.convertToDataTable(selectedDocuments);
-            }
+        //    if (selectedDocuments.Count > 0)
+        //    {
+        //        selectedDocumentsDataTable = SQLiteAdapter.convertToDataTable(selectedDocuments);
+        //    }
 
-           
-            ExceExport.Export_Ctr_Excel(selectedDocumentsDataTable, savePathWhitFileNameAndExtension);
-                        
+
+        //    ExceExport.Export_Ctr_Excel(selectedDocumentsDataTable, savePathWhitFileNameAndExtension);
+
+        //}
+
+
+
+
+
+        public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension)
+        {
+            DataSet ds = SQLiteAdapter.getSelectedData(selectedId);
+
+            ds.WriteXml(savePathWhitFileNameAndExtension);
+
         }
+
+
+
+
+
     }
 }

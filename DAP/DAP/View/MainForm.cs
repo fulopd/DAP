@@ -262,7 +262,7 @@ namespace DAP
                     MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
                 {
-                    dc.deleteSelectedDocumentIntoDatabase(selectedID);
+                    //dc.deleteSelectedDocumentIntoDatabase(selectedID);
                     dc.deleteFolder(selectedID);
                     refreshDataFromDatabase();
                     clearAllDetailsValue();
@@ -532,6 +532,40 @@ namespace DAP
         /// <summary>
         /// Kijelölt elemek törlése az adatbázisból
         /// </summary>        
+        //private void buttonMultiDelete_Click(object sender, EventArgs e)
+        //{
+        //    if (selectedItemsID.Count > 0)
+        //    {
+        //        DialogResult dialog = MessageBox.Show("Biztosan törölni akarod az összes kijelölt filet?\n" +
+        //            "Az összes feltöltött file is törlésre kerül!\n" +
+        //            "Kiválasztott fileok száma: " + selectedItemsID.Count, "Törlés",
+        //            MessageBoxButtons.YesNo,
+        //            MessageBoxIcon.Stop);
+        //        if (dialog == DialogResult.Yes)
+        //        {
+        //            foreach (string item in selectedItemsID)
+        //            {
+        //                dc.deleteSelectedDocumentIntoDatabase(item);
+        //                dc.deleteFolder(item);
+        //            }
+        //            refreshDataFromDatabase();
+        //            clearAllDetailsValue();
+                    
+        //        }
+        //        else if (dialog == DialogResult.No)
+        //        {
+
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    }
+
+            
+        //}
+
         private void buttonMultiDelete_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
@@ -543,14 +577,10 @@ namespace DAP
                     MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
                 {
-                    foreach (string item in selectedItemsID)
-                    {
-                        dc.deleteSelectedDocumentIntoDatabase(item);
-                        dc.deleteFolder(item);
-                    }
+                    dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);                                        
                     refreshDataFromDatabase();
                     clearAllDetailsValue();
-                    
+
                 }
                 else if (dialog == DialogResult.No)
                 {
@@ -563,8 +593,10 @@ namespace DAP
                 MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            
+
         }
+
+
 
         /// <summary>
         /// Tömeges módosítás
@@ -617,6 +649,7 @@ namespace DAP
                     selectedItemsID.UnionWith(temp);
                     //excel export
                     dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
+
                 }
             }
             else

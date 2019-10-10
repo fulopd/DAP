@@ -98,14 +98,54 @@ namespace DAP.Repository
             return itemsList;
         }
 
-        public void deleteItem(string ID)
+        //public void deleteItem(string ID)
+        //{
+        //    myConnection.Open();
+        //    string query = "DELETE FROM ArchivesTable WHERE ID='" + ID + "'";
+        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+        //    myCommand.ExecuteNonQuery();
+        //    myConnection.Close();
+        //}
+
+
+
+        public void deleteItems(HashSet<string> ids)
         {
+            SQLiteCommand myCommand;
+            SQLiteDataReader reader;
+            string query = "DELETE FROM ArchivesTable WHERE";
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
             myConnection.Open();
-            string query = "DELETE FROM ArchivesTable WHERE ID='" + ID + "'";
-            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-            myCommand.ExecuteNonQuery();
+
+            for (i=0; i < ids.Count; i++)
+            {   
+                if (i % 999 == 9)
+                {
+                    sb.Append(" ID=" + ids.ElementAt(i) + " OR");
+                    query += sb.ToString().Substring(0, sb.ToString().Length - 3);
+                    myCommand = new SQLiteCommand(query, myConnection);
+                    reader = myCommand.ExecuteReader();
+                    query = "DELETE FROM ArchivesTable WHERE";
+                    sb.Clear();
+                }
+                else
+                {   
+                    sb.Append(" ID=" + ids.ElementAt(i) + " OR");                    
+                }
+
+
+            }
+            query += sb.ToString().Substring(0, sb.ToString().Length - 3);
+            myCommand = new SQLiteCommand(query, myConnection);
+            reader = myCommand.ExecuteReader();
+
             myConnection.Close();
+
+
+            
         }
+
 
         public List<Document> searchData(string search, List<string> category)
         {
@@ -223,27 +263,63 @@ namespace DAP.Repository
             return maxID;
         }
 
-        public Document getSelectedData(string id)
+        //public Document getSelectedData(string id)
+        //{
+        //    Document item = null;
+        //    myConnection.Open();
+        //    string query = "SELECT * FROM ArchivesTable WHERE ID="+id+"";
+        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+
+        //    SQLiteDataReader reader = myCommand.ExecuteReader();
+
+        //    if (reader.HasRows)
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
+
+        //        }
+        //    }
+
+        //    myConnection.Close();
+
+        //    return item;
+        //}
+
+        public DataSet getSelectedData(HashSet<string> ids)
         {
-            Document item = null;
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            StringBuilder sb = new StringBuilder();
+
             myConnection.Open();
-            string query = "SELECT * FROM ArchivesTable WHERE ID="+id+"";
-            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-
-            SQLiteDataReader reader = myCommand.ExecuteReader();
-
-            if (reader.HasRows)
+            string query = "SELECT * FROM ArchivesTable WHERE";
+            
+            foreach (string item in ids)
             {
-                while (reader.Read())
-                {
-                    item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
-                    
-                }
+                sb.Append(" ID=" + item + " OR");
             }
 
-            myConnection.Close();
+            query += sb.ToString().Substring(0,sb.ToString().Length-3);
+            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+            SQLiteDataReader reader = myCommand.ExecuteReader();
 
-            return item;
+            dt.Load(reader);
+            ds.Tables.Add(dt);
+
+            myConnection.Close();           
+
+            return ds;
         }
+
+
+
+
+
+
+
+
+
+
     }
 }
