@@ -216,6 +216,8 @@ namespace DAP.Controller
 
             ds.WriteXml(savePathWhitFileNameAndExtension);
 
+            //ExceExport.Export_Ctr_Excel(SQLiteAdapter.getSelectedData(selectedId), savePathWhitFileNameAndExtension);
+
         }
 
 

@@ -289,27 +289,47 @@ namespace DAP.Repository
         public DataSet getSelectedData(HashSet<string> ids)
         {
             DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-            StringBuilder sb = new StringBuilder();
-
-            myConnection.Open();
+            DataTable dtFinal = new DataTable();
+            DataTable dtSub = new DataTable();
+            SQLiteCommand myCommand;
+            SQLiteDataReader reader;
             string query = "SELECT * FROM ArchivesTable WHERE";
-            
-            foreach (string item in ids)
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            myConnection.Open();
+
+            for (i = 0; i < ids.Count; i++)
             {
-                sb.Append(" ID=" + item + " OR");
+                if (i % 999 == 9)
+                {
+                    sb.Append(" ID=" + ids.ElementAt(i) + " OR");
+                    query += sb.ToString().Substring(0, sb.ToString().Length - 3);
+                    myCommand = new SQLiteCommand(query, myConnection);
+                    reader = myCommand.ExecuteReader();
+                    dtSub.Load(reader);
+                    dtFinal.Merge(dtSub);
+                    query = "SELECT * FROM ArchivesTable WHERE";
+                    sb.Clear();
+                }
+                else
+                {
+                    sb.Append(" ID=" + ids.ElementAt(i) + " OR");
+                }
+
             }
+            
+            query += sb.ToString().Substring(0, sb.ToString().Length - 3);
+            myCommand = new SQLiteCommand(query, myConnection);
+            reader = myCommand.ExecuteReader();
+            dtSub.Load(reader);
+            dtFinal.Merge(dtSub);
+            dtFinal.Load(reader);
+            ds.Tables.Add(dtFinal);
 
-            query += sb.ToString().Substring(0,sb.ToString().Length-3);
-            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-            SQLiteDataReader reader = myCommand.ExecuteReader();
-
-            dt.Load(reader);
-            ds.Tables.Add(dt);
-
-            myConnection.Close();           
+            myConnection.Close();
 
             return ds;
+            //return dtFinal;
         }
 
 
