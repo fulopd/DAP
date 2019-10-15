@@ -83,13 +83,14 @@ namespace DAP
         /// ID alapján alap (egy kattintás / sárga) kijelölést rárakja az adott sorra)
         /// </summary>
         /// <param name="selectedId">Kijelölni kívánt sor ID -ja</param>
-        private void rowSelectLikeIdYellow(string selectedId) {
+        private void rowSelectLikeIdYellow(int selectedId) {
             
             foreach (DataGridViewRow item in dataGridViewMainGrid.Rows)
             {                
-                if ((string)item.Cells[1].Value == selectedId)
+                if (Convert.ToInt32(item.Cells[1].Value) == selectedId)
                 {
                     item.Selected = true;
+                    dataGridViewMainGrid.FirstDisplayedScrollingRowIndex = dataGridViewMainGrid.SelectedRows[0].Index;
                     refreshDetailsData(item.Index);
                 }                
             }
@@ -281,18 +282,18 @@ namespace DAP
         //Mentés
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            string actualId = "";
+            int actualId = 0;
 
             if (buttonNewDocument.Enabled)
             {
                 Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
-                actualId = Convert.ToString(dc.insertNewDocumentIntoDatabase(d));               
+                actualId = dc.insertNewDocumentIntoDatabase(d);               
             }
             else
             {
                 Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 dc.modifySelectedDocumentIntoDatabase(d);
-                actualId = selectedID;
+                actualId = Convert.ToInt32(selectedID);
             }
 
             refreshDataFromDatabase();            
