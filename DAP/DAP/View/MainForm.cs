@@ -616,10 +616,11 @@ namespace DAP
                     string columnName = muf.getSelectedColumnName();
                     string newValue = muf.getNewValue();
 
-                    foreach (string item in selectedItemsID)
-                    {
-                        dc.updateAllSelectedItem(item, columnName, newValue);
-                    }
+                    //foreach (string item in selectedItemsID)
+                    //{
+                    //    dc.updateAllSelectedItem(item, columnName, newValue);
+                    //}
+                    dc.updateAllSelectedItem(selectedItemsID, columnName, newValue);
                     refreshDataFromDatabase();
                     clearAllDetailsValue();                    
                 }                

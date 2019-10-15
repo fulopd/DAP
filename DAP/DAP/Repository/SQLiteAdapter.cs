@@ -229,14 +229,57 @@ namespace DAP.Repository
             myConnection.Close();
         }
 
-        public void updateOneAtribut(string id, string columnName, string newValue)
-        {
+        //public void updateOneAtribut(string id, string columnName, string newValue)
+        //{
 
+        //    myConnection.Open();
+        //    string query = "UPDATE ArchivesTable SET "+columnName+" = @"+ columnName+" WHERE ID='" + id + "'";
+        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+        //    myCommand.Parameters.AddWithValue("@"+ columnName, newValue);            
+        //    myCommand.ExecuteNonQuery();
+        //    myConnection.Close();
+        //}
+
+
+        public void multiUpdate(HashSet<string> ids, string columnName, string newValue)
+        {
+            StringBuilder sb = new StringBuilder();
             myConnection.Open();
-            string query = "UPDATE ArchivesTable SET "+columnName+" = @"+ columnName+" WHERE ID='" + id + "'";
+            string query = "UPDATE ArchivesTable SET " + columnName + " = @" + columnName + " WHERE";
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-            myCommand.Parameters.AddWithValue("@"+ columnName, newValue);            
-            myCommand.ExecuteNonQuery();
+            
+
+            int i = 0;
+           
+
+            for (i = 0; i < ids.Count; i++)
+            {
+                if (i % 999 == 9)
+                {
+                    sb.Append(" ID=" + ids.ElementAt(i) + " OR");
+                    query += sb.ToString().Substring(0, sb.ToString().Length - 3);
+                    myCommand = new SQLiteCommand(query, myConnection);
+                    myCommand.Parameters.AddWithValue("@" + columnName, newValue);
+                    myCommand.ExecuteNonQuery();
+                    query = "UPDATE ArchivesTable SET " + columnName + " = @" + columnName + " WHERE";
+                    sb.Clear();
+                }
+                else
+                {
+                    sb.Append(" ID=" + ids.ElementAt(i) + " OR");
+                }
+
+
+            }
+
+            if (sb.ToString().Length > 3)
+            {
+                query += sb.ToString().Substring(0, sb.ToString().Length - 3);
+                myCommand = new SQLiteCommand(query, myConnection);
+                myCommand.Parameters.AddWithValue("@" + columnName, newValue);
+                myCommand.ExecuteNonQuery();
+            }
+            
             myConnection.Close();
         }
 

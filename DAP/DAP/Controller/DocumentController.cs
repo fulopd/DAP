@@ -3,6 +3,7 @@ using DAP.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,7 @@ namespace DAP.Controller
         //}
 
         public DataTable getAllDocumentsFromDatabase()
-        {   
+        {            
             return SQLiteAdapter.getData();
         }
 
@@ -169,9 +170,10 @@ namespace DAP.Controller
         /// <param name="id"></param>
         /// <param name="columnName"></param>
         /// <param name="newValue"></param>
-        public void updateAllSelectedItem(string id, string columnName, string newValue) {
+        public void updateAllSelectedItem(HashSet<string> ids, string columnName, string newValue) {
 
-            SQLiteAdapter.updateOneAtribut(id, columnName, newValue);
+            SQLiteAdapter.multiUpdate(ids, columnName, newValue);            
+            
         }
 
         /// <summary>
