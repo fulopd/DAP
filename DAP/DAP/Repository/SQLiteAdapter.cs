@@ -34,29 +34,6 @@ namespace DAP.Repository
             myCommand.ExecuteNonQuery();
             myConnection.Close();
         }
-
-        //public List<Document> getData()
-        //{
-        //    List<Document> documents = new List<Document>();
-        //    myConnection.Open();
-        //    string query = "SELECT * FROM ArchivesTable";
-        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-
-        //    SQLiteDataReader reader = myCommand.ExecuteReader();
-
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            Document item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
-        //            documents.Add(item);
-        //        }
-        //    }
-
-        //    myConnection.Close();
-        //    Debug.WriteLine("Lekérted az összes adatot az adatbázistól");
-        //    return documents;
-        //}
                
         public DataTable getData()
         {
@@ -97,18 +74,7 @@ namespace DAP.Repository
 
             return itemsList;
         }
-
-        //public void deleteItem(string ID)
-        //{
-        //    myConnection.Open();
-        //    string query = "DELETE FROM ArchivesTable WHERE ID='" + ID + "'";
-        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-        //    myCommand.ExecuteNonQuery();
-        //    myConnection.Close();
-        //}
-
-
-
+        
         public void deleteItems(HashSet<string> ids)
         {
             SQLiteCommand myCommand;
@@ -145,11 +111,10 @@ namespace DAP.Repository
 
             
         }
-
-
-        public List<Document> searchData(string search, List<string> category)
+        
+        public DataTable searchData(string search, List<string> category)
         {
-            List<Document> documents = new List<Document>();
+            DataTable dt = new DataTable();            
             myConnection.Open();
             string query = "SELECT * FROM ArchivesTable WHERE ";
 
@@ -167,18 +132,12 @@ namespace DAP.Repository
 
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
             SQLiteDataReader reader = myCommand.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    Document item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
-                    documents.Add(item);
-                }
-            }
+
+            dt.Load(reader);
 
             myConnection.Close();
-
-            return documents;
+            Debug.WriteLine("Lekérted az adatbázistól " + search +" találatokat");
+            return dt;
         }
 
         /// <summary>
@@ -228,18 +187,6 @@ namespace DAP.Repository
             myCommand.ExecuteNonQuery();
             myConnection.Close();
         }
-
-        //public void updateOneAtribut(string id, string columnName, string newValue)
-        //{
-
-        //    myConnection.Open();
-        //    string query = "UPDATE ArchivesTable SET "+columnName+" = @"+ columnName+" WHERE ID='" + id + "'";
-        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-        //    myCommand.Parameters.AddWithValue("@"+ columnName, newValue);            
-        //    myCommand.ExecuteNonQuery();
-        //    myConnection.Close();
-        //}
-
 
         public void multiUpdate(HashSet<string> ids, string columnName, string newValue)
         {
@@ -305,29 +252,6 @@ namespace DAP.Repository
 
             return maxID;
         }
-
-        //public Document getSelectedData(string id)
-        //{
-        //    Document item = null;
-        //    myConnection.Open();
-        //    string query = "SELECT * FROM ArchivesTable WHERE ID="+id+"";
-        //    SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
-
-        //    SQLiteDataReader reader = myCommand.ExecuteReader();
-
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            item = new Document(Convert.ToInt32(reader["ID"]), reader["Company"].ToString(), reader["Category"].ToString(), reader["Content"].ToString(), reader["Date"].ToString(), reader["Description"].ToString());
-
-        //        }
-        //    }
-
-        //    myConnection.Close();
-
-        //    return item;
-        //}
 
         public DataSet getSelectedData(HashSet<string> ids)
         {

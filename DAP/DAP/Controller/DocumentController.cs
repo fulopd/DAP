@@ -101,14 +101,8 @@ namespace DAP.Controller
         /// <param name="searchValue">Keresési érték</param>
         /// <param name="category">Kiválasztott kategóriák</param>
         /// <returns></returns>
-        public DataTable searchIntoDatabase(string searchValue, List<string>category) {
-            DataTable dt = null;
-            if (category.Count > 0 )
-            {
-                docs = SQLiteAdapter.searchData(searchValue, category);
-                dt = SQLiteAdapter.convertToDataTable(docs);
-            }
-            return dt;
+        public DataTable searchIntoDatabase(string searchValue, List<string>category) {            
+            return SQLiteAdapter.searchData(searchValue, category);
         }
 
         /// <summary>
