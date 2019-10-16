@@ -340,7 +340,7 @@
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(415, 20);
             this.textBoxSearch.TabIndex = 13;
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.SearchText);
             // 
             // groupBoxMultioperations
             // 
@@ -431,6 +431,8 @@
             this.checkBoxDescription.TabIndex = 19;
             this.checkBoxDescription.Text = "Leírás";
             this.checkBoxDescription.UseVisualStyleBackColor = true;
+            this.checkBoxDescription.CheckedChanged += new System.EventHandler(this.SearchText);
+            this.checkBoxDescription.TextChanged += new System.EventHandler(this.SearchText);
             // 
             // checkBoxDate
             // 
@@ -443,6 +445,8 @@
             this.checkBoxDate.TabIndex = 18;
             this.checkBoxDate.Text = "Dátum";
             this.checkBoxDate.UseVisualStyleBackColor = true;
+            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.SearchText);
+            this.checkBoxDate.TextChanged += new System.EventHandler(this.SearchText);
             // 
             // checkBoxContent
             // 
@@ -455,6 +459,8 @@
             this.checkBoxContent.TabIndex = 17;
             this.checkBoxContent.Text = "Tartalom";
             this.checkBoxContent.UseVisualStyleBackColor = true;
+            this.checkBoxContent.CheckedChanged += new System.EventHandler(this.SearchText);
+            this.checkBoxContent.TextChanged += new System.EventHandler(this.SearchText);
             // 
             // checkBoxCategory
             // 
@@ -467,6 +473,8 @@
             this.checkBoxCategory.TabIndex = 16;
             this.checkBoxCategory.Text = "Mappa";
             this.checkBoxCategory.UseVisualStyleBackColor = true;
+            this.checkBoxCategory.CheckedChanged += new System.EventHandler(this.SearchText);
+            this.checkBoxCategory.TextChanged += new System.EventHandler(this.SearchText);
             // 
             // checkBoxCompany
             // 
@@ -479,6 +487,8 @@
             this.checkBoxCompany.TabIndex = 15;
             this.checkBoxCompany.Text = "Cég";
             this.checkBoxCompany.UseVisualStyleBackColor = true;
+            this.checkBoxCompany.CheckedChanged += new System.EventHandler(this.SearchText);
+            this.checkBoxCompany.TextChanged += new System.EventHandler(this.SearchText);
             // 
             // openFileDialog
             // 

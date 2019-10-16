@@ -31,8 +31,8 @@ namespace DAP
 
         private void MainForm_Load(object sender, EventArgs e) {
             enabledAllDetailsElement(false);
-            dc = new DocumentController();            
-            refreshDataFromDatabase();           
+            dc = new DocumentController();
+            MainSearchText();
             dataGridViewSetThemes();
             listViewFiles.CheckBoxes = true;
             stopWatch.Stop();
@@ -44,7 +44,7 @@ namespace DAP
         /// <summary>
         /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
         /// </summary>
-        private void refreshDataFromDatabase() {
+        private void refreshDataFromDatabase() { //csak MainSearchText ben használd!
             dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
             comboBoxCompany.DataSource = dc.getUnicData("Company");
             comboBoxCategory.DataSource = dc.getUnicData("Category");
@@ -265,7 +265,7 @@ namespace DAP
                 {
                     //dc.deleteSelectedDocumentIntoDatabase(selectedID);
                     dc.deleteFolder(selectedID);
-                    refreshDataFromDatabase();
+                    MainSearchText();
                     clearAllDetailsValue();
                 }
                 else if (dialog == DialogResult.No)
@@ -296,9 +296,10 @@ namespace DAP
                 actualId = Convert.ToInt32(selectedID);
             }
 
-            refreshDataFromDatabase();            
+            MainSearchText();
             buttonsDefaultStatus();
             rowSelectLikeIdYellow(actualId);
+            
         }
         //Mégsem
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -374,8 +375,17 @@ namespace DAP
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        private void SearchText(object sender, EventArgs e)
         {
+            MainSearchText();
+            
+        }
+
+        /// <summary>
+        /// Kereső mezőben lévő szöveg alapján állítja be a táblázat tartalmát
+        /// Ha üres vagy háromnál kevesebb karakter van benne összes adatot kilistázza
+        /// </summary>
+        private void MainSearchText() {
             string searchText = textBoxSearch.Text;
             List<string> category = getSearchCategoriFromCheckBox();
 
@@ -386,11 +396,9 @@ namespace DAP
             }
             else if (textBoxSearch.Text.Length == 0)
             {
-                refreshDataFromDatabase();
+                refreshDataFromDatabase(); //csak itt kell használni
             }
-            
         }
-
         #endregion
         
         #region File műveletek
@@ -528,58 +536,25 @@ namespace DAP
 
 
         #endregion
-        
-        #region Tömeges műveletek
+
+        #region Tömeges műveletek        
+
         /// <summary>
         /// Kijelölt elemek törlése az adatbázisból
         /// </summary>        
-        //private void buttonMultiDelete_Click(object sender, EventArgs e)
-        //{
-        //    if (selectedItemsID.Count > 0)
-        //    {
-        //        DialogResult dialog = MessageBox.Show("Biztosan törölni akarod az összes kijelölt filet?\n" +
-        //            "Az összes feltöltött file is törlésre kerül!\n" +
-        //            "Kiválasztott fileok száma: " + selectedItemsID.Count, "Törlés",
-        //            MessageBoxButtons.YesNo,
-        //            MessageBoxIcon.Stop);
-        //        if (dialog == DialogResult.Yes)
-        //        {
-        //            foreach (string item in selectedItemsID)
-        //            {
-        //                dc.deleteSelectedDocumentIntoDatabase(item);
-        //                dc.deleteFolder(item);
-        //            }
-        //            refreshDataFromDatabase();
-        //            clearAllDetailsValue();
-                    
-        //        }
-        //        else if (dialog == DialogResult.No)
-        //        {
-
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //    }
-
-            
-        //}
-
         private void buttonMultiDelete_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
             {
-                DialogResult dialog = MessageBox.Show("Biztosan törölni akarod az összes kijelölt filet?\n" +
+                DialogResult dialog = MessageBox.Show("Biztosan törölni akarod az összes kijelölt elemet?\n" +
                     "Az összes feltöltött file is törlésre kerül!\n" +
-                    "Kiválasztott fileok száma: " + selectedItemsID.Count, "Törlés",
+                    "Kiválasztott elemek száma: " + selectedItemsID.Count, "Törlés",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
                 {
-                    dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);                                        
-                    refreshDataFromDatabase();
+                    dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);
+                    MainSearchText();
                     clearAllDetailsValue();
 
                 }
@@ -596,9 +571,7 @@ namespace DAP
 
 
         }
-
-
-
+       
         /// <summary>
         /// Tömeges módosítás
         /// </summary>        
@@ -622,7 +595,7 @@ namespace DAP
                     //    dc.updateAllSelectedItem(item, columnName, newValue);
                     //}
                     dc.updateAllSelectedItem(selectedItemsID, columnName, newValue);
-                    refreshDataFromDatabase();
+                    MainSearchText();
                     clearAllDetailsValue();                    
                 }                
             }
@@ -740,5 +713,7 @@ namespace DAP
             }
 
         }
+
+       
     }
 }
