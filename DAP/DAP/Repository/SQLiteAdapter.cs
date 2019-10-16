@@ -172,7 +172,7 @@ namespace DAP.Repository
             }
 
             return dt;
-        }
+        } //jelenleg nem hesználom
 
         public void modifyItem(Document modItem) {
 

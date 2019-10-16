@@ -393,6 +393,7 @@ namespace DAP
             {
                 dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
                 selectedItemsID.Clear();
+                checkBoxSelectAll.Checked = false;
             }
             else if (textBoxSearch.Text.Length == 0)
             {
