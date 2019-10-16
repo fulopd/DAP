@@ -8,6 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using X14 = DocumentFormat.OpenXml.Office2010.Excel;
+using X15 = DocumentFormat.OpenXml.Office2013.Excel;
+
 
 namespace DAP.Controller
 {
@@ -216,7 +222,10 @@ namespace DAP.Controller
         {
             DataSet ds = SQLiteAdapter.getSelectedData(selectedId);
 
-            ds.WriteXml(savePathWhitFileNameAndExtension);
+            //ds.WriteXml(savePathWhitFileNameAndExtension);
+            
+            CreateExcelFile.CreateExcelDocument(ds, savePathWhitFileNameAndExtension);
+            
 
             //ExceExport.Export_Ctr_Excel(SQLiteAdapter.getSelectedData(selectedId), savePathWhitFileNameAndExtension);
 

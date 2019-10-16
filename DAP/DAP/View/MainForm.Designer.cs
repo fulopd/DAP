@@ -489,7 +489,7 @@
             // 
             this.saveFileDialog.DefaultExt = "xlsx";
             this.saveFileDialog.FileName = "export";
-            this.saveFileDialog.Filter = "Excel file | *.xml";
+            this.saveFileDialog.Filter = "Excel file | *.xlsx";
             this.saveFileDialog.RestoreDirectory = true;
             // 
             // checkBoxSelectAll
