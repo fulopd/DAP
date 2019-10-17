@@ -218,8 +218,20 @@ namespace DAP.Controller
 
             //ds.WriteXml(savePathWhitFileNameAndExtension);
             
-            CreateExcelFile.CreateExcelDocument(ds, savePathWhitFileNameAndExtension);
-            
+            bool export = CreateExcelFile.CreateExcelDocument(ds, savePathWhitFileNameAndExtension);
+            try
+            {
+                if (export)
+                {
+                    System.Diagnostics.Process.Start(savePathWhitFileNameAndExtension);
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
             //ExceExport.Export_Ctr_Excel(SQLiteAdapter.getSelectedData(selectedId), savePathWhitFileNameAndExtension);
 

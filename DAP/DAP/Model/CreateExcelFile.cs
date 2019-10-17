@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DAP.Model
 {
@@ -184,6 +185,7 @@ namespace DAP.Model
             catch (Exception ex)
             {
                 Trace.WriteLine("Failed, exception thrown: " + ex.Message);
+                MessageBox.Show("A File már használatban van.", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
