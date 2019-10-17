@@ -56,7 +56,6 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
-            this.buttonTest = new System.Windows.Forms.Button();
             this.buttonMultiDelete = new System.Windows.Forms.Button();
             this.buttonMultiExport = new System.Windows.Forms.Button();
             this.buttonMultiModify = new System.Windows.Forms.Button();
@@ -344,7 +343,6 @@
             // 
             // groupBoxMultioperations
             // 
-            this.groupBoxMultioperations.Controls.Add(this.buttonTest);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiModify);
@@ -354,16 +352,6 @@
             this.groupBoxMultioperations.TabIndex = 20;
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
-            // 
-            // buttonTest
-            // 
-            this.buttonTest.Location = new System.Drawing.Point(265, 16);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(75, 23);
-            this.buttonTest.TabIndex = 23;
-            this.buttonTest.Text = "Feltölt";
-            this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // buttonMultiDelete
             // 
@@ -583,7 +571,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox checkBoxSelectAll;
-        private System.Windows.Forms.Button buttonTest;
     }
 }
 

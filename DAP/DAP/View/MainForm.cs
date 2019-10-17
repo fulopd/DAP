@@ -130,14 +130,15 @@ namespace DAP
         private void refreshDetailsData(int selectedRowIndex)
         {
             try
-            {
-                selectedID = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[1].Value.ToString();               
+            {                
+                selectedID = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[1].Value.ToString();
                 comboBoxCompany.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[2].Value.ToString();
                 comboBoxCategory.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[3].Value.ToString();
                 comboBoxContent.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[4].Value.ToString();
                 textBoxDate.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[5].Value.ToString();
                 textBoxDescription.Text = dataGridViewMainGrid.Rows[selectedRowIndex].Cells[6].Value.ToString();
-                getFileListInListView(selectedID);
+                getFileListInListView(selectedID); 
+                
             }
             catch (Exception e)
             {
@@ -212,6 +213,7 @@ namespace DAP
         {
             clearAllDetailsValue();
             dataGridViewMainGrid.Enabled = false;
+            groupBoxSearch.Enabled = false;
             buttonModify.Enabled = false;
             buttonDelete.Enabled = false;
 
@@ -233,6 +235,7 @@ namespace DAP
             if (selectedID != "")
             {
                 dataGridViewMainGrid.Enabled = false;
+                groupBoxSearch.Enabled = false;
 
                 buttonNewDocument.Enabled = false;
                 buttonDelete.Enabled = false;
@@ -310,7 +313,15 @@ namespace DAP
                 dc.deleteFolder(selectedID);
             }
             buttonsDefaultStatus();
-            refreshDetailsData(dataGridViewMainGrid.CurrentCell.RowIndex);
+
+
+            if (dataGridViewMainGrid.CurrentCell != null)
+            {
+                refreshDetailsData(dataGridViewMainGrid.CurrentCell.RowIndex);
+            }
+            
+           
+            
         }
 
         /// <summary>
@@ -319,6 +330,7 @@ namespace DAP
         private void buttonsDefaultStatus()
         {
             dataGridViewMainGrid.Enabled = true;
+            groupBoxSearch.Enabled = true;
             buttonNewDocument.Enabled = true;
             buttonModify.Enabled = true;
             buttonDelete.Enabled = true;
@@ -708,15 +720,6 @@ namespace DAP
 
 
 
-        private void buttonTest_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 10000; i++)
-            {
-                Document d = new Document(0, "test", "valami", "Gereblye", "2019.10.08", "Ez is kell, hogy legyen benne");
-                dc.insertNewDocumentIntoDatabase(d);
-            }
-
-        }
 
        
     }
