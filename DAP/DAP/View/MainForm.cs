@@ -271,8 +271,7 @@ namespace DAP
                 {
                     dc.deleteSelectedDocumentIntoDatabase(id);
                     dc.deleteFolder(selectedID);
-                    MainSearchText();
-                    clearAllDetailsValue();
+                    MainSearchText();                    
                 }
                 else if (dialog == DialogResult.No)
                 {
@@ -578,8 +577,6 @@ namespace DAP
                 {
                     dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);
                     MainSearchText();
-                    clearAllDetailsValue();
-
                 }
                 else if (dialog == DialogResult.No)
                 {
