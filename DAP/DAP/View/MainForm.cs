@@ -214,6 +214,7 @@ namespace DAP
             clearAllDetailsValue();
             dataGridViewMainGrid.Enabled = false;
             groupBoxSearch.Enabled = false;
+            groupBoxMultioperations.Enabled = false;
             buttonModify.Enabled = false;
             buttonDelete.Enabled = false;
 
@@ -236,6 +237,7 @@ namespace DAP
             {
                 dataGridViewMainGrid.Enabled = false;
                 groupBoxSearch.Enabled = false;
+                groupBoxMultioperations.Enabled = false;
 
                 buttonNewDocument.Enabled = false;
                 buttonDelete.Enabled = false;
@@ -307,21 +309,16 @@ namespace DAP
         //Mégsem
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-
             if (selectedID == "0")
             {
                 dc.deleteFolder(selectedID);
             }
             buttonsDefaultStatus();
 
-
             if (dataGridViewMainGrid.CurrentCell != null)
             {
                 refreshDetailsData(dataGridViewMainGrid.CurrentCell.RowIndex);
             }
-            
-           
-            
         }
 
         /// <summary>
@@ -331,6 +328,7 @@ namespace DAP
         {
             dataGridViewMainGrid.Enabled = true;
             groupBoxSearch.Enabled = true;
+            groupBoxMultioperations.Enabled = true;
             buttonNewDocument.Enabled = true;
             buttonModify.Enabled = true;
             buttonDelete.Enabled = true;
