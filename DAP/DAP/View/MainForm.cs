@@ -83,7 +83,7 @@ namespace DAP
         /// ID alapján alap (egy kattintás / sárga) kijelölést rárakja az adott sorra)
         /// </summary>
         /// <param name="selectedId">Kijelölni kívánt sor ID -ja</param>
-        private void rowSelectLikeIdYellow(int selectedId) {
+        private void rowSelectByIdYellow(int selectedId) {
             
             foreach (DataGridViewRow item in dataGridViewMainGrid.Rows)
             {                
@@ -260,15 +260,16 @@ namespace DAP
         {
             if (selectedID != "")
             {
-
+                HashSet<string> id = new HashSet<string>();
+                id.Add(Convert.ToString(selectedID));
                 DialogResult dialog = MessageBox.Show("Biztosan törölni akarod?\n" +
                     "Az összes feltöltött file is törlésre kerül!\n" +
-                    "ID:= " + selectedID, "Törlés",
+                    "ID: " + selectedID, "Törlés",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
                 {
-                    //dc.deleteSelectedDocumentIntoDatabase(selectedID);
+                    dc.deleteSelectedDocumentIntoDatabase(id);
                     dc.deleteFolder(selectedID);
                     MainSearchText();
                     clearAllDetailsValue();
@@ -303,7 +304,7 @@ namespace DAP
 
             MainSearchText();
             buttonsDefaultStatus();
-            rowSelectLikeIdYellow(actualId);
+            rowSelectByIdYellow(actualId);
             
         }
         //Mégsem
