@@ -402,7 +402,8 @@ namespace DAP
             List<string> category = getSearchCategoriFromCheckBox();
             if (category.Count != 0)
             {
-
+                
+                textBoxSearch.Enabled = true;
                 if (textBoxSearch.Text.Length > 2)
                 {
                     dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
@@ -412,7 +413,14 @@ namespace DAP
                 else if (textBoxSearch.Text.Length == 0)
                 {
                     refreshDataFromDatabase(); //csak itt kell használni
-                } 
+                }
+                dataGridViewSetThemes();
+            }
+            else
+            {
+                textBoxSearch.Enabled = false;
+                dataGridViewMainGrid.DataSource = null;
+               
             }
         }
         #endregion
