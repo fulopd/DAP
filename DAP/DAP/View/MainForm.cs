@@ -388,16 +388,19 @@ namespace DAP
         private void MainSearchText() {
             string searchText = textBoxSearch.Text;
             List<string> category = getSearchCategoriFromCheckBox();
+            if (category.Count != 0)
+            {
 
-            if (textBoxSearch.Text.Length > 2)
-            {
-                dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
-                selectedItemsID.Clear();
-                checkBoxSelectAll.Checked = false;
-            }
-            else if (textBoxSearch.Text.Length == 0)
-            {
-                refreshDataFromDatabase(); //csak itt kell használni
+                if (textBoxSearch.Text.Length > 2)
+                {
+                    dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
+                    selectedItemsID.Clear();
+                    checkBoxSelectAll.Checked = false;
+                }
+                else if (textBoxSearch.Text.Length == 0)
+                {
+                    refreshDataFromDatabase(); //csak itt kell használni
+                } 
             }
         }
         #endregion
