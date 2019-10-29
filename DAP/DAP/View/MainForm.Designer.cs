@@ -56,6 +56,7 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
+            this.labelSplash = new System.Windows.Forms.Label();
             this.buttonMultiDelete = new System.Windows.Forms.Button();
             this.buttonMultiExport = new System.Windows.Forms.Button();
             this.buttonMultiModify = new System.Windows.Forms.Button();
@@ -69,6 +70,11 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
+            this.backgroundWorkerMultiModify = new System.ComponentModel.BackgroundWorker();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorkerExport = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerMultiDelete = new System.ComponentModel.BackgroundWorker();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).BeginInit();
             this.groupBoxMultioperations.SuspendLayout();
@@ -343,6 +349,7 @@
             // 
             // groupBoxMultioperations
             // 
+            this.groupBoxMultioperations.Controls.Add(this.labelSplash);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiModify);
@@ -352,6 +359,15 @@
             this.groupBoxMultioperations.TabIndex = 20;
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
+            // 
+            // labelSplash
+            // 
+            this.labelSplash.AutoSize = true;
+            this.labelSplash.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSplash.Location = new System.Drawing.Point(250, 31);
+            this.labelSplash.Name = "labelSplash";
+            this.labelSplash.Size = new System.Drawing.Size(0, 31);
+            this.labelSplash.TabIndex = 23;
             // 
             // buttonMultiDelete
             // 
@@ -500,11 +516,41 @@
             this.checkBoxSelectAll.UseVisualStyleBackColor = true;
             this.checkBoxSelectAll.CheckedChanged += new System.EventHandler(this.checkBoxSelectAll_CheckedChanged);
             // 
+            // backgroundWorkerMultiModify
+            // 
+            this.backgroundWorkerMultiModify.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerMultiModify_DoWork);
+            this.backgroundWorkerMultiModify.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerMultiModify_RunWorkerCompleted);
+            // 
+            // timer
+            // 
+            this.timer.Interval = 200;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // backgroundWorkerExport
+            // 
+            this.backgroundWorkerExport.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerExport_DoWork);
+            this.backgroundWorkerExport.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerExport_RunWorkerCompleted);
+            // 
+            // backgroundWorkerMultiDelete
+            // 
+            this.backgroundWorkerMultiDelete.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerMultiDelete_DoWork);
+            this.backgroundWorkerMultiDelete.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerMultiDelete_RunWorkerCompleted);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Location = new System.Drawing.Point(171, 41);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(498, 507);
+            this.panel1.TabIndex = 22;
+            this.panel1.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1101, 577);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBoxSelectAll);
             this.Controls.Add(this.groupBoxSearch);
             this.Controls.Add(this.groupBoxMultioperations);
@@ -523,6 +569,7 @@
             this.groupBoxDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMainGrid)).EndInit();
             this.groupBoxMultioperations.ResumeLayout(false);
+            this.groupBoxMultioperations.PerformLayout();
             this.groupBoxSearch.ResumeLayout(false);
             this.groupBoxSearch.PerformLayout();
             this.ResumeLayout(false);
@@ -571,6 +618,12 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox checkBoxSelectAll;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerMultiModify;
+        private System.Windows.Forms.Label labelSplash;
+        private System.Windows.Forms.Timer timer;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerExport;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerMultiDelete;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

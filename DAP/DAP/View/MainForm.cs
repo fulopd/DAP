@@ -11,13 +11,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DAP
 {
     public partial class MainForm : Form
-    {        
+    {
+        MultiUpdateForm muf;
         private DocumentController dc;
         private string selectedID = "";
         private HashSet<string> selectedItemsID = new HashSet<string>();
@@ -38,6 +40,7 @@ namespace DAP
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Debug.WriteLine("idő: " + ts.TotalMilliseconds);
+            
         }
 
        
@@ -575,8 +578,9 @@ namespace DAP
                     MessageBoxIcon.Stop);
                 if (dialog == DialogResult.Yes)
                 {
-                    dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);
-                    MainSearchText();
+                    //start multi delete background thread
+                    timer.Start();
+                    backgroundWorkerMultiDelete.RunWorkerAsync();                    
                 }
                 else if (dialog == DialogResult.No)
                 {
@@ -591,7 +595,17 @@ namespace DAP
 
 
         }
-       
+        private void backgroundWorkerMultiDelete_DoWork(object sender, DoWorkEventArgs e)
+        {
+            dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);
+        }
+        private void backgroundWorkerMultiDelete_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {           
+            MainSearchText();
+            timer.Stop();
+            labelSplash.Text = "";
+        }
+                
         /// <summary>
         /// Tömeges módosítás
         /// </summary>        
@@ -599,32 +613,45 @@ namespace DAP
         {
             if (selectedItemsID.Count > 0)
             {
+                dataGridViewMainGrid.Enabled = false;
                 List<string> unicCompany = dc.getUnicData("Company");
                 List<string> unicCategory = dc.getUnicData("Category");
                 List<string> unicContent = dc.getUnicData("Content");
 
-                MultiUpdateForm muf = new MultiUpdateForm(unicCompany, unicCategory, unicContent);
-
+                muf = new MultiUpdateForm(unicCompany, unicCategory, unicContent);
+                
                 if (muf.ShowDialog() == DialogResult.OK)
-                {   
-                    string columnName = muf.getSelectedColumnName();
-                    string newValue = muf.getNewValue();
-
-                    //foreach (string item in selectedItemsID)
-                    //{
-                    //    dc.updateAllSelectedItem(item, columnName, newValue);
-                    //}
-                    dc.updateAllSelectedItem(selectedItemsID, columnName, newValue);
-                    MainSearchText();
-                    clearAllDetailsValue();                    
-                }                
+                {
+                    timer.Start();
+                    panel1.Visible = true;
+                    panel1.BackColor = Color.FromArgb(50, 200, 1, 1);
+                    
+                               
+                    backgroundWorkerMultiModify.RunWorkerAsync();
+                }
             }
             else
             {
                 MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+           
+        }
+        private void backgroundWorkerMultiModify_DoWork(object sender, DoWorkEventArgs e)
+        {                 
+            string columnName = muf.getSelectedColumnName();
+            string newValue = muf.getNewValue();                
+            dc.updateAllSelectedItem(selectedItemsID, columnName, newValue);
 
-            
+        }
+        private void backgroundWorkerMultiModify_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MainSearchText();
+            clearAllDetailsValue();
+            dataGridViewMainGrid.Enabled = true;
+            timer.Stop();
+            labelSplash.Text = "";
+            panel1.Visible = false;
+
         }
 
         /// <summary>
@@ -642,8 +669,9 @@ namespace DAP
                     temp = temp.OrderBy(c => int.Parse(c)).ToList();
                     selectedItemsID.Clear();
                     selectedItemsID.UnionWith(temp);
-                    //excel export
-                    dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
+                    //excel export run backgound
+                    timer.Start();
+                    backgroundWorkerExport.RunWorkerAsync();
 
                 }
             }
@@ -651,6 +679,15 @@ namespace DAP
             {
                 MessageBox.Show("Nincs kiválasztott elem!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void backgroundWorkerExport_DoWork(object sender, DoWorkEventArgs e)
+        {
+            dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
+        }
+        private void backgroundWorkerExport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            timer.Stop();
+            labelSplash.Text = "";
         }
 
         /// <summary>
@@ -716,15 +753,21 @@ namespace DAP
 
 
 
+
+
         #endregion
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (labelSplash.Text.Length < 6)
+            {
+                labelSplash.Text += ".";
+            }
+            else {
+                labelSplash.Text = ".";
+            }
+        }
 
-
-
-
-
-
-
-       
+        
     }
 }
