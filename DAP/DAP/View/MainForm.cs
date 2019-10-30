@@ -40,7 +40,9 @@ namespace DAP
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Debug.WriteLine("idő: " + ts.TotalMilliseconds);
+           
             
+
         }
 
        
@@ -74,10 +76,11 @@ namespace DAP
         /// </summary>
         /// <param name="enable">true / false</param>
         private void enabledAllDetailsElement(bool enable) {
+
             comboBoxCompany.Enabled = enable;
             comboBoxCategory.Enabled = enable;
-            comboBoxContent.Enabled = enable;           
-            
+            comboBoxContent.Enabled = enable;
+
             textBoxDate.ReadOnly = !enable;
             textBoxDescription.ReadOnly = !enable;
         }
@@ -612,8 +615,7 @@ namespace DAP
         private void buttonMultiModify_Click(object sender, EventArgs e)
         {
             if (selectedItemsID.Count > 0)
-            {
-                dataGridViewMainGrid.Enabled = false;
+            {  
                 List<string> unicCompany = dc.getUnicData("Company");
                 List<string> unicCategory = dc.getUnicData("Category");
                 List<string> unicContent = dc.getUnicData("Content");
@@ -621,12 +623,9 @@ namespace DAP
                 muf = new MultiUpdateForm(unicCompany, unicCategory, unicContent);
                 
                 if (muf.ShowDialog() == DialogResult.OK)
-                {
+                {                    
+                    panelMain.Enabled = false;                    
                     timer.Start();
-                    panel1.Visible = true;
-                    panel1.BackColor = Color.FromArgb(50, 200, 1, 1);
-                    
-                               
                     backgroundWorkerMultiModify.RunWorkerAsync();
                 }
             }
@@ -646,12 +645,10 @@ namespace DAP
         private void backgroundWorkerMultiModify_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MainSearchText();
-            clearAllDetailsValue();
-            dataGridViewMainGrid.Enabled = true;
+            clearAllDetailsValue();          
             timer.Stop();
             labelSplash.Text = "";
-            panel1.Visible = false;
-
+            panelMain.Enabled = true;
         }
 
         /// <summary>
@@ -750,10 +747,6 @@ namespace DAP
                 }
             }
         }
-
-
-
-
 
         #endregion
 
