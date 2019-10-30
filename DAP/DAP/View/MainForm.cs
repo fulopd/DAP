@@ -98,6 +98,7 @@ namespace DAP
                     item.Selected = true;
                     dataGridViewMainGrid.FirstDisplayedScrollingRowIndex = dataGridViewMainGrid.SelectedRows[0].Index;
                     refreshDetailsData(item.Index);
+                    break;
                 }                
             }
         }
