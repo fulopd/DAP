@@ -601,9 +601,11 @@ namespace DAP
         private void backgroundWorkerMultiDelete_DoWork(object sender, DoWorkEventArgs e)
         {
             dc.deleteSelectedDocumentIntoDatabase(selectedItemsID);
+            dc.deleteFolderMulti(selectedItemsID);
+
         }
         private void backgroundWorkerMultiDelete_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {           
+        {            
             MainSearchText();
             timer.Stop();
             labelSplash.Text = "";

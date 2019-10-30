@@ -143,6 +143,26 @@ namespace DAP.Controller
         }
 
         /// <summary>
+        /// Tömeges törléshez:
+        /// ID alapján törli a megadott mappát és tartalmát
+        /// </summary>
+        /// <param name="ids"></param>
+        public void deleteFolderMulti(HashSet<string> ids) 
+        {
+            foreach (string item in ids)
+            {
+                FileAdapter fa = new FileAdapter(item);
+
+                if (fa.folderExists())
+                {
+                    fa.deleteFolder();
+                }
+            }
+            
+        }
+        
+
+        /// <summary>
         /// Idhoz tartozó file törlése
         /// </summary>
         /// <param name="id">Kiválasztott ID</param>
