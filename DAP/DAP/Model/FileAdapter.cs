@@ -60,12 +60,46 @@ namespace DAP.Model
             Directory.Move(path, @"Files\" + newFolderName);
         }
 
+        //public void copyFiles(string[] fileNames, string[] safeFileName)
+        //{
+        //    for (int i = 0; i < fileNames.Length; i++)
+        //    {
+        //        File.Copy(fileNames[i], path + @"\" + safeFileName[i], false);
+        //    }
+
+        //}
         public void copyFiles(string[] fileNames, string[] safeFileName)
         {
             for (int i = 0; i < fileNames.Length; i++)
             {
-                File.Copy(fileNames[i], path + @"\" + safeFileName[i], true);
+                File.Copy(fileNames[i], path + @"\" + newFileNameIfFileIsExist(path, safeFileName[i]), false);
             }
+
+        }
+        private string newFileNameIfFileIsExist(string path, string fileName) {
+            string newFileName = "";
+            string[] tempFilename = fileName.Split('.'); 
+           
+            if (File.Exists(path + @"\" + fileName))
+            {
+                if (tempFilename.Length > 1)
+                {
+                    tempFilename[tempFilename.Length-2] += ".Másolat";
+                    fileName = "";
+                    fileName += tempFilename[0];
+                    for(int i = 1; i < tempFilename.Length; i++)
+                    {
+                        fileName += "."+ tempFilename[i];
+                    }
+                    newFileName = newFileNameIfFileIsExist(path, fileName);
+                }
+                
+            }
+            else
+            {
+                return fileName;
+            }
+            return newFileName;
 
         }
 

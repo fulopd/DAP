@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace DAP
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
+            setDoubleBuffered(dataGridViewMainGrid, true);
             enabledAllDetailsElement(false);
             dc = new DocumentController();
             MainSearchText();
@@ -40,11 +42,8 @@ namespace DAP
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Debug.WriteLine("idő: " + ts.TotalMilliseconds);
-           
-            
 
         }
-
        
         /// <summary>
         /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
@@ -102,8 +101,20 @@ namespace DAP
                 }                
             }
         }
-        
+
         #region DataGridView beállításai
+        /// <summary>
+        /// DoubleBuffered bekacsolása felgyorsítja a DataGridView kirajzolását
+        /// </summary>
+        /// <param name="dataGridView"></param>
+        /// <param name="p"></param>
+        private void setDoubleBuffered(DataGridView dataGridView, bool p)
+        {
+            Type dgvType = dataGridView.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dataGridView, p, null);
+        }
+
         /// <summary>
         /// Táblázat megjelenésének beállításai
         /// </summary>
@@ -584,6 +595,7 @@ namespace DAP
                 {
                     //start multi delete background thread
                     timer.Start();
+                    Application.UseWaitCursor = true;
                     backgroundWorkerMultiDelete.RunWorkerAsync();                    
                 }
                 else if (dialog == DialogResult.No)
@@ -610,6 +622,7 @@ namespace DAP
             MainSearchText();
             timer.Stop();
             labelSplash.Text = "";
+            Application.UseWaitCursor = false;
         }
                 
         /// <summary>
@@ -629,7 +642,8 @@ namespace DAP
                 {                    
                     panelMain.Enabled = false;                    
                     timer.Start();
-                    backgroundWorkerMultiModify.RunWorkerAsync();
+                    Application.UseWaitCursor = true;
+                    backgroundWorkerMultiModify.RunWorkerAsync();                    
                 }
             }
             else
@@ -652,6 +666,7 @@ namespace DAP
             timer.Stop();
             labelSplash.Text = "";
             panelMain.Enabled = true;
+            Application.UseWaitCursor = false;
         }
 
         /// <summary>
@@ -663,7 +678,7 @@ namespace DAP
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //hesset sorba rendezése
+                    //hashset sorba rendezése
                     List<string> temp;
                     temp = selectedItemsID.ToList();                   
                     temp = temp.OrderBy(c => int.Parse(c)).ToList();
@@ -671,6 +686,7 @@ namespace DAP
                     selectedItemsID.UnionWith(temp);
                     //excel export run backgound
                     timer.Start();
+                    Application.UseWaitCursor = true;
                     backgroundWorkerExport.RunWorkerAsync();
 
                 }
@@ -686,8 +702,9 @@ namespace DAP
         }
         private void backgroundWorkerExport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            timer.Stop();
+            timer.Stop();            
             labelSplash.Text = "";
+            Application.UseWaitCursor = false;
         }
 
         /// <summary>
