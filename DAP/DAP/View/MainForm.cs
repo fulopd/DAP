@@ -308,12 +308,12 @@ namespace DAP
             int actualId = 0;
 
             if (buttonNewDocument.Enabled)
-            {
+            {   //Új elem mentése
                 Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 actualId = dc.insertNewDocumentIntoDatabase(d);               
             }
             else
-            {
+            {   //Módosítások mentés
                 Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
                 dc.modifySelectedDocumentIntoDatabase(d);
                 actualId = Convert.ToInt32(selectedID);
@@ -410,21 +410,19 @@ namespace DAP
         }
 
         /// <summary>
-        /// Kereső mezőben lévő szöveg alapján állítja be a táblázat tartalmát
+        /// Kereső mezőben lévő szöveg alapján állítja be a táblázat tartalmát timerSearchDelay Timer segítségével késleltetve
         /// Ha üres vagy háromnál kevesebb karakter van benne összes adatot kilistázza
         /// </summary>
         private void MainSearchText() {
-            string searchText = textBoxSearch.Text;
+            
             List<string> category = getSearchCategoriFromCheckBox();
             if (category.Count != 0)
-            {
-                
+            {                
                 textBoxSearch.Enabled = true;
                 if (textBoxSearch.Text.Length > 2)
                 {
-                    dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(searchText, category);
-                    selectedItemsID.Clear();
-                    checkBoxSelectAll.Checked = false;
+                    timerSearchDelay.Stop();
+                    timerSearchDelay.Start();
                 }
                 else if (textBoxSearch.Text.Length == 0)
                 {
@@ -439,8 +437,24 @@ namespace DAP
                
             }
         }
+        /// <summary>
+        /// Késleltetett keresés végrehajtása
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timerSearchDelay_Tick(object sender, EventArgs e)
+        {
+            timerSearchDelay.Stop();
+            if (textBoxSearch.Text != "")
+            {
+                dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(textBoxSearch.Text, getSearchCategoriFromCheckBox());
+                selectedItemsID.Clear();
+                checkBoxSelectAll.Checked = false;
+            }
+
+        }
         #endregion
-        
+
         #region File műveletek
         /// <summary>
         /// ID alapján kilistázza a hozzá tartozo fileok listáját listView -ba
@@ -769,7 +783,7 @@ namespace DAP
         }
 
         #endregion
-
+        
         private void timer_Tick(object sender, EventArgs e)
         {
             if (labelSplash.Text.Length < 6)
