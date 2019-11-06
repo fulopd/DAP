@@ -301,9 +301,16 @@ namespace DAP.Repository
             //return dtFinal;
         }
 
-
-
-
+        public int getNumberOfRows()
+        {
+            int numberOfRows = 0;
+            myConnection.Open();
+            string query = "SELECT Count(*) FROM ArchivesTable";
+            SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
+            numberOfRows = Convert.ToInt32(myCommand.ExecuteScalar());
+            myConnection.Close();
+            return numberOfRows;
+        }
 
 
 

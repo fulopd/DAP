@@ -32,7 +32,7 @@ namespace DAP.Controller
             return SQLiteAdapter.getData();
         }
 
-
+        
         /// <summary>
         /// Feltölt az adatbázisba egy új dokumentumot
         /// </summary>
@@ -184,48 +184,11 @@ namespace DAP.Controller
             
         }
 
-        /// <summary>
-        /// Kiválasztott ID -k alapján exportálja excelbe az aatokat adatbázisból
-        /// </summary>
-        /// <param name="selectedId"></param>
-        /// <param name="savePathWhitFileNameAndExtension"></param>
-        //public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension) {
-
-        //    List<Document> selectedDocuments = new List<Document>();
-        //    DataTable selectedDocumentsDataTable = new DataTable();
-        //    if (selectedId.Count > 0)
-        //    {
-        //        foreach (string id in selectedId)
-        //        {
-        //            Document selectedItem = SQLiteAdapter.getSelectedData(id);
-
-        //            if (selectedItem != null)
-        //            {
-        //                selectedDocuments.Add(selectedItem);
-        //            }                    
-        //        }
-        //    }
-
-        //    if (selectedDocuments.Count > 0)
-        //    {
-        //        selectedDocumentsDataTable = SQLiteAdapter.convertToDataTable(selectedDocuments);
-        //    }
-
-
-        //    ExceExport.Export_Ctr_Excel(selectedDocumentsDataTable, savePathWhitFileNameAndExtension);
-
-        //}
-
-
-
-
 
         public void exportExcelSelectedItems(HashSet<string> selectedId, string savePathWhitFileNameAndExtension)
         {
             DataSet ds = SQLiteAdapter.getSelectedData(selectedId);
 
-            //ds.WriteXml(savePathWhitFileNameAndExtension);
-            
             bool export = CreateExcelFile.CreateExcelDocument(ds, savePathWhitFileNameAndExtension);
             try
             {
@@ -241,8 +204,16 @@ namespace DAP.Controller
                 throw;
             }
 
-            //ExceExport.Export_Ctr_Excel(SQLiteAdapter.getSelectedData(selectedId), savePathWhitFileNameAndExtension);
 
+        }
+
+        /// <summary>
+        /// Táblában található elemek számát adja vissza
+        /// </summary>
+        /// <returns></returns>
+        public int getNumberOfRows()
+        {
+            return SQLiteAdapter.getNumberOfRows();
         }
 
 

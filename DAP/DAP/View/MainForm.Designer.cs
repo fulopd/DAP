@@ -76,6 +76,8 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panelMain = new System.Windows.Forms.Panel();
             this.timerSearchDelay = new System.Windows.Forms.Timer(this.components);
+            this.labelNumberOfRows = new System.Windows.Forms.Label();
+            this.labelNumberOfSelectedIds = new System.Windows.Forms.Label();
             this.groupBoxDetails.SuspendLayout();
             this.groupBoxSearch.SuspendLayout();
             this.groupBoxMultioperations.SuspendLayout();
@@ -459,6 +461,8 @@
             // 
             // groupBoxMultioperations
             // 
+            this.groupBoxMultioperations.Controls.Add(this.labelNumberOfSelectedIds);
+            this.groupBoxMultioperations.Controls.Add(this.labelNumberOfRows);
             this.groupBoxMultioperations.Controls.Add(this.labelSplash);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
@@ -563,6 +567,24 @@
             this.timerSearchDelay.Interval = 1000;
             this.timerSearchDelay.Tick += new System.EventHandler(this.timerSearchDelay_Tick);
             // 
+            // labelNumberOfRows
+            // 
+            this.labelNumberOfRows.AutoSize = true;
+            this.labelNumberOfRows.Location = new System.Drawing.Point(7, 19);
+            this.labelNumberOfRows.Name = "labelNumberOfRows";
+            this.labelNumberOfRows.Size = new System.Drawing.Size(82, 13);
+            this.labelNumberOfRows.TabIndex = 24;
+            this.labelNumberOfRows.Text = "NumberOfRows";
+            // 
+            // labelNumberOfSelectedIds
+            // 
+            this.labelNumberOfSelectedIds.AutoSize = true;
+            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(166, 19);
+            this.labelNumberOfSelectedIds.Name = "labelNumberOfSelectedIds";
+            this.labelNumberOfSelectedIds.Size = new System.Drawing.Size(68, 13);
+            this.labelNumberOfSelectedIds.TabIndex = 25;
+            this.labelNumberOfSelectedIds.Text = "Selected IDs";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -633,6 +655,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Timer timerSearchDelay;
+        private System.Windows.Forms.Label labelNumberOfRows;
+        private System.Windows.Forms.Label labelNumberOfSelectedIds;
     }
 }
 

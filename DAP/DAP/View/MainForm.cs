@@ -42,7 +42,6 @@ namespace DAP
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Debug.WriteLine("idő: " + ts.TotalMilliseconds);
-
         }
        
         /// <summary>
@@ -55,6 +54,7 @@ namespace DAP
             comboBoxContent.DataSource = dc.getUnicData("Content");
             selectedItemsID.Clear();
             checkBoxSelectAll.Checked = false;
+            labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
         }
         
         /// <summary>
@@ -214,11 +214,13 @@ namespace DAP
                 {                   
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
                     selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
                 }
                 else
                 {                  
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
                     selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
                 }
             }
         }
@@ -436,6 +438,9 @@ namespace DAP
                 dataGridViewMainGrid.DataSource = null;
                
             }
+
+            labelNumberOfRows.Text = "Adatbázis elemek száma: " + dc.getNumberOfRows();
+
         }
         /// <summary>
         /// Késleltetett keresés végrehajtása
@@ -450,6 +455,7 @@ namespace DAP
                 dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(textBoxSearch.Text, getSearchCategoriFromCheckBox());
                 selectedItemsID.Clear();
                 checkBoxSelectAll.Checked = false;
+                labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
             }
 
         }
@@ -702,6 +708,7 @@ namespace DAP
                     timer.Start();
                     Application.UseWaitCursor = true;
                     backgroundWorkerExport.RunWorkerAsync();
+                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
 
                 }
             }
@@ -733,6 +740,7 @@ namespace DAP
                     selectedItemsID.Add(item.Cells[1].Value.ToString());
                     item.Cells[0].Value = true;
                     item.DefaultCellStyle.BackColor = Color.YellowGreen;
+                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
                 }
             }
             else
@@ -742,6 +750,7 @@ namespace DAP
                     selectedItemsID.Remove(item.Cells[1].Value.ToString());
                     item.Cells[0].Value = false;
                     item.DefaultCellStyle.BackColor = Color.White;
+                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
                 }
             }
         }
