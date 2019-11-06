@@ -39,7 +39,9 @@ namespace DAP.Repository
         {
             DataTable dt = new DataTable();
             myConnection.Open();
-            string query = "SELECT * FROM ArchivesTable";
+            //string query = "SELECT * FROM ArchivesTable";
+            string query = "SELECT * FROM (SELECT * FROM ArchivesTable ORDER BY ID DESC LIMIT 1000) ORDER BY ID";
+           
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
 
             SQLiteDataReader reader = myCommand.ExecuteReader();
