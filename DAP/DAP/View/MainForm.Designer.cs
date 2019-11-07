@@ -35,7 +35,7 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerMultiModify = new System.ComponentModel.BackgroundWorker();
-            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerSearchDelayStatus = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerExport = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerMultiDelete = new System.ComponentModel.BackgroundWorker();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -60,6 +60,7 @@
             this.buttonModify = new System.Windows.Forms.Button();
             this.buttonNewDocument = new System.Windows.Forms.Button();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxDescription = new System.Windows.Forms.CheckBox();
             this.checkBoxDate = new System.Windows.Forms.CheckBox();
@@ -68,6 +69,8 @@
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
+            this.labelNumberOfSelectedIds = new System.Windows.Forms.Label();
+            this.labelNumberOfRows = new System.Windows.Forms.Label();
             this.labelSplash = new System.Windows.Forms.Label();
             this.buttonMultiDelete = new System.Windows.Forms.Button();
             this.buttonMultiExport = new System.Windows.Forms.Button();
@@ -76,8 +79,6 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panelMain = new System.Windows.Forms.Panel();
             this.timerSearchDelay = new System.Windows.Forms.Timer(this.components);
-            this.labelNumberOfRows = new System.Windows.Forms.Label();
-            this.labelNumberOfSelectedIds = new System.Windows.Forms.Label();
             this.groupBoxDetails.SuspendLayout();
             this.groupBoxSearch.SuspendLayout();
             this.groupBoxMultioperations.SuspendLayout();
@@ -118,10 +119,10 @@
             this.backgroundWorkerMultiModify.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerMultiModify_DoWork);
             this.backgroundWorkerMultiModify.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerMultiModify_RunWorkerCompleted);
             // 
-            // timer
+            // timerSearchDelayStatus
             // 
-            this.timer.Interval = 200;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timerSearchDelayStatus.Interval = 20;
+            this.timerSearchDelayStatus.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // backgroundWorkerExport
             // 
@@ -367,10 +368,18 @@
             this.groupBoxSearch.Controls.Add(this.textBoxSearch);
             this.groupBoxSearch.Location = new System.Drawing.Point(310, 13);
             this.groupBoxSearch.Name = "groupBoxSearch";
-            this.groupBoxSearch.Size = new System.Drawing.Size(427, 67);
+            this.groupBoxSearch.Size = new System.Drawing.Size(418, 67);
             this.groupBoxSearch.TabIndex = 13;
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Location = new System.Drawing.Point(318, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(30, 10);
+            this.panel1.TabIndex = 22;
             // 
             // label7
             // 
@@ -386,7 +395,7 @@
             this.checkBoxDescription.AutoSize = true;
             this.checkBoxDescription.Checked = true;
             this.checkBoxDescription.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDescription.Location = new System.Drawing.Point(365, 45);
+            this.checkBoxDescription.Location = new System.Drawing.Point(357, 45);
             this.checkBoxDescription.Name = "checkBoxDescription";
             this.checkBoxDescription.Size = new System.Drawing.Size(56, 17);
             this.checkBoxDescription.TabIndex = 19;
@@ -400,7 +409,7 @@
             this.checkBoxDate.AutoSize = true;
             this.checkBoxDate.Checked = true;
             this.checkBoxDate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDate.Location = new System.Drawing.Point(302, 45);
+            this.checkBoxDate.Location = new System.Drawing.Point(296, 45);
             this.checkBoxDate.Name = "checkBoxDate";
             this.checkBoxDate.Size = new System.Drawing.Size(57, 17);
             this.checkBoxDate.TabIndex = 18;
@@ -414,7 +423,7 @@
             this.checkBoxContent.AutoSize = true;
             this.checkBoxContent.Checked = true;
             this.checkBoxContent.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxContent.Location = new System.Drawing.Point(229, 45);
+            this.checkBoxContent.Location = new System.Drawing.Point(223, 45);
             this.checkBoxContent.Name = "checkBoxContent";
             this.checkBoxContent.Size = new System.Drawing.Size(67, 17);
             this.checkBoxContent.TabIndex = 17;
@@ -428,7 +437,7 @@
             this.checkBoxCategory.AutoSize = true;
             this.checkBoxCategory.Checked = true;
             this.checkBoxCategory.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCategory.Location = new System.Drawing.Point(164, 45);
+            this.checkBoxCategory.Location = new System.Drawing.Point(159, 45);
             this.checkBoxCategory.Name = "checkBoxCategory";
             this.checkBoxCategory.Size = new System.Drawing.Size(59, 17);
             this.checkBoxCategory.TabIndex = 16;
@@ -442,7 +451,7 @@
             this.checkBoxCompany.AutoSize = true;
             this.checkBoxCompany.Checked = true;
             this.checkBoxCompany.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCompany.Location = new System.Drawing.Point(113, 45);
+            this.checkBoxCompany.Location = new System.Drawing.Point(111, 45);
             this.checkBoxCompany.Name = "checkBoxCompany";
             this.checkBoxCompany.Size = new System.Drawing.Size(45, 17);
             this.checkBoxCompany.TabIndex = 15;
@@ -453,9 +462,9 @@
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(6, 19);
+            this.textBoxSearch.Location = new System.Drawing.Point(8, 19);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(415, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(399, 20);
             this.textBoxSearch.TabIndex = 13;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.SearchText);
             // 
@@ -467,27 +476,45 @@
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiModify);
-            this.groupBoxMultioperations.Location = new System.Drawing.Point(743, 12);
+            this.groupBoxMultioperations.Location = new System.Drawing.Point(734, 13);
             this.groupBoxMultioperations.Name = "groupBoxMultioperations";
-            this.groupBoxMultioperations.Size = new System.Drawing.Size(346, 67);
+            this.groupBoxMultioperations.Size = new System.Drawing.Size(355, 67);
             this.groupBoxMultioperations.TabIndex = 20;
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
+            // 
+            // labelNumberOfSelectedIds
+            // 
+            this.labelNumberOfSelectedIds.AutoSize = true;
+            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(139, 1);
+            this.labelNumberOfSelectedIds.Name = "labelNumberOfSelectedIds";
+            this.labelNumberOfSelectedIds.Size = new System.Drawing.Size(68, 13);
+            this.labelNumberOfSelectedIds.TabIndex = 25;
+            this.labelNumberOfSelectedIds.Text = "Selected IDs";
+            // 
+            // labelNumberOfRows
+            // 
+            this.labelNumberOfRows.AutoSize = true;
+            this.labelNumberOfRows.Location = new System.Drawing.Point(9, 19);
+            this.labelNumberOfRows.Name = "labelNumberOfRows";
+            this.labelNumberOfRows.Size = new System.Drawing.Size(82, 13);
+            this.labelNumberOfRows.TabIndex = 24;
+            this.labelNumberOfRows.Text = "NumberOfRows";
             // 
             // labelSplash
             // 
             this.labelSplash.AutoSize = true;
             this.labelSplash.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSplash.Location = new System.Drawing.Point(250, 31);
+            this.labelSplash.Location = new System.Drawing.Point(252, 31);
             this.labelSplash.Name = "labelSplash";
             this.labelSplash.Size = new System.Drawing.Size(0, 31);
             this.labelSplash.TabIndex = 23;
             // 
             // buttonMultiDelete
             // 
-            this.buttonMultiDelete.Location = new System.Drawing.Point(169, 38);
+            this.buttonMultiDelete.Location = new System.Drawing.Point(180, 38);
             this.buttonMultiDelete.Name = "buttonMultiDelete";
-            this.buttonMultiDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonMultiDelete.Size = new System.Drawing.Size(80, 23);
             this.buttonMultiDelete.TabIndex = 13;
             this.buttonMultiDelete.Text = "Törlés";
             this.buttonMultiDelete.UseVisualStyleBackColor = true;
@@ -495,9 +522,9 @@
             // 
             // buttonMultiExport
             // 
-            this.buttonMultiExport.Location = new System.Drawing.Point(88, 38);
+            this.buttonMultiExport.Location = new System.Drawing.Point(94, 38);
             this.buttonMultiExport.Name = "buttonMultiExport";
-            this.buttonMultiExport.Size = new System.Drawing.Size(75, 23);
+            this.buttonMultiExport.Size = new System.Drawing.Size(80, 23);
             this.buttonMultiExport.TabIndex = 22;
             this.buttonMultiExport.Text = "Export";
             this.buttonMultiExport.UseVisualStyleBackColor = true;
@@ -505,9 +532,9 @@
             // 
             // buttonMultiModify
             // 
-            this.buttonMultiModify.Location = new System.Drawing.Point(6, 38);
+            this.buttonMultiModify.Location = new System.Drawing.Point(8, 38);
             this.buttonMultiModify.Name = "buttonMultiModify";
-            this.buttonMultiModify.Size = new System.Drawing.Size(75, 23);
+            this.buttonMultiModify.Size = new System.Drawing.Size(80, 23);
             this.buttonMultiModify.TabIndex = 21;
             this.buttonMultiModify.Text = "Módosítás";
             this.buttonMultiModify.UseVisualStyleBackColor = true;
@@ -545,6 +572,7 @@
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.SystemColors.Control;
+            this.panelMain.Controls.Add(this.panel1);
             this.panelMain.Controls.Add(this.checkBoxSelectAll);
             this.panelMain.Controls.Add(this.dataGridViewMainGrid);
             this.panelMain.Controls.Add(this.groupBoxMultioperations);
@@ -563,27 +591,8 @@
             // 
             // timerSearchDelay
             // 
-            this.timerSearchDelay.Enabled = true;
             this.timerSearchDelay.Interval = 1000;
             this.timerSearchDelay.Tick += new System.EventHandler(this.timerSearchDelay_Tick);
-            // 
-            // labelNumberOfRows
-            // 
-            this.labelNumberOfRows.AutoSize = true;
-            this.labelNumberOfRows.Location = new System.Drawing.Point(7, 19);
-            this.labelNumberOfRows.Name = "labelNumberOfRows";
-            this.labelNumberOfRows.Size = new System.Drawing.Size(82, 13);
-            this.labelNumberOfRows.TabIndex = 24;
-            this.labelNumberOfRows.Text = "NumberOfRows";
-            // 
-            // labelNumberOfSelectedIds
-            // 
-            this.labelNumberOfSelectedIds.AutoSize = true;
-            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(166, 19);
-            this.labelNumberOfSelectedIds.Name = "labelNumberOfSelectedIds";
-            this.labelNumberOfSelectedIds.Size = new System.Drawing.Size(68, 13);
-            this.labelNumberOfSelectedIds.TabIndex = 25;
-            this.labelNumberOfSelectedIds.Text = "Selected IDs";
             // 
             // MainForm
             // 
@@ -614,7 +623,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox checkBoxSelectAll;
         private System.ComponentModel.BackgroundWorker backgroundWorkerMultiModify;
-        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timerSearchDelayStatus;
         private System.ComponentModel.BackgroundWorker backgroundWorkerExport;
         private System.ComponentModel.BackgroundWorker backgroundWorkerMultiDelete;
         private System.Windows.Forms.Button buttonCancel;
@@ -657,6 +666,7 @@
         private System.Windows.Forms.Timer timerSearchDelay;
         private System.Windows.Forms.Label labelNumberOfRows;
         private System.Windows.Forms.Label labelNumberOfSelectedIds;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

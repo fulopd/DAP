@@ -42,8 +42,17 @@ namespace DAP
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Debug.WriteLine("idő: " + ts.TotalMilliseconds);
+            panel1.Height = 1;
+            panel1.Width = 399;
+            timerSearchDelayStatus.Interval = 40;
         }
-       
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            panel1.Width += 19;
+            
+        }
+
         /// <summary>
         /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
         /// </summary>
@@ -423,11 +432,17 @@ namespace DAP
                 textBoxSearch.Enabled = true;
                 if (textBoxSearch.Text.Length > 2)
                 {
+                    timerSearchDelayStatus.Stop();
+                    panel1.Width = 0;
+                    timerSearchDelayStatus.Start();
                     timerSearchDelay.Stop();
                     timerSearchDelay.Start();
+                    
                 }
                 else if (textBoxSearch.Text.Length == 0)
                 {
+                    timerSearchDelayStatus.Stop();
+                    panel1.Width = 399;
                     refreshDataFromDatabase(); //csak itt kell használni
                 }
                 dataGridViewSetThemes();
@@ -440,7 +455,7 @@ namespace DAP
             }
 
             labelNumberOfRows.Text = "Adatbázis elemek száma: " + dc.getNumberOfRows();
-
+            
         }
         /// <summary>
         /// Késleltetett keresés végrehajtása
@@ -450,14 +465,17 @@ namespace DAP
         private void timerSearchDelay_Tick(object sender, EventArgs e)
         {
             timerSearchDelay.Stop();
-            if (textBoxSearch.Text != "")
+            timerSearchDelayStatus.Stop();
+            //panel1.Width = 0;
+
+            if (textBoxSearch.Text.Count() > 2)
             {
                 dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(textBoxSearch.Text, getSearchCategoriFromCheckBox());
                 selectedItemsID.Clear();
                 checkBoxSelectAll.Checked = false;
-                labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
+                labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
             }
-
+            
         }
         #endregion
 
@@ -614,7 +632,7 @@ namespace DAP
                 if (dialog == DialogResult.Yes)
                 {
                     //start multi delete background thread
-                    timer.Start();
+                   
                     Application.UseWaitCursor = true;
                     backgroundWorkerMultiDelete.RunWorkerAsync();                    
                 }
@@ -640,7 +658,7 @@ namespace DAP
         private void backgroundWorkerMultiDelete_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {            
             MainSearchText();
-            timer.Stop();
+            
             labelSplash.Text = "";
             Application.UseWaitCursor = false;
         }
@@ -661,7 +679,7 @@ namespace DAP
                 if (muf.ShowDialog() == DialogResult.OK)
                 {                    
                     panelMain.Enabled = false;                    
-                    timer.Start();
+                    
                     Application.UseWaitCursor = true;
                     backgroundWorkerMultiModify.RunWorkerAsync();                    
                 }
@@ -683,7 +701,7 @@ namespace DAP
         {
             MainSearchText();
             clearAllDetailsValue();          
-            timer.Stop();
+            
             labelSplash.Text = "";
             panelMain.Enabled = true;
             Application.UseWaitCursor = false;
@@ -705,7 +723,7 @@ namespace DAP
                     selectedItemsID.Clear();
                     selectedItemsID.UnionWith(temp);
                     //excel export run backgound
-                    timer.Start();
+                    
                     Application.UseWaitCursor = true;
                     backgroundWorkerExport.RunWorkerAsync();
                     labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
@@ -722,9 +740,7 @@ namespace DAP
             dc.exportExcelSelectedItems(selectedItemsID, saveFileDialog.FileName);
         }
         private void backgroundWorkerExport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            timer.Stop();            
-            labelSplash.Text = "";
+        {   
             Application.UseWaitCursor = false;
         }
 
@@ -793,16 +809,7 @@ namespace DAP
 
         #endregion
         
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            if (labelSplash.Text.Length < 6)
-            {
-                labelSplash.Text += ".";
-            }
-            else {
-                labelSplash.Text = ".";
-            }
-        }
+        
 
         
     }
