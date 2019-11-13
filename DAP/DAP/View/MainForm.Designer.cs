@@ -60,7 +60,6 @@
             this.buttonModify = new System.Windows.Forms.Button();
             this.buttonNewDocument = new System.Windows.Forms.Button();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxDescription = new System.Windows.Forms.CheckBox();
             this.checkBoxDate = new System.Windows.Forms.CheckBox();
@@ -68,6 +67,7 @@
             this.checkBoxCategory = new System.Windows.Forms.CheckBox();
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
             this.labelNumberOfSelectedIds = new System.Windows.Forms.Label();
             this.labelNumberOfRows = new System.Windows.Forms.Label();
@@ -281,7 +281,7 @@
             this.textBoxDate.Name = "textBoxDate";
             this.textBoxDate.Size = new System.Drawing.Size(264, 20);
             this.textBoxDate.TabIndex = 9;
-            this.textBoxDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxDate_KeyDown);
+            this.textBoxDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDate_KeyPress);
             // 
             // label6
             // 
@@ -373,14 +373,6 @@
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(318, 50);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(30, 10);
-            this.panel1.TabIndex = 22;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -467,6 +459,14 @@
             this.textBoxSearch.Size = new System.Drawing.Size(399, 20);
             this.textBoxSearch.TabIndex = 13;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.SearchText);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Location = new System.Drawing.Point(318, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(30, 10);
+            this.panel1.TabIndex = 22;
             // 
             // groupBoxMultioperations
             // 

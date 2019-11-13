@@ -54,7 +54,7 @@ namespace DAP
         }
 
         /// <summary>
-        /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
+        /// Adatbázisból lekéri újra az utolsó 1000 adatot és megjeleníti a képernyőn
         /// </summary>
         private void refreshDataFromDatabase() { //csak MainSearchText ben használd!            
             comboBoxCompany.DataSource = dc.getUnicData("Company");
@@ -317,22 +317,33 @@ namespace DAP
         private void buttonSave_Click(object sender, EventArgs e)
         {
             int actualId = 0;
+            string textDate = textBoxDate.Text;
+            DateTime dateText;                        
 
-            if (buttonNewDocument.Enabled)
-            {   //Új elem mentése
-                Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
-                actualId = dc.insertNewDocumentIntoDatabase(d);               
-            }
-            else
-            {   //Módosítások mentés
-                Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textBoxDate.Text, textBoxDescription.Text);
-                dc.modifySelectedDocumentIntoDatabase(d);
-                actualId = Convert.ToInt32(selectedID);
-            }
+            if (DateTime.TryParse(textDate, out dateText))
+            {
+                textBoxDate.ForeColor = Color.Black;
+                textDate = dateText.ToString("yyyy.MM.dd");
+                
+                if (buttonNewDocument.Enabled)
+                {   //Új elem mentése
+                    Document d = new Document(0, comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textDate, textBoxDescription.Text);
+                    actualId = dc.insertNewDocumentIntoDatabase(d);
+                }
+                else
+                {   //Módosítások mentés
+                    Document d = new Document(Convert.ToInt32(selectedID), comboBoxCompany.Text, comboBoxCategory.Text, comboBoxContent.Text, textDate, textBoxDescription.Text);
+                    dc.modifySelectedDocumentIntoDatabase(d);
+                    actualId = Convert.ToInt32(selectedID);
+                }
 
-            MainSearchText();
-            buttonsDefaultStatus();
-            rowSelectByIdYellow(actualId);
+                MainSearchText();
+                buttonsDefaultStatus();
+                rowSelectByIdYellow(actualId);
+            }
+            else {
+                textBoxDate.ForeColor = Color.Red;                
+            }
             
         }
         //Mégsem
@@ -343,6 +354,7 @@ namespace DAP
                 dc.deleteFolder(selectedID);
             }
             buttonsDefaultStatus();
+            textBoxDate.ForeColor = Color.Black;
 
             if (dataGridViewMainGrid.CurrentCell != null)
             {
@@ -773,44 +785,34 @@ namespace DAP
         #endregion
 
         #region Adatbeviteli mezők        
-        private void textBoxDate_KeyDown(object sender, KeyEventArgs e)
-        {            
-            char a = (char)e.KeyData;
 
-            if (Char.IsDigit(a))
+
+        private void textBoxDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            textBoxDate.ForeColor = Color.Black;
+            if (!char.IsDigit(e.KeyChar))
             {
-                if (e.KeyCode != Keys.Back)
+                e.Handled = true;         //Just Digits
+            }
+            else
+            {
+                if (textBoxDate.Text.Length == 4 || textBoxDate.Text.Length == 7)
                 {
-                    TextBox t = (TextBox)sender;
-                    string seperator = ".";
-                    switch (textBoxDate.Text.Length)
-                    {
-                        case 4:
-                            if (e.KeyValue != 190)
-                            {
-                                t.Text += seperator;
-                            }
-                            break;
-                        case 7:
-                            if (e.KeyValue != 190)
-                            {
-                                t.Text += seperator;
-                            }
-                            break;
-                        default:
-                            //t.Text += a;
-                            break;
-                    }
-                    t.SelectionStart = t.Text.Length;
-
+                    textBoxDate.Text += ".";
                 }
             }
+            if (e.KeyChar == (char)8) e.Handled = false;            //Allow Backspace
+            
+            textBoxDate.SelectionStart = textBoxDate.Text.Length;
+
+            
+
+
         }
 
-        #endregion
-        
-        
 
-        
+        #endregion
+
+
     }
 }
