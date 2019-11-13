@@ -79,6 +79,7 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panelMain = new System.Windows.Forms.Panel();
             this.timerSearchDelay = new System.Windows.Forms.Timer(this.components);
+            this.buttonDetailedSearch = new System.Windows.Forms.Button();
             this.groupBoxDetails.SuspendLayout();
             this.groupBoxSearch.SuspendLayout();
             this.groupBoxMultioperations.SuspendLayout();
@@ -359,6 +360,7 @@
             // 
             // groupBoxSearch
             // 
+            this.groupBoxSearch.Controls.Add(this.buttonDetailedSearch);
             this.groupBoxSearch.Controls.Add(this.label7);
             this.groupBoxSearch.Controls.Add(this.labelNumberOfRows);
             this.groupBoxSearch.Controls.Add(this.checkBoxDescription);
@@ -369,7 +371,7 @@
             this.groupBoxSearch.Controls.Add(this.textBoxSearch);
             this.groupBoxSearch.Location = new System.Drawing.Point(310, 13);
             this.groupBoxSearch.Name = "groupBoxSearch";
-            this.groupBoxSearch.Size = new System.Drawing.Size(418, 67);
+            this.groupBoxSearch.Size = new System.Drawing.Size(504, 67);
             this.groupBoxSearch.TabIndex = 13;
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Keresés";
@@ -457,7 +459,7 @@
             // 
             this.textBoxSearch.Location = new System.Drawing.Point(8, 19);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(399, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(400, 20);
             this.textBoxSearch.TabIndex = 13;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.SearchText);
             // 
@@ -476,9 +478,9 @@
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiModify);
-            this.groupBoxMultioperations.Location = new System.Drawing.Point(734, 13);
+            this.groupBoxMultioperations.Location = new System.Drawing.Point(820, 13);
             this.groupBoxMultioperations.Name = "groupBoxMultioperations";
-            this.groupBoxMultioperations.Size = new System.Drawing.Size(355, 67);
+            this.groupBoxMultioperations.Size = new System.Drawing.Size(269, 67);
             this.groupBoxMultioperations.TabIndex = 20;
             this.groupBoxMultioperations.TabStop = false;
             this.groupBoxMultioperations.Text = "Tömeges műveletek";
@@ -486,7 +488,7 @@
             // labelNumberOfSelectedIds
             // 
             this.labelNumberOfSelectedIds.AutoSize = true;
-            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(121, 0);
+            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(117, 0);
             this.labelNumberOfSelectedIds.Name = "labelNumberOfSelectedIds";
             this.labelNumberOfSelectedIds.Size = new System.Drawing.Size(68, 13);
             this.labelNumberOfSelectedIds.TabIndex = 25;
@@ -505,14 +507,14 @@
             // 
             this.labelSplash.AutoSize = true;
             this.labelSplash.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSplash.Location = new System.Drawing.Point(252, 31);
+            this.labelSplash.Location = new System.Drawing.Point(339, 31);
             this.labelSplash.Name = "labelSplash";
             this.labelSplash.Size = new System.Drawing.Size(0, 31);
             this.labelSplash.TabIndex = 23;
             // 
             // buttonMultiDelete
             // 
-            this.buttonMultiDelete.Location = new System.Drawing.Point(180, 38);
+            this.buttonMultiDelete.Location = new System.Drawing.Point(181, 38);
             this.buttonMultiDelete.Name = "buttonMultiDelete";
             this.buttonMultiDelete.Size = new System.Drawing.Size(80, 23);
             this.buttonMultiDelete.TabIndex = 13;
@@ -522,7 +524,7 @@
             // 
             // buttonMultiExport
             // 
-            this.buttonMultiExport.Location = new System.Drawing.Point(94, 38);
+            this.buttonMultiExport.Location = new System.Drawing.Point(95, 38);
             this.buttonMultiExport.Name = "buttonMultiExport";
             this.buttonMultiExport.Size = new System.Drawing.Size(80, 23);
             this.buttonMultiExport.TabIndex = 22;
@@ -532,7 +534,7 @@
             // 
             // buttonMultiModify
             // 
-            this.buttonMultiModify.Location = new System.Drawing.Point(8, 38);
+            this.buttonMultiModify.Location = new System.Drawing.Point(9, 38);
             this.buttonMultiModify.Name = "buttonMultiModify";
             this.buttonMultiModify.Size = new System.Drawing.Size(80, 23);
             this.buttonMultiModify.TabIndex = 21;
@@ -593,6 +595,16 @@
             // 
             this.timerSearchDelay.Interval = 1000;
             this.timerSearchDelay.Tick += new System.EventHandler(this.timerSearchDelay_Tick);
+            // 
+            // buttonDetailedSearch
+            // 
+            this.buttonDetailedSearch.Location = new System.Drawing.Point(418, 19);
+            this.buttonDetailedSearch.Name = "buttonDetailedSearch";
+            this.buttonDetailedSearch.Size = new System.Drawing.Size(80, 40);
+            this.buttonDetailedSearch.TabIndex = 26;
+            this.buttonDetailedSearch.Text = "Részletes keresés";
+            this.buttonDetailedSearch.UseVisualStyleBackColor = true;
+            this.buttonDetailedSearch.Click += new System.EventHandler(this.buttonDetailedSearch_Click);
             // 
             // MainForm
             // 
@@ -667,6 +679,7 @@
         private System.Windows.Forms.Label labelNumberOfRows;
         private System.Windows.Forms.Label labelNumberOfSelectedIds;
         private System.Windows.Forms.Panel panelSearchDelayStatus;
+        private System.Windows.Forms.Button buttonDetailedSearch;
     }
 }
 

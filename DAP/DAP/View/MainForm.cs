@@ -21,6 +21,7 @@ namespace DAP
     public partial class MainForm : Form
     {
         MultiUpdateForm muf;
+        DetailedSearchForm dsf;
         private DocumentController dc;
         private string selectedID = "";
         private HashSet<string> selectedItemsID = new HashSet<string>();
@@ -489,6 +490,21 @@ namespace DAP
         {
             panelSearchDelayStatus.Width += 19;
         }
+
+        /// <summary>
+        /// Részletes keresés ablak
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonDetailedSearch_Click(object sender, EventArgs e)
+        {
+            dsf = new DetailedSearchForm();
+
+            if (dsf.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Fut a keresés :)");
+            }
+        }
         #endregion
 
         #region File műveletek
@@ -812,8 +828,9 @@ namespace DAP
 
 
 
+
         #endregion
 
-       
+        
     }
 }

@@ -69,6 +69,12 @@
     <Compile Include="Model\ExceExport.cs" />
     <Compile Include="Model\FileAdapter.cs" />
     <Compile Include="Repository\SQLiteAdapter.cs" />
+    <Compile Include="View\DetailedSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DetailedSearchForm.Designer.cs">
+      <DependentUpon>DetailedSearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\DetailedSearchForm.resx">
+      <DependentUpon>DetailedSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
