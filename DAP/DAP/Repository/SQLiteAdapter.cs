@@ -978,6 +978,8 @@ namespace DAP.Repository
         
         public DataTable searchData(string search, List<string> category)
         {
+            search = search.Replace("'","");
+            Debug.WriteLine("replace: " + search);
             DataTable dt = new DataTable();            
             myConnection.Open();
             string query = "SELECT * FROM ArchivesTable WHERE ";
