@@ -67,7 +67,7 @@
             this.checkBoxCategory = new System.Windows.Forms.CheckBox();
             this.checkBoxCompany = new System.Windows.Forms.CheckBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelSearchDelayStatus = new System.Windows.Forms.Panel();
             this.groupBoxMultioperations = new System.Windows.Forms.GroupBox();
             this.labelNumberOfSelectedIds = new System.Windows.Forms.Label();
             this.labelNumberOfRows = new System.Windows.Forms.Label();
@@ -122,7 +122,7 @@
             // timerSearchDelayStatus
             // 
             this.timerSearchDelayStatus.Interval = 20;
-            this.timerSearchDelayStatus.Tick += new System.EventHandler(this.timer_Tick);
+            this.timerSearchDelayStatus.Tick += new System.EventHandler(this.timerSearchDelayStatus_Tick);
             // 
             // backgroundWorkerExport
             // 
@@ -360,6 +360,7 @@
             // groupBoxSearch
             // 
             this.groupBoxSearch.Controls.Add(this.label7);
+            this.groupBoxSearch.Controls.Add(this.labelNumberOfRows);
             this.groupBoxSearch.Controls.Add(this.checkBoxDescription);
             this.groupBoxSearch.Controls.Add(this.checkBoxDate);
             this.groupBoxSearch.Controls.Add(this.checkBoxContent);
@@ -460,18 +461,17 @@
             this.textBoxSearch.TabIndex = 13;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.SearchText);
             // 
-            // panel1
+            // panelSearchDelayStatus
             // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(318, 50);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(30, 10);
-            this.panel1.TabIndex = 22;
+            this.panelSearchDelayStatus.BackColor = System.Drawing.Color.Black;
+            this.panelSearchDelayStatus.Location = new System.Drawing.Point(318, 50);
+            this.panelSearchDelayStatus.Name = "panelSearchDelayStatus";
+            this.panelSearchDelayStatus.Size = new System.Drawing.Size(30, 10);
+            this.panelSearchDelayStatus.TabIndex = 22;
             // 
             // groupBoxMultioperations
             // 
             this.groupBoxMultioperations.Controls.Add(this.labelNumberOfSelectedIds);
-            this.groupBoxMultioperations.Controls.Add(this.labelNumberOfRows);
             this.groupBoxMultioperations.Controls.Add(this.labelSplash);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiDelete);
             this.groupBoxMultioperations.Controls.Add(this.buttonMultiExport);
@@ -486,7 +486,7 @@
             // labelNumberOfSelectedIds
             // 
             this.labelNumberOfSelectedIds.AutoSize = true;
-            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(139, 1);
+            this.labelNumberOfSelectedIds.Location = new System.Drawing.Point(121, 0);
             this.labelNumberOfSelectedIds.Name = "labelNumberOfSelectedIds";
             this.labelNumberOfSelectedIds.Size = new System.Drawing.Size(68, 13);
             this.labelNumberOfSelectedIds.TabIndex = 25;
@@ -495,7 +495,7 @@
             // labelNumberOfRows
             // 
             this.labelNumberOfRows.AutoSize = true;
-            this.labelNumberOfRows.Location = new System.Drawing.Point(9, 19);
+            this.labelNumberOfRows.Location = new System.Drawing.Point(55, 0);
             this.labelNumberOfRows.Name = "labelNumberOfRows";
             this.labelNumberOfRows.Size = new System.Drawing.Size(82, 13);
             this.labelNumberOfRows.TabIndex = 24;
@@ -572,7 +572,7 @@
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.SystemColors.Control;
-            this.panelMain.Controls.Add(this.panel1);
+            this.panelMain.Controls.Add(this.panelSearchDelayStatus);
             this.panelMain.Controls.Add(this.checkBoxSelectAll);
             this.panelMain.Controls.Add(this.dataGridViewMainGrid);
             this.panelMain.Controls.Add(this.groupBoxMultioperations);
@@ -666,7 +666,7 @@
         private System.Windows.Forms.Timer timerSearchDelay;
         private System.Windows.Forms.Label labelNumberOfRows;
         private System.Windows.Forms.Label labelNumberOfSelectedIds;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelSearchDelayStatus;
     }
 }
 

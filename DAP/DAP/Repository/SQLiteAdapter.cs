@@ -1169,17 +1169,13 @@ namespace DAP.Repository
         {
             int numberOfRows = 0;
             myConnection.Open();
-            string query = "SELECT Count(*) FROM ArchivesTable";
+            string query = "SELECT Count(ID) FROM ArchivesTable";
             SQLiteCommand myCommand = new SQLiteCommand(query, myConnection);
             numberOfRows = Convert.ToInt32(myCommand.ExecuteScalar());
             myConnection.Close();
+            Debug.WriteLine("Adatbázis elemek száma: " + numberOfRows);
             return numberOfRows;
         }
-
-
-
-
-
 
     }
 }

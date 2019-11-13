@@ -42,16 +42,11 @@ namespace DAP
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Debug.WriteLine("idő: " + ts.TotalMilliseconds);
-            panel1.Height = 1;
-            panel1.Width = 399;
+            panelSearchDelayStatus.Height = 1;
+            panelSearchDelayStatus.Width = 399;
             timerSearchDelayStatus.Interval = 40;
         }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            panel1.Width += 19;
-            
-        }
+                
 
         /// <summary>
         /// Adatbázisból lekéri újra az utolsó 1000 adatot és megjeleníti a képernyőn
@@ -63,7 +58,8 @@ namespace DAP
             dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
             selectedItemsID.Clear();
             checkBoxSelectAll.Checked = false;
-            labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+            labelNumberOfRows.Text = "Adatbázis elemek száma: " + dataGridViewMainGrid.RowCount + " / " + dc.getNumberOfRows();
+            labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
         }
         
         /// <summary>
@@ -222,16 +218,17 @@ namespace DAP
                 if (dataGridViewMainGrid.Rows[e.RowIndex].Cells[0].Value.ToString() == "True")
                 {                   
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.YellowGreen;
-                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
-                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+                    selectedItemsID.Add(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());                    
+                    
                 }
                 else
                 {                  
                     dataGridViewMainGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());
-                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+                    selectedItemsID.Remove(dataGridViewMainGrid.Rows[e.RowIndex].Cells[1].Value.ToString());                    
+                    
                 }
             }
+            labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
         }
         
         #endregion
@@ -445,7 +442,7 @@ namespace DAP
                 if (textBoxSearch.Text.Length > 2)
                 {
                     timerSearchDelayStatus.Stop();
-                    panel1.Width = 0;
+                    panelSearchDelayStatus.Width = 0;
                     timerSearchDelayStatus.Start();
                     timerSearchDelay.Stop();
                     timerSearchDelay.Start();
@@ -454,7 +451,7 @@ namespace DAP
                 else if (textBoxSearch.Text.Length == 0)
                 {
                     timerSearchDelayStatus.Stop();
-                    panel1.Width = 399;
+                    panelSearchDelayStatus.Width = 399;
                     refreshDataFromDatabase(); //csak itt kell használni                    
                 }
                 dataGridViewSetThemes();
@@ -464,9 +461,7 @@ namespace DAP
                 textBoxSearch.Enabled = false;
                 dataGridViewMainGrid.DataSource = null;
                
-            }
-
-            labelNumberOfRows.Text = "Adatbázis elemek száma: " + dc.getNumberOfRows();
+            }           
             
         }
         /// <summary>
@@ -485,9 +480,14 @@ namespace DAP
                 dataGridViewMainGrid.DataSource = dc.searchIntoDatabase(textBoxSearch.Text, getSearchCategoriFromCheckBox());
                 selectedItemsID.Clear();
                 checkBoxSelectAll.Checked = false;
-                labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+                labelNumberOfRows.Text = "Adatbázis elemek száma: " + dataGridViewMainGrid.RowCount + " / " + dc.getNumberOfRows();
+                labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
             }
             
+        }
+        private void timerSearchDelayStatus_Tick(object sender, EventArgs e)
+        {
+            panelSearchDelayStatus.Width += 19;
         }
         #endregion
 
@@ -737,8 +737,8 @@ namespace DAP
                     //excel export run backgound
                     
                     Application.UseWaitCursor = true;
-                    backgroundWorkerExport.RunWorkerAsync();
-                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+                    backgroundWorkerExport.RunWorkerAsync();                    
+                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
 
                 }
             }
@@ -767,8 +767,7 @@ namespace DAP
                 {
                     selectedItemsID.Add(item.Cells[1].Value.ToString());
                     item.Cells[0].Value = true;
-                    item.DefaultCellStyle.BackColor = Color.YellowGreen;
-                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+                    item.DefaultCellStyle.BackColor = Color.YellowGreen;                    
                 }
             }
             else
@@ -777,10 +776,11 @@ namespace DAP
                 {
                     selectedItemsID.Remove(item.Cells[1].Value.ToString());
                     item.Cells[0].Value = false;
-                    item.DefaultCellStyle.BackColor = Color.White;
-                    labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count + "/" + dataGridViewMainGrid.RowCount;
+                    item.DefaultCellStyle.BackColor = Color.White;                    
                 }
             }
+            
+            labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
         }
         #endregion
 
@@ -811,8 +811,9 @@ namespace DAP
         }
 
 
+
         #endregion
 
-
+       
     }
 }
