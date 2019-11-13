@@ -56,11 +56,11 @@ namespace DAP
         /// <summary>
         /// Adatbázisból lekéri újra az összes adatot és megjeleníti a képernyőn
         /// </summary>
-        private void refreshDataFromDatabase() { //csak MainSearchText ben használd!
-            dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
+        private void refreshDataFromDatabase() { //csak MainSearchText ben használd!            
             comboBoxCompany.DataSource = dc.getUnicData("Company");
             comboBoxCategory.DataSource = dc.getUnicData("Category");
             comboBoxContent.DataSource = dc.getUnicData("Content");
+            dataGridViewMainGrid.DataSource = dc.getAllDocumentsFromDatabase();
             selectedItemsID.Clear();
             checkBoxSelectAll.Checked = false;
             labelNumberOfSelectedIds.Text = "Kiválasztott elemek száma: " + selectedItemsID.Count;
@@ -443,7 +443,7 @@ namespace DAP
                 {
                     timerSearchDelayStatus.Stop();
                     panel1.Width = 399;
-                    refreshDataFromDatabase(); //csak itt kell használni
+                    refreshDataFromDatabase(); //csak itt kell használni                    
                 }
                 dataGridViewSetThemes();
             }
