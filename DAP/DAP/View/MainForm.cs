@@ -687,8 +687,8 @@ namespace DAP
         {            
             MainSearchText();
             
-            labelSplash.Text = "";
-            Application.UseWaitCursor = false;
+            Application.UseWaitCursor = false;            
+            
         }
                 
         /// <summary>
@@ -728,11 +728,10 @@ namespace DAP
         private void backgroundWorkerMultiModify_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MainSearchText();
-            clearAllDetailsValue();          
+            clearAllDetailsValue();
             
-            labelSplash.Text = "";
             panelMain.Enabled = true;
-            Application.UseWaitCursor = false;
+            Application.UseWaitCursor = false;            
         }
 
         /// <summary>
